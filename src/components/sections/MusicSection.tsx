@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import {
     AudioPlayerProvider,
@@ -7,7 +9,7 @@ import {
     AudioPlayerDuration,
     exampleTracks
 } from '../ui/audio-player';
-import { Play, Pause, SkipForward, SkipBack } from 'lucide-react';
+import { SkipForward, SkipBack } from 'lucide-react';
 
 const tracks = exampleTracks.map(track => ({
     ...track,

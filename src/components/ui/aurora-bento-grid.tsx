@@ -1,13 +1,20 @@
+"use client";
+
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, TargetAndTransition, VariantLabels } from 'framer-motion';
 
 /**
  * A component for rendering an animated, multi-color aurora background.
  * Uses Framer Motion for smooth, continuous animation of gradient blobs.
  * @returns {JSX.Element} The rendered aurora background.
  */
+interface BlobProps {
+  style: React.CSSProperties;
+  animateProps: TargetAndTransition | VariantLabels;
+}
+
 export const AuroraBackground = () => {
-  const Blob = ({ style, animateProps }) => (
+  const Blob = ({ style, animateProps }: BlobProps) => (
     <motion.div
       className="absolute rounded-full mix-blend-hard-light filter blur-2xl opacity-40"
       style={style}
@@ -63,7 +70,7 @@ export const AuroraBackground = () => {
  * @param {React.ReactNode} props.children
  * @returns {JSX.Element} The rendered Bento Grid container.
  */
-export const BentoGrid = ({ children }) => {
+export const BentoGrid = ({ children }: { children: React.ReactNode }) => {
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -84,6 +91,13 @@ export const BentoGrid = ({ children }) => {
   );
 };
 
+interface BentoGridItemProps {
+  className?: string;
+  children: React.ReactNode;
+  gradientFrom?: string;
+  gradientTo?: string;
+}
+
 /**
  * A single item within the Bento Grid with hover and animation.
  * @param {object} props
@@ -96,15 +110,15 @@ export const BentoGrid = ({ children }) => {
 export const BentoGridItem = ({
   className,
   children,
-  gradientFrom,
-  gradientTo,
-}) => {
+  gradientFrom = 'from-gray-900',
+  gradientTo = 'to-gray-800',
+}: BentoGridItemProps) => {
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: 'easeOut' as const },
     },
   };
 

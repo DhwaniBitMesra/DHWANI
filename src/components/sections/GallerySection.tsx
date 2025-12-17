@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { BentoGrid, BentoGridItem } from '../ui/aurora-bento-grid';
 import { motion } from 'framer-motion';

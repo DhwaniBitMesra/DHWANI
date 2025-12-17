@@ -1,5 +1,7 @@
-import React, { useState,useRef,useEffect } from 'react';
-import { motion,AnimatePresence } from 'framer-motion';
+"use client";
+
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence, Variants } from 'framer-motion';
 
 
 interface ElasticHueSliderProps {
@@ -58,8 +60,8 @@ const ElasticHueSlider: React.FC<ElasticHueSliderProps> = ({
 
         {/* Custom Fill (Optional but nice visual) */}
         <div
-            className="absolute left-0 h-1 bg-blue-500 rounded-full z-10"
-            style={{ width: `${thumbPosition}%` }}
+          className="absolute left-0 h-1 bg-blue-500 rounded-full z-10"
+          style={{ width: `${thumbPosition}%` }}
         ></div>
 
 
@@ -72,23 +74,23 @@ const ElasticHueSlider: React.FC<ElasticHueSliderProps> = ({
           animate={{ scale: isDragging ? 1.2 : 1 }}
           transition={{ type: "spring", stiffness: 500, damping: isDragging ? 20 : 30 }} // Springy animation
         >
-           
+
         </motion.div>
       </div>
 
-       {/* Optional: Display current value below */}
-       <AnimatePresence mode="wait">
-         <motion.div
-           key={value} // Key changes when value changes, triggering exit/enter
-           initial={{ opacity: 0, y: -5 }}
-           animate={{ opacity: 1, y: 0 }}
-           exit={{ opacity: 0, y: 5 }}
-           transition={{ duration: 0.2 }}
-           className="text-xs text-gray-500 mt-2" // Increased margin top for spacing
-         >
-           {value}°
-         </motion.div>
-       </AnimatePresence>
+      {/* Optional: Display current value below */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={value} // Key changes when value changes, triggering exit/enter
+          initial={{ opacity: 0, y: -5 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 5 }}
+          transition={{ duration: 0.2 }}
+          className="text-xs text-gray-500 mt-2" // Increased margin top for spacing
+        >
+          {value}°
+        </motion.div>
+      </AnimatePresence>
     </div>
   );
 };
@@ -334,7 +336,7 @@ export const HeroSection: React.FC = () => {
   // State for the lightning hue
   const [lightningHue, setLightningHue] = useState(220); // Default hue
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -345,7 +347,7 @@ export const HeroSection: React.FC = () => {
     }
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -437,16 +439,16 @@ export const HeroSection: React.FC = () => {
           className="w-full z-200 top-[30%] relative"
         >
           <motion.div variants={itemVariants}>
-            <FeatureItem name="React" value="for base" position="left-0 sm:left-10 top-40" />
+            <FeatureItem name="Vocals" value="The Voice" position="left-0 sm:left-10 top-40" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Tailwind" value="for styles" position="left-1/4 top-24" />
+            <FeatureItem name="Band" value="The Rhythm" position="left-1/4 top-24" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Framer-motion" value="for animations" position="right-1/4 top-24" />
+            <FeatureItem name="Instruments" value="The Soul" position="right-1/4 top-24" />
           </motion.div>
           <motion.div variants={itemVariants}>
-            <FeatureItem name="Shaders" value="for lightning" position="right-0 sm:right-10 top-40" />
+            <FeatureItem name="Production" value="The Magic" position="right-0 sm:right-10 top-40" />
           </motion.div>
         </motion.div>
 
@@ -457,10 +459,10 @@ export const HeroSection: React.FC = () => {
           animate="visible"
           className="relative z-30 flex flex-col items-center text-center max-w-4xl mx-auto "
         >            <ElasticHueSlider
-              value={lightningHue}
-              onChange={setLightningHue}
-              label="Adjust Lightning Hue"
-            />
+            value={lightningHue}
+            onChange={setLightningHue}
+            label="Adjust Lightning Hue"
+          />
           {/* Button: "Join us for free world" */}
           <motion.button
             variants={itemVariants}
@@ -468,7 +470,7 @@ export const HeroSection: React.FC = () => {
             whileTap={{ scale: 0.95 }}
             className="flex items-center space-x-2 px-4 py-2 bg-white/5 hover:bg-white/10 backdrop-blur-sm rounded-full text-sm mb-6 transition-all duration-300 group" // Reduced mb slightly
           >
-            <span>Join us for free world</span>
+            <span>Welcome to the official website</span>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="transform group-hover:translate-x-1 transition-transform duration-300">
               <path d="M8 3L13 8L8 13M13 8H3" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
@@ -478,14 +480,14 @@ export const HeroSection: React.FC = () => {
             variants={itemVariants}
             className="text-5xl md:text-7xl font-light mb-2"
           >
-            Hero Odyssey
+            DHWANI
           </motion.h1>
 
           <motion.h2
             variants={itemVariants}
             className="text-3xl md:text-5xl pb-3 font-light bg-gradient-to-r from-gray-100 via-gray-200 to-gray-300 bg-clip-text text-transparent"
           >
-            Lighting Up The Future
+            Music Club of BIT Mesra
           </motion.h2>
 
           {/* Description */}
@@ -493,7 +495,7 @@ export const HeroSection: React.FC = () => {
             variants={itemVariants}
             className="text-gray-400 mb-9 max-w-2xl"
           >
-            Lightning animation is 100% code generated, so fill free to customize it to your liking.
+            Where distinct notes come together to form a beautiful melody. We are the rhythm and soul of BIT Mesra.
           </motion.p>
 
 
@@ -501,9 +503,9 @@ export const HeroSection: React.FC = () => {
             variants={itemVariants}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="mt-[100px] sm:mt-[100px] px-8 py-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
+            className="mt-[50px] sm:mt-[50px] px-8 py-3 bg-white/10 backdrop-blur-sm rounded-full hover:bg-white/20 transition-colors"
           >
-            Discover Those Worlds
+            Explore Our Legacy
           </motion.button>
         </motion.div>
       </div>

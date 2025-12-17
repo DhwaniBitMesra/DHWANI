@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { ProfileCard } from '../ui/profile-card';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -68,8 +70,8 @@ export const TeamSection = () => {
                         <button
                             onClick={() => setActiveTab('exe')}
                             className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === 'exe'
-                                    ? 'bg-white text-black font-bold'
-                                    : 'bg-white/10 text-white hover:bg-white/20'
+                                ? 'bg-white text-black font-bold'
+                                : 'bg-white/10 text-white hover:bg-white/20'
                                 }`}
                         >
                             Executive Members
@@ -77,8 +79,8 @@ export const TeamSection = () => {
                         <button
                             onClick={() => setActiveTab('members')}
                             className={`px-6 py-2 rounded-full transition-all duration-300 ${activeTab === 'members'
-                                    ? 'bg-white text-black font-bold'
-                                    : 'bg-white/10 text-white hover:bg-white/20'
+                                ? 'bg-white text-black font-bold'
+                                : 'bg-white/10 text-white hover:bg-white/20'
                                 }`}
                         >
                             Members

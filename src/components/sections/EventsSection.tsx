@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 import { AuroraBackground, BentoGrid, BentoGridItem } from '../ui/aurora-bento-grid';
 import { Calendar, Music, Mic, Star } from 'lucide-react';
@@ -80,7 +82,9 @@ export const EventsSection = () => {
                             </div>
                             <div>
                                 <h3 className="text-2xl font-bold mb-2">Weekly Jam Sessions</h3>
-                                <p className="text-gray-300">Join us every Friday evening for an open jam session at the Music Room.</p>
+                                <p className="text-gray-400 max-w-2xl mx-auto">
+                                    Whatever your musical taste, there&apos;s a place for you at Dhwani. Join us for our upcoming events and be part of the rhythm.
+                                </p>
                                 <div className="mt-4 inline-flex items-center text-sm font-semibold text-indigo-300">
                                     Every Friday • Music Room
                                 </div>
