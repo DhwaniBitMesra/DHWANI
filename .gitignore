@@ -9,7 +9,7 @@
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+todo.md
 # testing
 /coverage
 
@@ -50,3 +50,4 @@ next-env.d.ts
 
 
 !.dev.vars.example
+data.md
