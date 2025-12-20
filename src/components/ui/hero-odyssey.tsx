@@ -377,11 +377,12 @@ export const HeroSection: React.FC = () => {
               </svg>
             </div>
             <div className="hidden md:flex items-center space-x-6 ml-8">
-              <button className="px-4 py-2 bg-gray-800/50 hover:bg-gray-700/50 rounded-full text-sm transition-colors">Start</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Home</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Contacts</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Help</button>
-              <button className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Docs</button>
+              <a href="#hero" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Home</a>
+              <a href="#events" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Events</a>
+              <a href="#music" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Music</a>
+              <a href="#team" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Team</a>
+              <a href="#gallery" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Gallery</a>
+              <a href="#contact" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Contact</a>
             </div>
           </div>
           <div className="flex items-center space-x-4">
@@ -421,13 +422,12 @@ export const HeroSection: React.FC = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
-              <button className="px-6 py-3 bg-gray-800/50 rounded-full">Start</button>
-              <button className="px-6 py-3">Home</button>
-              <button className="px-6 py-3">Contacts</button>
-              <button className="px-6 py-3">Help</button>
-              <button className="px-6 py-3">Docs</button>
-              <button className="px-6 py-3">Register</button>
-              <button className="px-6 py-3 bg-gray-800/80 backdrop-blur-sm rounded-full">Application</button>
+              <a href="#hero" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Home</a>
+              <a href="#events" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Events</a>
+              <a href="#music" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Music</a>
+              <a href="#team" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Team</a>
+              <a href="#gallery" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
+              <a href="#contact" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Contact</a>
             </div>
           </motion.div>
         )}
