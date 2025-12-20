@@ -1,4 +1,4 @@
-import React from 'react';
+import Image from 'next/image';
 
 interface ProfileCardProps {
   name: string;
@@ -43,10 +43,11 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ name, role, image, han
         <div className="w-full max-w-sm">
           <div className="bg-white dark:bg-zinc-900 rounded-3xl shadow-lg dark:shadow-2xl dark:shadow-black/80 overflow-hidden hover-scale mx-4 border border-gray-200 dark:border-zinc-800">
             <div className="relative overflow-hidden image-container aspect-[4/5]">
-              <img
+              <Image
                 src={image}
                 alt={name}
-                className="w-full h-full object-cover image-scale"
+                fill
+                className="object-cover image-scale"
               />
               <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
               <div className="absolute bottom-4 left-6">
@@ -57,11 +58,12 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({ name, role, image, han
 
             <div className="p-4 flex items-center justify-between bg-zinc-50 dark:bg-zinc-900/50">
               <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full overflow-hidden hover-scale-sm ring-2 ring-gray-200 dark:ring-zinc-700">
-                  <img
+                <div className="w-8 h-8 rounded-full overflow-hidden hover-scale-sm ring-2 ring-gray-200 dark:ring-zinc-700 relative">
+                  <Image
                     src={image}
                     alt="Avatar"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
                 <div className="hover-translate">

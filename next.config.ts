@@ -4,7 +4,17 @@ const nextConfig: NextConfig = {
 	/* config options here */
 };
 
-export default nextConfig;
+export default {
+	...nextConfig,
+	images: {
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**",
+			},
+		],
+	},
+};
 
 // Enable calling `getCloudflareContext()` in `next dev`.
 // See https://opennext.js.org/cloudflare/bindings#local-access-to-bindings.

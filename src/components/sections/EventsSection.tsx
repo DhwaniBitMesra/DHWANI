@@ -24,7 +24,7 @@ export const EventsSection = () => {
                                 <Music className="w-6 h-6 text-purple-300" />
                             </div>
                             <div>
-                                <h3 className="text-2xl font-bold mb-2">Bitotsav '25</h3>
+                                <h3 className="text-2xl font-bold mb-2">Bitotsav &apos;25</h3>
                                 <p className="text-gray-300">The biggest cultural fest of East India. Prepare for the Battle of Bands!</p>
                                 <div className="mt-4 inline-flex items-center text-sm font-semibold text-purple-300">
                                     Feb 14-17 • Main Arena
