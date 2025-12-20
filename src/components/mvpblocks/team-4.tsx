@@ -2,170 +2,161 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
+import Image from 'next/image';
 
 type SocialMediaLinks = {
-  facebook?: string;
-  twitter?: string;
   instagram?: string;
   linkedin?: string;
   github?: string;
-  website?: string;
   email?: string;
-  dribbble?: string;
 };
 
 type TeamMember = {
   id: number;
   name: string;
   role: string;
-  email?: string;
-  bio?: string;
   image: string;
-  backgroundColor?: string;
+  categories: string[];
   socialMedia?: SocialMediaLinks;
-  expertise?: string[];
-  department?: string;
 };
 
 type TeamSectionProps = {
   title?: string;
   subtitle?: string;
-  teamMembers: TeamMember[];
+  teamMembers?: TeamMember[];
   backgroundColor?: string;
   textColor?: string;
   secondaryColor?: string;
   className?: string;
+  categories?: { id: string; label: string }[];
 };
 
-type Department =
-  | 'all'
-  | 'management'
-  | 'product'
-  | 'design'
-  | 'marketing'
-  | 'sales'
-  | 'customer'
-  | 'operations';
 
-export interface ElegantTeamProps extends TeamSectionProps {
-  departments?: Array<{
-    id: Department;
-    label: string;
-  }>;
-}
-
-const elegantTeamMembers: TeamMember[] = [
+const dhwaniTeamMembers: TeamMember[] = [
+  // Executive Body
   {
     id: 1,
-    name: 'Emmy Rosum',
-    role: 'Co-Founder and CEO',
-    department: 'management',
-    image:
-      'https://img.freepik.com/premium-psd/3d-avatar-character_975163-690.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Aditi Sharma',
+    role: 'President',
+    categories: ['executive', 'vocalist', 'k21'],
+    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
     id: 2,
-    name: 'Orlando Diggs',
-    role: 'Co-Founder and COO',
-    department: 'management',
-    image:
-      'https://img.freepik.com/premium-psd/3d-avatar-character_975163-678.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Rahul Verma',
+    role: 'General Secretary',
+    categories: ['executive', 'instrumentalist', 'guitarist', 'k22'],
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
+  // K21 Batch
   {
     id: 3,
-    name: 'Sophie Chamberlain',
-    role: 'Head of Sales',
-    department: 'sales',
-    image:
-      'https://img.freepik.com/premium-psd/3d-avatar-character_975163-725.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Siddharth Singh',
+    role: 'Lead Guitarist',
+    categories: ['instrumentalist', 'guitarist', 'k21'],
+    image: 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
     id: 4,
-    name: 'Lana Steiner',
-    role: 'VP of Customer Success',
-    department: 'customer',
-    image:
-      'https://img.freepik.com/premium-photo/female-character-3d-rendering-isolated-background_150525-107.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Anjali Gupta',
+    role: 'Classical Vocalist',
+    categories: ['vocalist', 'k21'],
+    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
+  // K22 Batch
   {
     id: 5,
-    name: 'Emily Donnavan',
-    role: 'Product Lead',
-    department: 'product',
-    image:
-      'https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671163.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Vikram Malhotra',
+    role: 'Drummer',
+    categories: ['instrumentalist', 'drummer', 'k22'],
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
     id: 6,
-    name: 'Sasha Kindred',
-    role: 'VP of Marketing',
-    department: 'marketing',
-    image:
-      'https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671132.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Priya Das',
+    role: 'Keyboardist',
+    categories: ['instrumentalist', 'pianist', 'k22'],
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
+  // K23 Batch
   {
     id: 7,
-    name: 'Jessica Dobrev',
-    role: 'Backend Lead',
-    department: 'operations',
-    image:
-      'https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671159.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Arjun Mehta',
+    role: 'Video Editor',
+    categories: ['video editor', 'creative', 'k23'],
+    image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
     id: 8,
-    name: 'Drew Cano',
-    role: 'Head of UX',
-    department: 'design',
-    image:
-      'https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671136.jpg?ga=GA1.1.1818589012.1736774497&semt=ais_hybrid',
+    name: 'Sneha Roy',
+    role: 'Web Developer',
+    categories: ['developer', 'tech', 'k23'],
+    image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
+  // K24 Batch
+  {
+    id: 9,
+    name: 'Rohan Kumar',
+    role: 'Rhythm Guitarist',
+    categories: ['instrumentalist', 'guitarist', 'k24'],
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  },
+  {
+    id: 10,
+    name: 'Ishita Patel',
+    role: 'Western Vocalist',
+    categories: ['vocalist', 'k24'],
+    image: 'https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+  }
+];
+
+const defaultCategories = [
+  { id: 'all', label: 'All' },
+  { id: 'executive', label: 'Executive' },
+  { id: 'vocalist', label: 'Vocalists' },
+  { id: 'instrumentalist', label: 'Instrumentalists' },
+  { id: 'developer', label: 'Developers' },
+  { id: 'video editor', label: 'Video Editors' },
+  { id: 'k21', label: 'K21' },
+  { id: 'k22', label: 'K22' },
+  { id: 'k23', label: 'K23' },
+  { id: 'k24', label: 'K24' },
 ];
 
 export default function Team4({
-  title = 'Meet the team that makes the magic happen',
-  subtitle = 'Meet our diverse team of world-class creators, designers, and problem solvers.',
-  teamMembers = elegantTeamMembers,
-  backgroundColor = '#ffffff',
-  textColor = '#000000',
-  secondaryColor = '#666666',
+  title = 'Meet the Dhwani Family',
+  subtitle = 'The talented individuals who make the music happen. From vocalists to developers, we are one team.',
+  teamMembers = dhwaniTeamMembers,
+  backgroundColor = '#000000',
+  textColor = '#ffffff',
+  secondaryColor = '#9CA3AF',
   className,
-  departments = [
-    { id: 'all', label: 'View all' },
-    { id: 'management', label: 'Management' },
-    { id: 'product', label: 'Product' },
-    { id: 'design', label: 'Design' },
-    { id: 'marketing', label: 'Marketing' },
-    { id: 'sales', label: 'Sales' },
-    { id: 'customer', label: 'Customer Success' },
-    { id: 'operations', label: 'Operations' },
-  ],
-}: ElegantTeamProps) {
-  const [activeDepartment, setActiveDepartment] = useState<Department>('all');
+  categories = defaultCategories,
+}: TeamSectionProps) {
+  const [activeCategory, setActiveCategory] = useState<string>('all');
 
-  // Filter team members by department
+  // Filter team members by category
   const filteredTeamMembers =
-    activeDepartment === 'all'
+    activeCategory === 'all'
       ? teamMembers
-      : teamMembers.filter(
-          (member) =>
-            member.department?.toLowerCase() === activeDepartment ||
-            member.role?.toLowerCase().includes(activeDepartment),
-        );
+      : teamMembers.filter((member) =>
+        member.categories.includes(activeCategory)
+      );
 
-  // Split the title to apply italic styling to "magic"
-  const titleParts = title.split(/(magic)/);
+  const titleParts = title.split(/(Dhwani)/);
 
   return (
     <section
       className={cn('w-full py-16', className)}
       style={{ backgroundColor, color: textColor }}
     >
-      <div className="container mx-auto max-w-6xl px-4">
+      <div className="-z-1 absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black pointer-events-none"></div>
+      <div className="container mx-auto max-w-6xl px-4 relative z-10">
         <div className="mb-12 text-center">
-          <h2 className="mb-4 font-serif text-4xl leading-tight md:text-5xl">
+          <h2 className="mb-4 font-serif text-4xl leading-tight md:text-5xl font-bold">
             {titleParts.map((part, index) =>
-              part.toLowerCase() === 'magic' ? (
-                <span key={index} className="italic">
+              part.toLowerCase() === 'dhwani' ? (
+                <span key={index} className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                   {part}
                 </span>
               ) : (
@@ -182,18 +173,18 @@ export default function Team4({
         </div>
 
         <div className="mb-12 flex flex-wrap justify-center gap-2">
-          {departments.map((dept) => (
+          {categories.map((cat) => (
             <button
-              key={dept.id}
-              onClick={() => setActiveDepartment(dept.id)}
+              key={cat.id}
+              onClick={() => setActiveCategory(cat.id)}
               className={cn(
-                'rounded-md px-4 py-2 text-sm font-medium transition-colors',
-                activeDepartment === dept.id
-                  ? 'bg-gray-900 text-white'
-                  : 'border border-gray-200 bg-white text-gray-800 hover:bg-gray-100',
+                'rounded-full px-4 py-2 text-sm font-medium transition-all duration-300',
+                activeCategory === cat.id
+                  ? 'bg-white text-black shadow-lg scale-105'
+                  : 'border border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white',
               )}
             >
-              {dept.label}
+              {cat.label}
             </button>
           ))}
         </div>
@@ -202,18 +193,20 @@ export default function Team4({
           {filteredTeamMembers.map((member) => (
             <div
               key={member.id}
-              className="relative overflow-hidden rounded-lg transition-all"
+              className="relative overflow-hidden rounded-2xl transition-all hover:scale-105 duration-300 group border border-white/10 bg-white/5"
             >
               <div className="relative aspect-square overflow-hidden">
-                <img
+                <Image
                   src={member.image}
                   alt={member.name}
-                  className="object-cover"
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
-              <div className="relative z-10 mx-auto -mt-[2.5rem] max-w-[90%] rounded-lg border border-gray-100 bg-white px-2 py-3 text-center">
-                <h3 className="text-lg font-semibold">{member.name}</h3>
-                <p className="text-sm" style={{ color: secondaryColor }}>
+              <div className="relative z-10 mx-auto -mt-[3rem] max-w-[90%] rounded-xl border border-white/10 bg-black/80 backdrop-blur-md px-3 py-4 text-center shadow-xl">
+                <h3 className="text-lg font-bold text-white">{member.name}</h3>
+                <p className="text-sm font-medium text-blue-400">
                   {member.role}
                 </p>
               </div>
