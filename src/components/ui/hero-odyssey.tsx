@@ -332,7 +332,6 @@ const FeatureItem: React.FC<FeatureItemProps> = ({ name, value, position }) => {
 };
 
 export const HeroSection: React.FC = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   // State for the lightning hue
   const [lightningHue, setLightningHue] = useState(220); // Default hue
 
@@ -363,76 +362,7 @@ export const HeroSection: React.FC = () => {
     <div className="relative w-full bg-black text-white overflow-hidden">
       {/* Main container with space for content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 h-screen">
-        {/* Navigation */}
-        <motion.div
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="px-4 backdrop-blur-3xl bg-black/50 rounded-50 py-4 flex justify-between items-center mb-12"
-        >
-          <div className="flex items-center">
-            <div className="text-2xl font-bold">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
-                <path d="M20 5L5 20L20 35L35 20L20 5Z" stroke="white" strokeWidth="2" />
-              </svg>
-            </div>
-            <div className="hidden md:flex items-center space-x-6 ml-8">
-              <a href="#hero" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Home</a>
-              <a href="/events" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Events</a>
-              <a href="/music" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Music</a>
-              <a href="/team" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Team</a>
-              <a href="/news" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">News</a>
-              <a href="/gallery" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Gallery</a>
-              <a href="#contact" className="px-4 py-2 text-sm hover:text-gray-300 transition-colors">Contact</a>
-            </div>
-          </div>
-          <div className="flex items-center space-x-4">
-            <button className="hidden md:block px-4 py-2 text-sm hover:text-gray-300 transition-colors">Register</button>
-            <button className="px-4 py-2 bg-gray-800/80 backdrop-blur-sm rounded-full text-sm hover:bg-gray-700/80 transition-colors">Application</button>
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden p-2 rounded-md focus:outline-none"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </motion.div>
 
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="md:hidden fixed inset-0 z-50 bg-black/95 backdrop-blur-lg z-9999">
-            <div className="flex flex-col items-center justify-center h-full space-y-6 text-lg">
-              <button
-                className="absolute top-6 right-6 p-2"
-                onClick={() => setMobileMenuOpen(false)}
-              >
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-              <a href="#hero" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Home</a>
-              <a href="/events" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Events</a>
-              <a href="/music" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Music</a>
-              <a href="/team" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Team</a>
-              <a href="/news" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>News</a>
-              <a href="/gallery" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Gallery</a>
-              <a href="#contact" className="px-6 py-3" onClick={() => setMobileMenuOpen(false)}>Contact</a>
-            </div>
-          </motion.div>
-        )}
 
         <motion.div
           variants={containerVariants}

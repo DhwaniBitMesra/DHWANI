@@ -64,6 +64,8 @@ export const metadata: Metadata = {
 	},
 };
 
+import Navbar from "@/components/ui/Navbar";
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -75,7 +77,10 @@ export default function RootLayout({
 				<link rel="icon" href="/favicon.png"></link>
 				<link rel="apple-touch-icon" href="/icon-192.png"></link>
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<Navbar />
+				{children}
+			</body>
 		</html>
 	);
 }
