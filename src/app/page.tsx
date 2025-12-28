@@ -1,10 +1,6 @@
 import { HeroSection } from "@/components/ui/hero-odyssey";
 import dynamic from 'next/dynamic';
-import { EventsSection } from "@/components/sections/EventsSection";
-import { GallerySection } from "@/components/sections/GallerySection";
 import { ContactSection } from "@/components/sections/ContactSection";
-import { MusicSection } from "@/components/sections/MusicSection";
-import { NewsSection } from "@/components/sections/NewsSection";
 import { LegacySection } from "@/components/sections/LegacySection";
 import GlowingCard from "@/components/mvpblocks/glow-card";
 import Link from "next/link";
@@ -17,8 +13,6 @@ export default function Home() {
 		<main className="bg-black min-h-screen">
 			<section id="hero"><HeroSection /></section>
 			<DhwaniFeatures />
-			<section id="events"><EventsSection /></section>
-			<section id="music"><MusicSection /></section>
 
 			{/* President Teaser - links to full team page */}
 			<section className="py-20 bg-black">
@@ -42,8 +36,6 @@ export default function Home() {
 				</div>
 			</section>
 
-			<section id="gallery"><GallerySection /></section>
-			<section id="news"><NewsSection /></section>
 			<section id="legacy"><LegacySection /></section>
 			<section id="contact"><ContactSection /></section>
 			<FooterNewsletter />

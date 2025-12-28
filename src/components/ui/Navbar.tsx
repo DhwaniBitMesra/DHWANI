@@ -26,10 +26,10 @@ export default function Navbar() {
                         <div className="hidden md:flex items-center space-x-6 ml-8">
                             <Link href="/#hero" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Home</Link>
                             <Link href="/news" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">News</Link>
-                            <Link href="/#events" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Events</Link>
-                            <Link href="/#music" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Music</Link>
+                            <Link href="/events" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Events</Link>
+                            <Link href="/music" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Music</Link>
                             <Link href="/team" className="px-4 py-2 text-sm text-white font-medium transition-colors">Team</Link>
-                            <Link href="/#gallery" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Gallery</Link>
+                            <Link href="/gallery" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Gallery</Link>
                             <Link href="/#contact" className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors">Contact</Link>
                         </div>
                     </div>
@@ -71,10 +71,10 @@ export default function Navbar() {
                         </button>
                         <Link href="/" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Home</Link>
                         <Link href="/news" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>News</Link>
-                        <Link href="/#events" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Events</Link>
-                        <Link href="/#music" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Music</Link>
+                        <Link href="/events" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Events</Link>
+                        <Link href="/music" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Music</Link>
                         <Link href="/team" className="px-6 py-3 text-white font-bold" onClick={() => setMobileMenuOpen(false)}>Team</Link>
-                        <Link href="/#gallery" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</Link>
+                        <Link href="/gallery" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Gallery</Link>
                         <Link href="/#contact" className="px-6 py-3 text-white" onClick={() => setMobileMenuOpen(false)}>Contact</Link>
                     </div>
                 </motion.div>
