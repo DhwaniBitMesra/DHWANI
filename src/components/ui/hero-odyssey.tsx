@@ -1,173 +1,125 @@
-
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowRight, Sparkles, Radio } from "lucide-react";
-import Link from 'next/link';
-import { VoiceChat } from "../ui/audio-chat";
-import MusicArtwork from "../ui/music-artwork";
-
-// Aurora Background Component
-const AuroraBackground = ({ className, children }: { className?: string, children: React.ReactNode }) => {
-  return (
-    <div className={`relative flex flex-col h-[100vh] items-center justify-center bg-zinc-50 dark:bg-zinc-900 text-slate-950 transition-bg overflow-hidden ${className || ''}`}>
-      <div className="absolute inset-0 overflow-hidden">
-        <div
-          className={`
-                [--white-gradient:repeating-linear-gradient(100deg,var(--white)_0%,var(--white)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--white)_16%)]
-                [--dark-gradient:repeating-linear-gradient(100deg,var(--black)_0%,var(--black)_7%,var(--transparent)_10%,var(--transparent)_12%,var(--black)_16%)]
-                [--aurora:repeating-linear-gradient(100deg,#3b82f6_10%,#a855f7_15%,#9333ea_20%,#3b82f6_25%,#60a5fa_30%)]
-                [background-image:var(--white-gradient),var(--aurora)]
-                dark:[background-image:var(--dark-gradient),var(--aurora)]
-                [background-size:300%,_200%]
-                [background-position:50%_50%,_50%_50%]
-                filter blur-[10px] invert dark:invert-0
-                after:content-[""] after:absolute after:inset-0 after:[background-image:var(--white-gradient),var(--aurora)] 
-                after:dark:[background-image:var(--dark-gradient),var(--aurora)]
-                after:[background-size:200%,_100%] 
-                after:animate-aurora after:[background-attachment:fixed] after:mix-blend-difference
-                pointer-events-none
-                absolute -inset-[10px] opacity-50 will-change-transform
-            `}
-        ></div>
-      </div>
-      {children}
-    </div>
-  );
-};
-
+import { Separator } from "@/components/ui/separator";
+import { BadgeQuestionMark } from "@aliimam/icons";
+import { Instagram, Youtube } from "lucide-react";
+import React from "react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
-  const { scrollY } = useScroll();
-  const y1 = useTransform(scrollY, [0, 500], [0, 200]);
-  const opacity = useTransform(scrollY, [0, 300], [1, 0]);
-
-  // Spotlight effect
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const updateMousePosition = (ev: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        setMousePosition({ x: ev.clientX - rect.left, y: ev.clientY - rect.top });
-      }
-    };
-    window.addEventListener('mousemove', updateMousePosition);
-    return () => window.removeEventListener('mousemove', updateMousePosition);
-  }, []);
-
-
   return (
-    <div ref={containerRef} className="relative flex flex-col items-center pt-20 min-h-screen bg-black text-slate-950 transition-bg overflow-hidden dark:bg-slate-950 dark:text-slate-100">
-      {/* Background & Spotlight */}
-      <div
-        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 lg:opacity-100 mix-blend-soft-light"
-        style={{
-          background: `radial-gradient(600px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(100,100,255,0.15), transparent 40%)`,
-        }}
-      />
-      <div className="absolute inset-0 pointer-events-none">
-        <AuroraBackground className="opacity-30">
-          <div />
-        </AuroraBackground>
-      </div>
+    <div className="min-h-screen relative bg-black text-white overflow-hidden">
+      {/* Background Pattern */}
+      <div className="w-full absolute h-full z-0 bg-[radial-gradient(circle,_#333_1px,_transparent_1px)] opacity-15 [background-size:20px_20px] pointer-events-none" />
 
+      {/* Navigation */}
+      <header className="flex justify-between items-center px-8 pt-8 relative z-10">
+        <div className="text-2xl font-black italic tracking-tighter">DHWANI.club</div>
+        <nav className="hidden md:flex gap-8 text-sm font-mono uppercase tracking-widest">
+          <Link href="/" className="text-white hover:text-blue-500 transition-colors">Index</Link>
+          <Link href="#studio" className="text-gray-400 hover:text-blue-500 transition-colors">Studio</Link>
+          <Link href="#legacy" className="text-gray-400 hover:text-blue-500 transition-colors">Legacy</Link>
+          <Link href="/lounge" className="text-blue-400 hover:text-blue-300 transition-colors font-bold">The Lounge</Link>
+          <Link href="#contact" className="text-gray-400 hover:text-blue-500 transition-colors">Contact</Link>
+        </nav>
+      </header>
 
-      {/* Main Content Payload */}
-      <motion.div
-        style={{ y: y1, opacity }}
-        className="relative z-10 flex flex-col items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 md:mt-20"
-      >
+      <main className="relative pt-12 pb-20 max-w-7xl mx-auto">
+        <div className="flex relative gap-2 px-6 md:items-center w-full flex-col justify-center">
 
-        {/* Hero Header */}
-        <div className="text-center max-w-4xl mx-auto mb-16 space-y-8">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm"
-          >
-            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-            <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">Bit Mesra • Est. 1998</span>
-          </motion.div>
+          {/* Row 1 */}
+          <div className="md:flex gap-6 items-center w-full justify-between">
+            <p className="text-xs text-zinc-500 md:text-sm text-start md:text-right leading-relaxed max-w-[220px] font-mono mb-4 md:mb-0">
+              EST. 1998<br />
+              BIT MESRA, RANCHI<br />
+              OFFICIAL MUSIC SOC.
+            </p>
+            <h1 className="text-6xl md:text-8xl xl:text-[10rem] font-light leading-none tracking-tighter">
+              AMPLIFY
+            </h1>
+          </div>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-6xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white"
-          >
-            Make <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500">Noise.</span>
-          </motion.h1>
+          {/* Row 2 */}
+          <div className="md:flex gap-6 items-center w-full justify-center">
+            <h1 className="text-6xl md:text-8xl xl:text-[10rem] flex flex-wrap items-center font-bold leading-none tracking-tighter italic">
+              <span>Y</span>
+              <BadgeQuestionMark
+                type="solid"
+                className="lg:size-32 size-12 md:size-20 text-blue-600 animate-pulse mx-2"
+              />
+              <span>UR</span>
+            </h1>
+            <p className="text-xs text-zinc-500 md:text-sm pt-4 md:pt-0 leading-relaxed max-w-[250px] font-mono ml-4">
+              Where sound meets soul. Jam, perform, and create history with us.
+            </p>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.4 }}
-            className="text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto font-light leading-relaxed"
-          >
-            The official music society where sound meets soul.
-            Jam, perform, and create history with us.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4"
-          >
-            <Link href="/contact" className="px-8 py-3 rounded-full bg-white text-black font-bold hover:scale-105 transition-transform flex items-center gap-2">
-              Join the Club <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link href="#legacy" className="px-8 py-3 rounded-full bg-white/5 text-white border border-white/10 hover:bg-white/10 transition-colors">
-              Explore Events
-            </Link>
-          </motion.div>
+          {/* Row 3 */}
+          <div className="md:flex gap-6 items-center w-full justify-start">
+            {/* Decorative SVG instead of the shape */}
+            <div className="hidden lg:block mr-8">
+              <svg width="120" height="120" viewBox="0 0 24 24" fill="none" className="text-blue-500">
+                <path d="M9 18V5l12-2v13" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                <circle cx="6" cy="18" r="3" fill="currentColor" />
+                <circle cx="18" cy="16" r="3" fill="currentColor" />
+              </svg>
+            </div>
+            <h1 className="text-6xl md:text-8xl xl:text-[10rem] font-light leading-none tracking-tighter flex items-center">
+              <span>SOUND</span>
+              <div className="block lg:hidden ml-4">
+                <ArrowRight className="w-12 h-12 text-blue-500" />
+              </div>
+            </h1>
+          </div>
         </div>
 
-        {/* Featured Dashboard - Glass Morphism Grid */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-          className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8 max-w-5xl"
-        >
-          {/* Left: Community Voice */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 flex flex-col items-center justify-center min-h-[300px] group">
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-            <div className="flex items-center gap-2 mb-6 opacity-70">
-              <Radio className="w-4 h-4 text-blue-400" />
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-300">Live Lounge</span>
+        <div className="mx-auto max-w-7xl w-full px-6 gap-3 mt-12">
+          <div className="md:flex md:mx-8 grid md:justify-end items-center gap-3">
+            <Separator className="w-full my-6 mx-auto max-w-3xl bg-zinc-800" />
+            <div className="text-xs whitespace-nowrap md:text-sm text-zinc-500 font-mono">
+              JHARKHAND, INDIA 835215
             </div>
-
-            <div className="w-full transform transition-transform duration-500 hover:scale-[1.02]">
-              <VoiceChat />
+            <div className="flex w-full items-end gap-3 justify-end">
+              <span className="text-2xl md:text-4xl font-thin text-zinc-400">WE ARE</span>
+              <span className="text-3xl md:text-5xl font-black italic text-blue-600">
+                DHWANI
+              </span>
             </div>
           </div>
+        </div>
 
-          {/* Right: Featured Music */}
-          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-black/40 backdrop-blur-xl p-6 flex flex-col items-center justify-center min-h-[300px] group">
-            <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-
-            <div className="flex items-center gap-2 mb-6 opacity-70">
-              <Sparkles className="w-4 h-4 text-purple-400" />
-              <span className="text-xs font-mono uppercase tracking-widest text-zinc-300">Now Streaming</span>
-            </div>
-
-            <div className="transform scale-90 sm:scale-100 transition-transform duration-500 hover:scale-105">
-              <MusicArtwork
-                artist="Campus Beats"
-                music="Dhwani Originals Vol. 1"
-                albumArt="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=2670&auto=format&fit=crop"
-                isSong={false}
-              />
-            </div>
+        <div className="md:px-20 px-6 gap-12 items-end md:flex pt-12">
+          <div className="relative w-full md:w-[500px] h-64 md:h-80 shadow-2xl border border-zinc-800 rounded-2xl overflow-hidden mb-8 md:mb-0 group">
+            <div className="absolute inset-0 bg-blue-900/20 group-hover:bg-transparent transition-colors z-10"></div>
+            <img
+              src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2670&auto=format&fit=crop"
+              alt="Concert Crowd"
+              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-105"
+            />
+            <Link href="/lounge" className="absolute bottom-4 right-4 z-20 px-4 py-2 bg-white text-black font-bold rounded-full text-xs hover:scale-105 transition-transform">
+              Enter Lounge ↗
+            </Link>
           </div>
-        </motion.div>
-      </motion.div>
+          <p className="text-xs text-zinc-500 md:text-sm pt-8 leading-relaxed max-w-md">
+            Join the official music society of BIT Mesra. From classical ragas to heavy metal riffs, we find harmony in chaos.
+          </p>
+        </div>
+
+        <div className="absolute bottom-8 right-8 md:right-12 flex gap-6">
+          <a href="#" className="hover:text-blue-500 transition-colors"><Instagram className="w-5 h-5" /></a>
+          <a href="#" className="hover:text-red-500 transition-colors"><Youtube className="w-5 h-5" /></a>
+        </div>
+
+        <div className="hidden lg:flex fixed right-0 top-1/2 h-36 items-center transform -translate-y-1/2 z-50">
+          <div className="bg-blue-600 text-white py-6 px-3 text-sm font-bold shadow-lg shadow-blue-900/20 rounded-l-lg hover:pr-4 transition-all cursor-pointer">
+            <span className="rotate-180 [writing-mode:vertical-rl] tracking-widest">
+              UPCOMING EVENTS
+            </span>
+          </div>
+        </div>
+      </main>
+
     </div>
   );
 }

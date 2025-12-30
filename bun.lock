@@ -4,6 +4,8 @@
     "": {
       "name": "dhwani",
       "dependencies": {
+        "@aliimam/icons": "^0.1.9",
+        "@aliimam/logos": "^0.2.3",
         "@hygraph/management-sdk": "^1.5.2",
         "@opennextjs/cloudflare": "^1.14.4",
         "@radix-ui/react-dropdown-menu": "^2.1.16",
@@ -38,6 +40,10 @@
     },
   },
   "packages": {
+    "@aliimam/icons": ["@aliimam/icons@0.1.9", "", { "peerDependencies": { "react": "^16.x || ^17.x || ^18.x || ^19.x" } }, "sha512-swL7tQ/YtCPBDQqB5wJz2s1aEHIJ681ZgTwjToeB8fbbHGGXPapAQU1K1Ny9LIXDasOwrZR41z22CskfHcDB7g=="],
+
+    "@aliimam/logos": ["@aliimam/logos@0.2.3", "", { "peerDependencies": { "react": "^16.x || ^17.x || ^18.x || ^19.x" } }, "sha512-UMyjMqrTa66vdGaynWf6ty6H6QuEgtMoh4nVij6TUKOHDNSNQNWjwVZPAsc7hOw+FTBMGx5DNMOTdBRVcMDE7g=="],
+
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
 
     "@ast-grep/napi": ["@ast-grep/napi@0.40.0", "", { "optionalDependencies": { "@ast-grep/napi-darwin-arm64": "0.40.0", "@ast-grep/napi-darwin-x64": "0.40.0", "@ast-grep/napi-linux-arm64-gnu": "0.40.0", "@ast-grep/napi-linux-arm64-musl": "0.40.0", "@ast-grep/napi-linux-x64-gnu": "0.40.0", "@ast-grep/napi-linux-x64-musl": "0.40.0", "@ast-grep/napi-win32-arm64-msvc": "0.40.0", "@ast-grep/napi-win32-ia32-msvc": "0.40.0", "@ast-grep/napi-win32-x64-msvc": "0.40.0" } }, "sha512-tq6nO/8KwUF/mHuk1ECaAOSOlz2OB/PmygnvprJzyAHGRVzdcffblaOOWe90M9sGz5MAasXoF+PTcayQj9TKKA=="],
