@@ -66,6 +66,9 @@ export const metadata: Metadata = {
 
 import Navbar from "@/components/ui/Navbar";
 
+import { NoiseOverlay } from "@/components/ui/noise-overlay";
+import { MagneticCursor } from "@/components/ui/magnetic-cursor";
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -78,6 +81,8 @@ export default function RootLayout({
 				<link rel="apple-touch-icon" href="/icon-192.png"></link>
 			</head>
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+				<NoiseOverlay />
+				<MagneticCursor />
 				<Navbar />
 				{children}
 			</body>
