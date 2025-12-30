@@ -3,7 +3,9 @@
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { X, Instagram, Linkedin, Github, Mail } from 'lucide-react';
+import { X, Instagram, Linkedin, Github, Mail, Music2, Disc, Play } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { AuroraBackground } from '../ui/aurora-bento-grid';
 
 type SocialMediaLinks = {
   instagram?: string;
@@ -11,7 +13,6 @@ type SocialMediaLinks = {
   github?: string;
   email?: string;
 };
-
 
 export type TeamMember = {
   id: number | string;
@@ -27,7 +28,7 @@ export type TeamMember = {
 export type TeamSectionProps = {
   title?: string;
   subtitle?: string;
-  teamMembers: TeamMember[]; // Make required
+  teamMembers: TeamMember[];
   backgroundColor?: string;
   textColor?: string;
   secondaryColor?: string;
@@ -35,25 +36,19 @@ export type TeamSectionProps = {
   categories?: { id: string; label: string }[];
 };
 
-
-
 const defaultCategories = [
-  { id: 'all', label: 'All' },
-  { id: 'executive', label: 'Executive' },
-  { id: 'vocalist', label: 'Vocalists' },
-  { id: 'instrumentalist', label: 'Instrumentalists' },
-  { id: 'developer', label: 'Developers' },
-  { id: 'video editor', label: 'Video Editors' },
-  { id: 'k21', label: 'K21' },
-  { id: 'k22', label: 'K22' },
-  { id: 'k23', label: 'K23' },
-  { id: 'k24', label: 'K24' },
+  { id: 'all', label: 'All Artists' },
+  { id: 'executive', label: 'Producers (Exec)' },
+  { id: 'vocalist', label: 'Vocals' },
+  { id: 'instrumentalist', label: 'Instruments' },
+  { id: 'developer', label: 'Tech Crew' },
+  { id: 'video editor', label: 'Visuals' },
 ];
 
 export default function Team4({
-  title = 'Meet the Dhwani Family',
-  subtitle = 'The talented individuals who make the music happen. From vocalists to developers, we are one team.',
-  teamMembers, // Now required
+  title = 'The Ensemble',
+  subtitle = 'Meet the artists, producers, and crew behind the sound of Dhwani.',
+  teamMembers,
   backgroundColor = '#000000',
   textColor = '#ffffff',
   secondaryColor = '#9CA3AF',
@@ -63,7 +58,6 @@ export default function Team4({
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
 
-  // Filter team members by category
   const filteredTeamMembers =
     activeCategory === 'all'
       ? teamMembers
@@ -71,46 +65,46 @@ export default function Team4({
         member.categories.includes(activeCategory)
       );
 
-  const titleParts = title.split(/(Dhwani)/);
-
   return (
     <>
       <section
-        className={cn('w-full py-16', className)}
+        className={cn('relative w-full py-20 min-h-screen overflow-hidden', className)}
         style={{ backgroundColor, color: textColor }}
       >
-        <div className="-z-1 absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-black to-black pointer-events-none"></div>
-        <div className="container mx-auto max-w-6xl px-4 relative z-10">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 font-serif text-4xl leading-tight md:text-5xl font-bold">
-              {titleParts.map((part, index) =>
-                part.toLowerCase() === 'dhwani' ? (
-                  <span key={index} className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
-                    {part}
-                  </span>
-                ) : (
-                  <span key={index}>{part}</span>
-                ),
-              )}
-            </h2>
-            <p
-              className="mx-auto max-w-3xl text-base"
-              style={{ color: secondaryColor }}
+        <AuroraBackground />
+
+        <div className="container mx-auto max-w-7xl px-4 relative z-10">
+          {/* Header */}
+          <div className="mb-16 text-center space-y-4">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-mono uppercase tracking-widest text-blue-300"
             >
+              <Disc className="w-3 h-3 animate-spin-slow" />
+              <span>Dhwani Records Presents</span>
+            </motion.div>
+
+            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter">
+              The <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400">Ensemble</span>
+            </h2>
+            <p className="mx-auto max-w-2xl text-zinc-400 font-mono text-sm md:text-base leading-relaxed">
               {subtitle}
             </p>
           </div>
 
-          <div className="mb-12 flex flex-wrap justify-center gap-2">
+          {/* Filter Tabs */}
+          <div className="mb-16 flex flex-wrap justify-center gap-3">
             {categories.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveCategory(cat.id)}
                 className={cn(
-                  'rounded-full px-4 py-2 text-sm font-medium transition-all duration-300',
+                  'px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300',
                   activeCategory === cat.id
-                    ? 'bg-white text-black shadow-lg scale-105'
-                    : 'border border-white/20 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white',
+                    ? 'bg-white text-black shadow-[0_0_20px_rgba(255,255,255,0.3)] scale-105'
+                    : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:border-zinc-600 hover:text-white'
                 )}
               >
                 {cat.label}
@@ -118,27 +112,45 @@ export default function Team4({
             ))}
           </div>
 
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {/* Vinyl Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-16 px-4 sm:px-0">
             {filteredTeamMembers.map((member) => (
               <div
                 key={member.id}
                 onClick={() => setSelectedMember(member)}
-                className="relative overflow-hidden rounded-2xl transition-all hover:scale-105 duration-300 group border border-white/10 bg-white/5 cursor-pointer"
+                className="group relative cursor-pointer"
               >
-                <div className="relative aspect-square overflow-hidden">
+                {/* Vinyl Record (Behind Sleeve) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 sm:w-56 sm:h-56 rounded-full bg-black border-[8px] border-zinc-900 shadow-xl transition-transform duration-500 ease-out group-hover:translate-x-12 group-hover:rotate-[360deg] flex items-center justify-center z-0">
+                  {/* Record Grooves */}
+                  <div className="absolute inset-2 border border-zinc-800 rounded-full opacity-50"></div>
+                  <div className="absolute inset-4 border border-zinc-800 rounded-full opacity-50"></div>
+                  <div className="absolute inset-8 border border-zinc-800 rounded-full opacity-50"></div>
+
+                  {/* Record Label */}
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-[8px] text-center p-1 text-white font-bold leading-tight uppercase relative z-10">
+                    <span className="animate-pulse">DHWANI</span>
+                  </div>
+                </div>
+
+                {/* Album Sleeve */}
+                <div className="relative z-10 aspect-square rounded-lg shadow-2xl overflow-hidden bg-zinc-900 border border-white/10 transition-transform duration-300 group-hover:-translate-x-4 hover:scale-[1.02] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)]">
+                  {/* Card Image */}
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
-                    className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    className="object-cover transition-transform duration-700 group-hover:scale-110 filter grayscale group-hover:grayscale-0"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                <div className="relative z-10 mx-auto -mt-[3rem] max-w-[90%] rounded-xl border border-white/10 bg-black/80 backdrop-blur-md px-3 py-4 text-center shadow-xl">
-                  <h3 className="text-lg font-bold text-white">{member.name}</h3>
-                  <p className="text-sm font-medium text-blue-400">
-                    {member.role}
-                  </p>
+
+                  {/* Sleeve Texture Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-20 pointer-events-none mix-blend-overlay"></div>
+
+                  {/* Info Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-6">
+                    <h3 className="text-xl font-bold text-white uppercase tracking-tight mb-1">{member.name}</h3>
+                    <p className="text-xs font-mono text-indigo-300 uppercase tracking-widest">{member.role}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -146,118 +158,108 @@ export default function Team4({
         </div>
       </section>
 
-      {/* Instagram-like Modal */}
-      {selectedMember && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-          onClick={() => setSelectedMember(null)}
-        >
-          <div
-            className="relative w-full max-w-lg bg-gradient-to-b from-gray-900 to-black rounded-3xl overflow-hidden border border-white/10 shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
+      {/* Liner Notes Modal */}
+      <AnimatePresence>
+        {selectedMember && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center px-4 bg-black/90 backdrop-blur-xl"
+            onClick={() => setSelectedMember(null)}
           >
-            {/* Close Button */}
-            <button
-              onClick={() => setSelectedMember(null)}
-              className="absolute top-4 right-4 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors"
+            <motion.div
+              initial={{ scale: 0.9, y: 20 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.9, y: 20 }}
+              className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-zinc-900 rounded-3xl border border-white/10 shadow-2xl flex flex-col md:flex-row"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="w-5 h-5 text-white" />
-            </button>
+              {/* Close Button */}
+              <button
+                onClick={() => setSelectedMember(null)}
+                className="absolute top-4 right-4 z-50 p-2 rounded-full bg-black/50 text-white hover:bg-white hover:text-black transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
 
-            {/* Header Image */}
-            <div className="relative h-64 w-full">
-              <Image
-                src={selectedMember.image}
-                alt={selectedMember.name}
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
-            </div>
+              {/* Left: Album Art */}
+              <div className="w-full md:w-1/2 relative min-h-[400px]">
+                <Image
+                  src={selectedMember.image}
+                  alt={selectedMember.name}
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-900 via-transparent to-transparent md:bg-gradient-to-r md:from-transparent md:to-zinc-900"></div>
 
-            {/* Profile Info */}
-            <div className="relative -mt-16 px-6 pb-6">
-              <div className="flex items-end gap-4 mb-4">
-                <div className="relative w-24 h-24 rounded-full border-4 border-gray-900 overflow-hidden shadow-xl">
-                  <Image
-                    src={selectedMember.image}
-                    alt={selectedMember.name}
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <div className="flex-1 pb-1">
-                  <h3 className="text-2xl font-bold text-white">{selectedMember.name}</h3>
-                  <p className="text-blue-400 font-medium">{selectedMember.role}</p>
-                </div>
-              </div>
-
-              {/* Bio */}
-              {selectedMember.bio && (
-                <p className="text-gray-300 text-sm mb-4 leading-relaxed">
-                  {selectedMember.bio}
-                </p>
-              )}
-
-              {/* Skills */}
-              {selectedMember.skills && selectedMember.skills.length > 0 && (
-                <div className="mb-4">
-                  <h4 className="text-xs uppercase tracking-wider text-gray-500 mb-2">Skills</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedMember.skills.map((skill, index) => (
-                      <span key={index} className="px-3 py-1 text-xs rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
-                        {skill}
-                      </span>
-                    ))}
+                <div className="absolute bottom-8 left-8">
+                  <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-2">{selectedMember.name}</h2>
+                  <div className="inline-block px-3 py-1 bg-white text-black text-xs font-bold uppercase tracking-widest rounded-sm">
+                    {selectedMember.role}
                   </div>
                 </div>
-              )}
-
-              {/* Categories as Tags */}
-              <div className="mb-4">
-                <h4 className="text-xs uppercase tracking-wider text-gray-500 mb-2">Tags</h4>
-                <div className="flex flex-wrap gap-2">
-                  {selectedMember.categories.map((cat, index) => (
-                    <span key={index} className="px-3 py-1 text-xs rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30">
-                      {cat}
-                    </span>
-                  ))}
-                </div>
               </div>
 
-              {/* Social Links */}
-              {selectedMember.socialMedia && (
-                <div className="flex gap-3 pt-4 border-t border-white/10">
-                  {selectedMember.socialMedia.instagram && (
-                    <a href={selectedMember.socialMedia.instagram} target="_blank" rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-                      <Instagram className="w-5 h-5 text-pink-400" />
+              {/* Right: Liner Notes */}
+              <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col">
+                <div className="flex items-center gap-2 mb-8 opacity-50">
+                  <Music2 className="w-4 h-4" />
+                  <span className="text-xs font-mono uppercase tracking-widest">Liner Notes</span>
+                </div>
+
+                <div className="prose prose-invert prose-sm mb-12">
+                  <p className="text-zinc-300 leading-relaxed font-light">
+                    {selectedMember.bio || "No biography available for this artist."}
+                  </p>
+                </div>
+
+                {/* Skills Tracklist */}
+                <div className="mb-12">
+                  <h3 className="text-xs font-bold text-white uppercase tracking-widest mb-6 border-b border-white/10 pb-2">Skill Tracklist</h3>
+                  <ul className="space-y-3">
+                    {selectedMember.skills?.map((skill, i) => (
+                      <li key={i} className="flex items-center justify-between text-sm group cursor-default">
+                        <div className="flex items-center gap-4">
+                          <span className="font-mono text-zinc-600 text-xs group-hover:text-indigo-400 transition-colors">
+                            {(i + 1).toString().padStart(2, '0')}
+                          </span>
+                          <span className="text-zinc-300 group-hover:text-white transition-colors">{skill}</span>
+                        </div>
+                        <Play className="w-3 h-3 text-zinc-700 group-hover:text-indigo-400 opacity-0 group-hover:opacity-100 transition-all" />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Social Footer */}
+                <div className="mt-auto pt-8 border-t border-white/10 flex gap-4">
+                  {selectedMember.socialMedia?.instagram && (
+                    <a href={selectedMember.socialMedia.instagram} target="_blank" className="p-3 bg-zinc-800 rounded-full hover:bg-pink-600 hover:text-white transition-colors">
+                      <Instagram className="w-5 h-5" />
                     </a>
                   )}
-                  {selectedMember.socialMedia.linkedin && (
-                    <a href={selectedMember.socialMedia.linkedin} target="_blank" rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-                      <Linkedin className="w-5 h-5 text-blue-400" />
+                  {selectedMember.socialMedia?.linkedin && (
+                    <a href={selectedMember.socialMedia.linkedin} target="_blank" className="p-3 bg-zinc-800 rounded-full hover:bg-blue-600 hover:text-white transition-colors">
+                      <Linkedin className="w-5 h-5" />
                     </a>
                   )}
-                  {selectedMember.socialMedia.github && (
-                    <a href={selectedMember.socialMedia.github} target="_blank" rel="noopener noreferrer"
-                      className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-                      <Github className="w-5 h-5 text-gray-300" />
+                  {selectedMember.socialMedia?.github && (
+                    <a href={selectedMember.socialMedia.github} target="_blank" className="p-3 bg-zinc-800 rounded-full hover:bg-white hover:text-black transition-colors">
+                      <Github className="w-5 h-5" />
                     </a>
                   )}
-                  {selectedMember.socialMedia.email && (
-                    <a href={`mailto:${selectedMember.socialMedia.email}`}
-                      className="p-2 rounded-full bg-white/5 hover:bg-white/10 transition-colors">
-                      <Mail className="w-5 h-5 text-green-400" />
+                  {selectedMember.socialMedia?.email && (
+                    <a href={`mailto:${selectedMember.socialMedia.email}`} className="p-3 bg-zinc-800 rounded-full hover:bg-green-600 hover:text-white transition-colors">
+                      <Mail className="w-5 h-5" />
                     </a>
                   )}
                 </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

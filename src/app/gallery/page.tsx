@@ -41,23 +41,20 @@ export default async function GalleryPage() {
                 </h1>
                 <p className="text-white/60 font-mono">Captured moments in time</p>
             </div>
-
-            {/* Section 1: 3D Rotating Showcase */}
+            <section className="py-20 px-4 min-h-[800px]">
+                <PhotoGallery
+                    images={scatteredItems}
+                    title="Scattered Memories"
+                    subtitle="Drag to Explore"
+                />
+            </section>
+            {/* Section 2: 3D Rotating Showcase */}
             <section className="h-[600px] relative w-full overflow-hidden flex items-center justify-center bg-zinc-900/20 my-10 border-y border-white/5">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent opacity-50 pointer-events-none" />
                 <CircularGallery
                     items={circularItems}
                     radius={600}
                     className="scale-75 md:scale-90"
-                />
-            </section>
-
-            {/* Section 2: Interactive Scattered Stack */}
-            <section className="py-20 px-4 min-h-[800px]">
-                <PhotoGallery
-                    images={scatteredItems}
-                    title="Scattered Memories"
-                    subtitle="Drag to Explore"
                 />
             </section>
 
@@ -83,14 +80,6 @@ export default async function GalleryPage() {
                 </MasonryGrid>
             </section>
 
-            {/* Section 3: Conventional Grid (Fallback / Archive) */}
-            <section className="py-20 px-4">
-                <div className="max-w-7xl mx-auto mb-10 text-center">
-                    <h2 className="text-3xl font-bold mb-2">The Archive</h2>
-                    <div className="w-20 h-1 bg-blue-500 mx-auto rounded-full" />
-                </div>
-                <GallerySection galleryImages={galleryImages} />
-            </section>
 
             <FooterNewsletter />
         </main>
