@@ -4,7 +4,7 @@ import { use } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Clock, Share2, Twitter, Facebook, Linkedin } from "lucide-react";
-import { newsItems } from "../page"; // Importing from parent page (next.js allows this if exported)
+import { newsItems } from "@/lib/news-data";
 
 export default function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
     // Unwrap params using React.use()
