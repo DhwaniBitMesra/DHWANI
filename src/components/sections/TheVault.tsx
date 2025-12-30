@@ -2,87 +2,134 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Disc, Play, Rewind, FastForward } from "lucide-react";
+import { Disc, Mic2, Music, Radio, Trophy, Star } from "lucide-react";
+import Image from "next/image";
 
 const milestones = [
-    { year: "1998", title: "The First Jam", desc: "Dhwani is founded in a small dorm room." },
-    { year: "2005", title: "Bitotsav Debut", desc: "First headline performance at the annual fest." },
-    { year: "2012", title: "Studio One", desc: "The club gets its first dedicated music room." },
-    { year: "2018", title: "Battle of Bands", desc: "National champions for three consecutive years." },
-    { year: "2023", title: "Silver Jubilee", desc: "Celebrating 25 years of rhythm and soul." },
+    {
+        year: "1998",
+        title: "The First Jam",
+        description: "Dhwani is founded in a small dorm room in Hostel 6. First official performance at the freshers' night.",
+        icon: Mic2,
+        image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+        year: "2005",
+        title: "Bitotsav Debut",
+        description: "The club headlines the main stage of Bitotsav for the first time, establishing itself as the premier music society.",
+        icon: Star,
+        image: "https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+        year: "2012",
+        title: "Battle of Bands Victory",
+        description: "Dhwani's metal wing, 'Iron Raga', wins the regional IIT Kharagpur Spring Fest competition.",
+        icon: Trophy,
+        image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+        year: "2018",
+        title: "Studio 404 Opened",
+        description: "Launch of our fully soundproofed jam room and recording studio in the Activity Centre.",
+        icon: Radio,
+        image: "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2670&auto=format&fit=crop"
+    },
+    {
+        year: "2024",
+        title: "Digital Era",
+        description: "Dhwani launches its own streaming platform for original student compositions.",
+        icon: Music,
+        image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2670&auto=format&fit=crop"
+    }
 ];
 
 export function TheVault() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const { scrollYProgress } = useScroll({ target: containerRef });
-
-    const x = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
-
     return (
-        <section ref={containerRef} className="relative py-32 bg-zinc-950 overflow-hidden min-h-[150vh]">
-            <div className="sticky top-0 h-screen flex flex-col justify-center">
+        <section className="bg-neutral-950 py-32 relative overflow-hidden" id="legacy">
+            {/* Background Noise/Texture */}
+            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')] opacity-30"></div>
+
+            <div className="max-w-5xl mx-auto px-4 relative z-10">
+
                 {/* Header */}
-                <div className="absolute top-10 left-0 right-0 text-center z-10">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-black/40 backdrop-blur-md">
+                <div className="text-center mb-24">
+                    <div className="inline-flex items-center gap-2 mb-4 px-4 py-1 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
                         <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
-                        <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">RECORDING SINCE 1998</span>
+                        <span className="text-xs font-mono uppercase tracking-widest text-neutral-400">Recording History since 1998</span>
                     </div>
-                    <h2 className="mt-4 text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-700">
-                        THE VAULT
+                    <h2 className="text-6xl md:text-8xl font-black text-white tracking-tighter uppercase">
+                        The <span className="text-transparent bg-clip-text bg-gradient-to-br from-indigo-500 to-purple-600">Vault</span>
                     </h2>
                 </div>
 
-                {/* Timeline Strip */}
-                <div className="relative w-full overflow-hidden py-20">
-                    <div className="absolute top-1/2 left-0 right-0 h-px bg-white/10 -translate-y-1/2"></div>
+                <div className="relative">
+                    {/* The Cable (Vertical Line) */}
+                    <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-neutral-700 to-transparent md:-translate-x-1/2"></div>
 
-                    <motion.div
-                        style={{ x }}
-                        className="flex gap-20 pl-[50vw] w-max items-center"
-                    >
-                        {milestones.map((item, i) => (
-                            <div key={i} className="relative group w-[300px] md:w-[400px]">
-                                {/* Connector Dot */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-zinc-900 border-2 border-zinc-700 group-hover:bg-white group-hover:scale-150 transition-all duration-300 z-10"></div>
+                    <div className="space-y-24">
+                        {milestones.map((item, index) => {
+                            const isEven = index % 2 === 0;
+                            return (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.8, delay: 0.1 }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    className={`relative flex flex-col md:flex-row items-center gap-8 ${isEven ? 'md:flex-row-reverse' : ''}`}
+                                >
+                                    {/* Spacer for the other side */}
+                                    <div className="flex-1 hidden md:block"></div>
 
-                                {/* Card - alternating position */}
-                                <div className={`
-                         relative p-6 rounded-2xl bg-zinc-900/50 border border-white/5 backdrop-blur-md
-                         ${i % 2 === 0 ? '-translate-y-[60%]' : 'translate-y-[60%]'}
-                         transition-all duration-500 group-hover:border-blue-500/30 group-hover:bg-zinc-800/80
-                      `}>
-                                    <h3 className="text-4xl font-bold text-white/10 absolute -top-4 right-4 group-hover:text-blue-500/20 transition-colors">{item.year}</h3>
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <Disc className="w-5 h-5 text-zinc-500 group-hover:text-blue-400 group-hover:animate-spin" />
-                                        <h4 className="text-xl font-bold text-white">{item.title}</h4>
+                                    {/* Center Node (The Plug) */}
+                                    <div className="absolute left-8 md:left-1/2 -translate-x-1/2 md:translate-x-[-50%] z-20">
+                                        <div className="w-16 h-16 rounded-full bg-neutral-900 border-4 border-neutral-800 flex items-center justify-center shadow-2xl relative group">
+                                            <item.icon className="w-6 h-6 text-neutral-500 group-hover:text-indigo-400 transition-colors" />
+                                            {/* Glowing ring */}
+                                            <div className="absolute inset-0 rounded-full border border-white/20 scale-125 opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500"></div>
+                                        </div>
                                     </div>
-                                    <p className="text-zinc-400 text-sm leading-relaxed">{item.desc}</p>
-                                </div>
 
-                                {/* Line to connector */}
-                                <div className={`
-                         absolute left-1/2 w-px bg-white/10 h-[50px] -translate-x-1/2
-                         ${i % 2 === 0 ? 'bottom-[50%] bg-gradient-to-t' : 'top-[50%] bg-gradient-to-b'}
-                         from-transparent to-white/20
-                      `}></div>
-                            </div>
-                        ))}
+                                    {/* Content Card (Tape Box) */}
+                                    <div className="flex-1 w-full pl-24 md:pl-0">
+                                        <div className={`
+                                relative p-8 bg-neutral-900/80 border border-white/10 backdrop-blur-md rounded-xl overflow-hidden group hover:border-white/30 transition-all duration-500
+                                ${isEven ? 'md:text-right' : 'md:text-left'}
+                             `}>
+                                            {/* Tape Decorative Element */}
+                                            <div className={`absolute top-0 w-full h-1 bg-gradient-to-r from-indigo-500 to-purple-600 opacity-50 ${isEven ? 'right-0 origin-right' : 'left-0 origin-left'} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700`}></div>
 
-                        {/* Future Placeholder */}
-                        <div className="pl-20 text-center opacity-50">
-                            <div className="w-16 h-16 rounded-full border border-dashed border-white/20 flex items-center justify-center mx-auto mb-4">
-                                <Play className="w-6 h-6 text-white/20 ml-1" />
-                            </div>
-                            <span className="text-zinc-500 font-mono text-xs uppercase tracking-widest">Next Chapter...</span>
-                        </div>
-                    </motion.div>
-                </div>
+                                            <div className="relative z-10">
+                                                <span className="text-6xl font-black text-white/5 absolute -top-4 -right-4 select-none z-0">
+                                                    {item.year}
+                                                </span>
 
-                {/* Controls Decoration */}
-                <div className="absolute bottom-10 left-0 right-0 flex justify-center gap-8 opacity-30">
-                    <Rewind className="w-8 h-8 text-white" />
-                    <Play className="w-8 h-8 text-white fill-current" />
-                    <FastForward className="w-8 h-8 text-white" />
+                                                <div className="text-indigo-400 font-mono text-sm font-bold mb-2 relative z-10">{item.year}</div>
+                                                <h3 className="text-2xl md:text-4xl font-bold text-white mb-4 uppercase leading-none relative z-10">
+                                                    {item.title}
+                                                </h3>
+                                                <p className="text-neutral-400 leading-relaxed text-sm md:text-base mb-6 relative z-10">
+                                                    {item.description}
+                                                </p>
+
+                                                <div className="relative w-full h-48 rounded-lg overflow-hidden border border-white/5">
+                                                    <Image
+                                                        src={item.image}
+                                                        alt={item.title}
+                                                        fill
+                                                        className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105 opacity-60 group-hover:opacity-100"
+                                                    />
+                                                    {/* Scanline overlay */}
+                                                    <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-10 pointer-events-none"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </motion.div>
+                            )
+                        })}
+                    </div>
                 </div>
             </div>
         </section>
