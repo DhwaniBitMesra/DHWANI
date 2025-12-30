@@ -16,7 +16,7 @@ export function FanMail() {
                         <div>
                             <h2 className="text-5xl md:text-6xl font-black text-white mb-6">
                                 Book the <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-cyan-400">Experience.</span>
+                                <span className="     ">Experience.</span>
                             </h2>
                             <p className="text-zinc-400 text-lg leading-relaxed max-w-md">
                                 Whether you want to jam, collaborate, or book us for your next gig, here are our frequencies.
