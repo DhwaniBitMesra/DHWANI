@@ -16,27 +16,6 @@ export default function Home() {
 		<main className="bg-black min-h-screen">
 			<section id="hero"><HeroSection /></section>
 
-			<section className="py-10 flex justify-center bg-black/50">
-				<VoiceChat />
-			</section>
-
-			<section className="py-20 bg-neutral-950 px-4 relative overflow-hidden flex items-center justify-center">
-				<div className="text-center space-y-12 relative z-10">
-					<h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-neutral-200 to-neutral-500">
-						Featured Track
-					</h2>
-					<div className="flex items-center justify-center">
-						<MusicArtwork
-							artist="Dhwani"
-							music="Anthem of the Soul"
-							albumArt="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2940&auto=format&fit=crop"
-							isSong={true}
-							isLoading={false}
-						/>
-					</div>
-				</div>
-			</section>
-
 			<DhwaniFeatures />
 
 			{/* President Teaser - links to full team page */}
