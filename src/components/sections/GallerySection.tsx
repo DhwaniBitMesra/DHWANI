@@ -4,30 +4,14 @@ import React from 'react';
 import { BentoGrid, BentoGridItem } from '../ui/aurora-bento-grid';
 import { motion } from 'framer-motion';
 
-const galleryImages = [
-    {
-        src: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?q=80&w=2940&auto=format&fit=crop",
-        alt: "Concert Crowd",
-        span: "md:col-span-4"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?q=80&w=2940&auto=format&fit=crop",
-        alt: "DJ Set",
-        span: "md:col-span-2"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=2940&auto=format&fit=crop",
-        alt: "Guitar Performance",
-        span: "md:col-span-2"
-    },
-    {
-        src: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2940&auto=format&fit=crop",
-        alt: "Studio Session",
-        span: "md:col-span-4"
-    }
-];
 
-export const GallerySection = () => {
+export type GalleryItem = {
+    src: string;
+    alt: string;
+    span: string;
+};
+
+export const GallerySection = ({ galleryImages = [] }: { galleryImages?: GalleryItem[] }) => {
     return (
         <section className="py-20 bg-black text-white px-4 sm:px-6 lg:px-8">
             <div className="max-w-7xl mx-auto">
@@ -58,3 +42,4 @@ export const GallerySection = () => {
         </section>
     );
 };
+
