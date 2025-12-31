@@ -2,6 +2,7 @@
 
 import { Instagram, Linkedin, Youtube, Music, Disc, Mic2, Heart } from 'lucide-react';
 import Link from 'next/link';
+import { QuoteRotator } from '../ui/quote-rotator';
 
 const socialIcons = [
   { icon: <Instagram className="h-5 w-5" />, href: 'https://instagram.com/dhwanibitmesra', label: 'Instagram' },
@@ -48,9 +49,7 @@ export default function FooterNewsletter() {
               </div>
             </div>
 
-            <p className="text-white/60 max-w-md text-lg leading-relaxed">
-              The rhythm of BIT Mesra. Where every note tells a story and every beat connects a community.
-            </p>
+            <QuoteRotator />
 
             {/* Newsletter / "Fan Mail" */}
             <div className="bg-white/5 border border-white/10 rounded-2xl p-1 max-w-md flex items-center backdrop-blur-sm">
