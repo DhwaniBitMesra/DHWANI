@@ -66,6 +66,7 @@ function EventCard({ event, index }: { event: any, index: number }) {
                         <span className="font-bold text-sm uppercase tracking-widest">{event.status === "SELLING FAST" ? "Get Tickets" : "Details"}</span>
                     </button>
                 </div>
+            </Link>
         </motion.div>
     );
 }
