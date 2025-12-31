@@ -4,9 +4,9 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface Props {
-    params: {
+    params: Promise<{
         slug: string;
-    };
+    }>;
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

@@ -1,79 +1,228 @@
 {
     "name": "Dhwani Design System",
-    "description": "A comprehensive design system for the Dhwani Music Club website, focusing on a dark, immersive, and musical aesthetic.",
-    "version": "1.0.0",
+    "version": "1.1.0",
+    "meta": {
+        "description": "Comprehensive design language for the Dhwani Music Club platform. A dark, immersive, high-fidelity UI system grounded in musical metaphors.",
+        "authors": [
+            "Dhwani Tech Team"
+        ],
+        "lastUpdated": "2025-12-31"
+    },
+    "routes": {
+        "pages": [
+            {
+                "name": "Home",
+                "slug": "/",
+                "type": "Landing",
+                "features": [
+                    "Hero Odyssey",
+                    "Voice Chat",
+                    "News Ticker",
+                    "Events Preview"
+                ]
+            },
+            {
+                "name": "News",
+                "slug": "/news",
+                "type": "Archive/Blog",
+                "ui_theme": "The Resonance Newsletter",
+                "components": [
+                    "Bento Grid",
+                    "Subscribe Box"
+                ]
+            },
+            {
+                "name": "Events",
+                "slug": "/events",
+                "type": "Listing",
+                "ui_theme": "Tour Dates",
+                "components": [
+                    "Event Cards",
+                    "Ticket Stubs"
+                ]
+            },
+            {
+                "name": "Event Detail",
+                "slug": "/events/[slug]",
+                "type": "Detail",
+                "ui_theme": "Backstage Pass",
+                "components": [
+                    "Digital Ticket",
+                    "Lineup List"
+                ]
+            },
+            {
+                "name": "Team",
+                "slug": "/team",
+                "type": "Directory",
+                "ui_theme": "Vinyl Collection",
+                "components": [
+                    "Vinyl Sleeve Cards",
+                    "Liner Notes Modal"
+                ]
+            },
+            {
+                "name": "Archive",
+                "slug": "/archive",
+                "type": "Gallery",
+                "ui_theme": "The Vault",
+                "features": [
+                    "Year Filter",
+                    "Polaroid Grid"
+                ]
+            },
+            {
+                "name": "Archive Year",
+                "slug": "/archive/[year]",
+                "type": "Collection",
+                "ui_theme": "Film Strip Year View"
+            },
+            {
+                "name": "Archive Album",
+                "slug": "/archive/[year]/[slug]",
+                "type": "Gallery Detail",
+                "ui_theme": "Photo Album"
+            },
+            {
+                "name": "Charts",
+                "slug": "/bands",
+                "type": "Leaderboard",
+                "ui_theme": "Billboard Top Charts",
+                "components": [
+                    "Rank List",
+                    "Trend Indicators"
+                ]
+            },
+            {
+                "name": "Sitemap",
+                "slug": "/sitemap",
+                "type": "Utility",
+                "ui_theme": "Circuit Board Network",
+                "components": [
+                    "Node Graph"
+                ]
+            }
+        ]
+    },
     "tokens": {
         "colors": {
             "mode": "dark",
             "space": "oklch",
             "palette": {
-                "background": "oklch(0.145 0 0)",
-                "foreground": "oklch(0.985 0 0)",
-                "primary": "oklch(0.922 0 0)",
-                "secondary": "oklch(0.269 0 0)",
-                "accent": {
-                    "base": "oklch(0.269 0 0)",
-                    "blue": "bg-blue-500",
-                    "orange": "text-orange-500",
-                    "green": "text-green-500",
-                    "purple": "border-purple-500"
+                "background": {
+                    "default": "oklch(0.145 0 0) [Absolute Black]",
+                    "secondary": "oklch(0.205 0 0) [Dark Grey]",
+                    "accent": "oklch(0.269 0 0) [Deep Surface]"
                 },
-                "border": "oklch(1 0 0 / 10%)",
-                "muted": {
-                    "base": "oklch(0.269 0 0)",
-                    "foreground": "oklch(0.708 0 0)"
+                "foreground": {
+                    "default": "oklch(0.985 0 0) [White]",
+                    "muted": "oklch(0.708 0 0) [Grey]",
+                    "subtle": "oklch(0.556 0 0) [Dark Grey]"
+                },
+                "brand": {
+                    "blue": "bg-blue-500 [Electric Blue]",
+                    "indigo": "bg-indigo-500 [Deep Purple]",
+                    "orange": "text-orange-500 [Vintage Amp]",
+                    "green": "text-green-500 [Signal Go]"
+                },
+                "status": {
+                    "success": "oklch(0.646 0.222 41.116)",
+                    "error": "oklch(0.577 0.245 27.325)"
                 }
             }
         },
         "typography": {
-            "fonts": {
-                "sans": "Geist Sans",
-                "mono": "Geist Mono"
+            "families": {
+                "sans": "Geist Sans (UI, Headings)",
+                "mono": "Geist Mono (Metadata, Labels, Code)"
             },
-            "styles": {
-                "heading-hero": "text-[15vw] font-black tracking-tighter leading-[0.8]",
-                "heading-section": "text-6xl md:text-8xl font-black uppercase tracking-tighter",
-                "label": "text-xs font-mono uppercase tracking-widest",
-                "body": "text-base leading-relaxed text-neutral-400"
+            "scale": {
+                "display-large": {
+                    "size": "text-[15vw]",
+                    "weight": "900",
+                    "tracking": "-0.05em",
+                    "lineHeight": "0.8"
+                },
+                "display-medium": {
+                    "size": "text-8xl",
+                    "weight": "900",
+                    "case": "uppercase"
+                },
+                "heading-1": {
+                    "size": "text-5xl",
+                    "weight": "700"
+                },
+                "label": {
+                    "size": "text-xs",
+                    "family": "mono",
+                    "case": "uppercase",
+                    "tracking": "0.2em"
+                }
             }
         },
-        "spacing": {
-            "radius": "0.625rem",
-            "container": "max-w-7xl mx-auto px-4 md:px-8",
-            "section-padding": "pt-40 pb-20"
-        },
-        "animation": {
-            "engine": "framer-motion",
-            "transitions": {
-                "default": "duration-500 ease-in-out",
-                "smooth": "duration: 0.8, ease: [0.16, 1, 0.3, 1]",
-                "hover": "scale-105"
+        "effects": {
+            "radius": {
+                "sm": "0.375rem",
+                "md": "0.5rem",
+                "lg": "0.625rem",
+                "full": "9999px"
             },
-            "custom": {
-                "spin-slow": "spin-slow 10s linear infinite",
-                "music-bar": "music-bar 1s ease-in-out infinite"
+            "shadows": {
+                "glow": "0 0 20px rgba(59, 130, 246, 0.5)",
+                "deep": "0 20px 40px -15px rgba(0,0,0,0.8)"
+            },
+            "gradients": {
+                "aurora": "bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-400",
+                "fade-bottom": "bg-gradient-to-t from-black via-black/50 to-transparent"
             }
         }
     },
     "components": {
-        "navbar": {
-            "style": "floating dock",
-            "features": [
-                "backdrop-blur-xl",
-                "pill-shape",
-                "interactive-hover"
-            ]
+        "Navigation": {
+            "Navbar": {
+                "type": "Floating Dock",
+                "behavior": "Expands on scroll, Glassmorphism background",
+                "elements": {
+                    "Logo": "Frequency Visualizer (Animated Bars)",
+                    "Links": "Hover Reveal 'Fader' Background",
+                    "Mobile": "Full-screen 'Studio' Overlay"
+                }
+            }
         },
-        "cards": {
-            "style": "bento-grid / masonry",
-            "interaction": "hover-lift, gradient-overlay, image-scale"
+        "Hero": {
+            "HeroOdyssey": {
+                "concept": "Sonic Amplification",
+                "elements": [
+                    "Massive Typography (AMPLIFY)",
+                    "Interactive 3D Elements",
+                    "Noise Overlay",
+                    "Vertical Upcoming Events Ticker"
+                ]
+            }
         },
-        "buttons": {
-            "style": "uppercase mono tracking-widest border border-white/20 hover:bg-white hover:text-black"
+        "Cards": {
+            "VinylCard": {
+                "context": "Team Page",
+                "interaction": "Hover slides disc out of sleeve",
+                "visuals": "Spinning Record, Album Art Sleeve"
+            },
+            "NewsCard": {
+                "context": "News Page",
+                "layout": "Bento Grid (sizes: large, tall, wide, small)",
+                "interaction": "Image Zoom, Title Reveal"
+            },
+            "EventCard": {
+                "context": "Events Page",
+                "metaphor": "Concert Poster",
+                "elements": "Date Stack, Ticket Stub Button"
+            }
         },
-        "visuals": {
-            "noise": "global noise overlay",
-            "cursor": "magnetic custom cursor"
+        "Interactive": {
+            "Cursor": "Magnetic Follower",
+            "Buttons": {
+                "primary": "Solid White, Black Text, Rounded Full",
+                "outline": "Border White/20, Uppercase, Mono Font"
+            }
         }
     }
 }
