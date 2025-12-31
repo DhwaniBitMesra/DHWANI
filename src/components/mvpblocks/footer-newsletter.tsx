@@ -106,7 +106,7 @@ export default function FooterNewsletter() {
           <p>© {new Date().getFullYear()} Dhwani Music Club. All rights reserved.</p>
           <div className="flex items-center gap-6 mt-4 md:mt-0">
             <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link href="/sitemap" className="hover:text-white transition-colors">Sitemap</Link>
+            <Link href="/map" className="hover:text-white transition-colors">Sitemap</Link>
             <div className="flex items-center gap-1.5 text-white/20">
               Made with <Heart className="w-3 h-3 fill-current text-red-500/50" /> and Music by <a href='https://linkedin.com/in/sh20raj'>Shaswat</a>
             </div>
