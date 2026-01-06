@@ -126,7 +126,7 @@ export default async function Home() {
 
 			<TheStudio modules={STUDIO_MODULES} />
 
-			<TheHeadliner data={HEADLINER_DATA} />
+			{/* <TheHeadliner data={HEADLINER_DATA} /> */}
 
 			<section id="legacy">
 				<TheVault milestones={MILESTONES_DATA} />
