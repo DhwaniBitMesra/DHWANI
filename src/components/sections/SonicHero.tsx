@@ -1,8 +1,8 @@
 "use client";
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate, Variants } from "framer-motion";
-import { Play, Sparkles, Music, Mic2, Radio, Disc } from "lucide-react";
-import { useState, Suspense, lazy, useEffect } from "react";
+import { Play, Sparkles, Music, Mic2, Radio, Disc, Zap } from "lucide-react";
+import { useState, Suspense, lazy, useEffect, useRef } from "react";
 // import { cn } from "@/lib/utils";
 
 // Lazy load the Dithering shader
@@ -11,27 +11,108 @@ const Dithering = lazy(() =>
 );
 
 const LETTER_ANIMATION: Variants = {
-    initial: { y: 120, opacity: 0, rotateX: -90, filter: "blur(10px)" },
+    initial: { y: 150, opacity: 0, rotateX: -90, filter: "blur(20px)" },
     animate: (i: number) => ({
         y: 0,
         opacity: 1,
         rotateX: 0,
         filter: "blur(0px)",
         transition: {
-            duration: 1.4,
-            delay: i * 0.12,
+            duration: 1.2,
+            delay: i * 0.08,
             type: "spring",
-            damping: 18,
-            stiffness: 80
+            damping: 15,
+            stiffness: 70
         }
     }),
     hover: {
-        y: -20,
+        y: -10,
         scale: 1.1,
-        color: "#a5b4fc", // indigo-300
-        transition: { duration: 0.3 }
+        textShadow: "4px 4px 0px rgba(79, 70, 229, 0.5), -4px -4px 0px rgba(236, 72, 153, 0.5)",
+        transition: { duration: 0.2 }
     }
 };
+
+// Scramble Text Effect Hook
+const useScrambleText = (text: string, speed: number = 50) => {
+    const [displayedText, setDisplayedText] = useState(text);
+    const [isHovered, setIsHovered] = useState(false);
+    
+    useEffect(() => {
+        if (!isHovered) {
+             setDisplayedText(text);
+             return;
+        }
+
+        const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let interval: NodeJS.Timeout;
+        let iteration = 0;
+        
+        interval = setInterval(() => {
+            setDisplayedText(prev => 
+                text.split("").map((letter, index) => {
+                    if (index < iteration) return text[index];
+                    return chars[Math.floor(Math.random() * chars.length)];
+                }).join("")
+            );
+            
+            if (iteration >= text.length) clearInterval(interval);
+            iteration += 1 / 3;
+        }, speed);
+
+        return () => clearInterval(interval);
+    }, [isHovered, text, speed]);
+
+    return { displayedText, setIsHovered };
+};
+
+function MagneticButton({ children, onClick, className }: { children: React.ReactNode, onClick?: () => void, className?: string }) {
+    const ref = useRef<HTMLButtonElement>(null);
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = ref.current!.getBoundingClientRect();
+        const centerX = left + width / 2;
+        const centerY = top + height / 2;
+        x.set((clientX - centerX) * 0.3); // Magnetic pull strength
+        y.set((clientY - centerY) * 0.3);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.button
+            ref={ref}
+            onClick={onClick}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            style={{ x, y }}
+            transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.1 }}
+            className={className}
+        >
+            {children}
+        </motion.button>
+    );
+}
+
+const ScrambleText = ({ text, className }: { text: string, className?: string }) => {
+    const { displayedText, setIsHovered } = useScrambleText(text);
+    return (
+        <span 
+            onMouseEnter={() => setIsHovered(true)} 
+            onMouseLeave={() => setIsHovered(false)} 
+            className={className}
+        >
+            {displayedText}
+        </span>
+    );
+};
+
 
 const SHAPES = [
     { icon: Music, x: "10%", y: "20%", delay: 0 },
@@ -40,6 +121,7 @@ const SHAPES = [
     { icon: Disc, x: "15%", y: "65%", delay: 3 },
     { icon: Radio, x: "50%", y: "85%", delay: 1.5 },
 ];
+
 
 export function SonicHero() {
     const { scrollY } = useScroll();
@@ -58,7 +140,7 @@ export function SonicHero() {
 
     return (
         <section 
-            className="relative h-screen w-full overflow-hidden bg-black text-white flex flex-col items-center justify-center group"
+            className="relative h-screen min-h-[800px] w-full overflow-hidden bg-black text-white flex flex-col items-center justify-center group"
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
         >
@@ -68,10 +150,10 @@ export function SonicHero() {
                  <Suspense fallback={<div className="absolute inset-0 bg-indigo-900/10 animate-pulse" />}>
                     <Dithering
                         colorBack="#000000"
-                        colorFront="#4f46e5" // Indigo-600
+                        colorFront="#4338ca" // Indigo-700 darker
                         shape="warp" 
                         type="4x4"
-                        speed={isHovered ? 0.8 : 0.2}
+                        speed={isHovered ? 0.9 : 0.2}
                         className="w-full h-full"
                         minPixelRatio={1}
                     />
@@ -79,17 +161,17 @@ export function SonicHero() {
             </div>
 
             {/* Grid Pattern Overlay */}
-            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center mask-[linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-20 pointer-events-none mix-blend-overlay" />
+            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center mask-[linear-gradient(180deg,white,rgba(255,255,255,0))] opacity-10 pointer-events-none mix-blend-overlay" />
             
             {/* Film Grain */}
-            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
+            <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-40 brightness-100 contrast-150 pointer-events-none mix-blend-overlay"></div>
 
             {/* Floating Shapes */}
             <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
                 {SHAPES.map((Shape, i) => (
                     <motion.div
                         key={i}
-                        className="absolute text-white/20"
+                        className="absolute text-white/10 mix-blend-difference"
                         style={{ left: Shape.x, top: Shape.y }}
                         animate={{
                             y: [0, -30, 0],
@@ -112,24 +194,26 @@ export function SonicHero() {
             {/* Main Content */}
             <motion.div 
                 style={{ y: y1, opacity, scale }} 
-                className="relative z-20 text-center px-6 perspective-[1200px]"
+                className="relative z-20 text-center px-6 perspective-[1200px] flex flex-col items-center"
             >
                 {/* Badge */}
                 <motion.div 
-                    initial={{ opacity: 0, y: -20 }}
-                    animate={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, y: -20, rotateX: 90 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
                     transition={{ delay: 1, duration: 0.8 }}
-                    className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-indigo-500/30 bg-indigo-500/10 backdrop-blur-md mb-16 hover:bg-indigo-500/20 transition-all shadow-[0_0_20px_rgba(79,70,229,0.2)]"
+                    className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-zinc-800 bg-black/50 backdrop-blur-md mb-12 hover:border-indigo-500/50 transition-colors group/badge cursor-pointer"
                 >
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500 group-hover/badge:bg-indigo-500 transition-colors"></span>
                     </span>
-                    <span className="text-xs font-mono uppercase tracking-[0.2em] text-indigo-300">Live Frequency • Est. 1998</span>
+                    <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 group-hover/badge:text-indigo-400 transition-colors">
+                        <ScrambleText text="System Online • v2.0" />
+                    </span>
                 </motion.div>
 
-                {/* Hero Title - Staggered 3D Letters */}
-                <div className="flex justify-center flex-wrap overflow-visible mb-10 perspective-[1000px]">
+                {/* Hero Title - Chromatic Aberration */}
+                <div className="relative flex justify-center flex-wrap overflow-visible mb-8 perspective-[1000px] mix-blend-screen">
                     {titleLetters.map((letter, i) => (
                         <motion.h1
                             key={i}
@@ -138,12 +222,25 @@ export function SonicHero() {
                             initial="initial"
                             animate="animate"
                             whileHover="hover"
-                            className="text-[17vw] md:text-[14vw] leading-[0.8] font-black tracking-tighter bg-linear-to-b from-white via-zinc-300 to-zinc-600 bg-clip-text text-transparent cursor-default transform-gpu select-none drop-shadow-2xl"
-                            style={{ display: "inline-block", transformStyle: "preserve-3d" }}
+                            className="text-[18vw] md:text-[15vw] leading-[0.75] font-black tracking-tighter text-white cursor-default select-none relative z-10"
+                            style={{ 
+                                display: "inline-block", 
+                                transformStyle: "preserve-3d",
+                                textShadow: "0px 0px 0px transparent" // Initial state
+                            }}
                         >
                             {letter}
                         </motion.h1>
                     ))}
+                    
+                    {/* Decorative Stroke Copy for Depth */}
+                    <div className="absolute top-2 left-2 w-full h-full flex justify-center flex-wrap opacity-20 pointer-events-none -z-10 blur-[2px]">
+                         {titleLetters.map((letter, i) => (
+                             <span key={i} className="text-[18vw] md:text-[15vw] leading-[0.75] font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-indigo-500 to-transparent">
+                                 {letter}
+                             </span>
+                         ))}
+                    </div>
                 </div>
 
                 {/* Subtext */}
@@ -153,42 +250,51 @@ export function SonicHero() {
                     transition={{ delay: 1.5, duration: 0.8 }}
                     className="flex flex-col items-center gap-10"
                 >
-                    <p className="max-w-2xl text-lg md:text-2xl text-zinc-400 font-light leading-relaxed mix-blend-screen">
-                        The <span className="text-indigo-400 font-medium">Amplifiers</span> of Culture. 
-                        The <span className="text-purple-400 font-medium">Distortion</span> in the Silence. 
-                        <br className="hidden md:block"/>
-                        The <span className="text-white font-bold">Rhythm</span> of BIT Mesra.
+                    <p className="max-w-xl text-lg md:text-xl text-zinc-500 font-mono tracking-tight leading-relaxed">
+                        <ScrambleText text="AMPLIFYING CULTURE SINCE 1998." className="text-zinc-300" />
+                        <br />
+                        <span className="text-xs uppercase tracking-widest opacity-50">
+                            // DISTORTION DETECTED //
+                        </span>
                     </p>
 
-                    {/* Action Buttons */}
-                    <div className="flex flex-col md:flex-row items-center gap-6 mt-4 relative z-30">
-                        <button className="group relative px-12 py-5 bg-white text-black rounded-full font-black uppercase tracking-wider overflow-hidden hover:scale-105 transition-all shadow-[0_0_40px_rgba(255,255,255,0.2)] hover:shadow-[0_0_60px_rgba(79,70,229,0.4)]">
-                            <span className="relative z-10 flex items-center gap-3">
-                                <Play className="w-5 h-5 fill-current" /> START THE SHOW
+                    {/* Magnetic Buttons */}
+                    <div className="flex flex-col md:flex-row items-center gap-8 mt-6 relative z-30">
+                        {/* Primary Button */}
+                        <MagneticButton className="group relative px-12 py-6 bg-white text-black rounded-full font-black uppercase tracking-wider overflow-hidden hover:scale-105 transition-transform shadow-[0_0_0_1px_rgba(255,255,255,0.1)]">
+                             <span className="relative z-20 flex items-center gap-3 group-hover:text-white transition-colors duration-300">
+                                <Zap className="w-5 h-5 fill-current" /> <ScrambleText text="ENTER THE VOID" />
                             </span>
-                            <div className="absolute inset-0 bg-linear-to-r from-indigo-400 via-purple-400 to-pink-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0" />
-                        </button>
+                            {/* Invert Fill Effect */}
+                            <div className="absolute inset-0 bg-black translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-in-out z-10" />
+                            {/* Hover Glow */}
+                            <div className="absolute inset-0 bg-indigo-500/20 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300 z-0" />
+                        </MagneticButton>
                         
-                        <button className="group px-10 py-5 rounded-full border border-white/20 font-mono uppercase tracking-widest hover:bg-white/5 transition-all hover:border-white/50 relative overflow-hidden backdrop-blur-sm">
-                            <span className="relative z-10">Explore Club</span>
-                            <div className="absolute bottom-0 left-0 h-[2px] w-0 bg-white transition-all duration-300 group-hover:w-full"></div>
-                        </button>
+                        {/* Secondary Button */}
+                        <MagneticButton className="group px-8 py-6 rounded-full border border-white/10 font-mono text-sm uppercase tracking-[0.2em] text-white hover:border-indigo-500/50 hover:bg-indigo-500/10 transition-all backdrop-blur-sm">
+                            <span className="relative z-10 flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 bg-indigo-500 rounded-full group-hover:scale-150 transition-transform" />
+                                EXPLORE
+                            </span>
+                        </MagneticButton>
                     </div>
                 </motion.div>
             </motion.div>
 
             {/* Dynamic Visualizer Bars */}
-            <div className="absolute bottom-0 left-0 right-0 h-48 flex items-end justify-center gap-1 md:gap-2 opacity-40 pointer-events-none px-4 mask-[linear-gradient(0deg,black,transparent)]">
+            <div className="absolute bottom-0 left-0 right-0 h-32 flex items-end justify-center gap-1 opacity-30 pointer-events-none px-4 mask-[linear-gradient(0deg,black,transparent)]">
                 {barHeights.map((h, i) => (
                     <motion.div
                         key={i}
-                        className="w-2 md:w-3 bg-linear-to-t from-indigo-500 via-purple-500 to-transparent rounded-t-full shadow-[0_0_15px_rgba(99,102,241,0.5)]"
+                        className="w-2 md:w-3 bg-white rounded-t-sm"
                         initial={{ height: "5%" }}
                         animate={{
-                            height: ["5%", `${20 + h * 80}%`, "10%"]
+                            height: ["5%", `${10 + h * 60}%`, "10%"],
+                            opacity: [0.2, 0.8, 0.2]
                         }}
                         transition={{
-                            duration: 0.8 + h,
+                            duration: 0.5 + h,
                             repeat: Infinity,
                             repeatType: "mirror",
                             ease: "easeInOut",
@@ -201,16 +307,10 @@ export function SonicHero() {
             {/* Scroll Indicator */}
             <motion.div 
                  style={{ opacity }}
-                 className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 pointer-events-none"
+                 className="absolute bottom-8 left-8 flex items-center gap-4 z-20 pointer-events-none mix-blend-difference"
             >
-                <span className="text-[10px] font-mono uppercase tracking-widest text-white/50">Scroll to Tune In</span>
-                <div className="w-px h-16 bg-linear-to-b from-transparent via-white/50 to-transparent relative overflow-hidden">
-                    <motion.div 
-                        animate={{ y: [-60, 60] }}
-                        transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
-                        className="absolute w-full h-1/3 bg-white blur-[2px]"
-                    />
-                </div>
+                <div className="h-[1px] w-12 bg-white/50" />
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/50"> SCROLL </span>
             </motion.div>
 
         </section>
