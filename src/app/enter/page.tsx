@@ -10,7 +10,7 @@ export default function EnterPage() {
         <main className="min-h-screen bg-black text-white relative overflow-hidden flex flex-col items-center justify-center p-6">
             
             {/* Background Ambience */}
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-indigo-900/40 via-black to-black pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-indigo-900/40 via-black to-black pointer-events-none"></div>
             
              {/* Back Link */}
              <motion.div 

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { StackProvider, StackTheme } from "@stackframe/stack";
 import { stackClientApp } from "../stack/client";
 import { Analytics } from "@vercel/analytics/react";
@@ -87,7 +88,9 @@ export default function RootLayout({
 			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}><StackProvider app={stackClientApp}><StackTheme>
 				<NoiseOverlay />
 				<MagneticCursor />
-				<Navbar />
+				<Suspense fallback={<></>}>
+					<Navbar />
+				</Suspense>
 				{children}
 				<Analytics />
 			</StackTheme></StackProvider></body>

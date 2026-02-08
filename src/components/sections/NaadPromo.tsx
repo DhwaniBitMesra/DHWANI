@@ -9,7 +9,7 @@ export function NaadPromo() {
     return (
         <section className="relative py-32 overflow-hidden bg-black text-white">
             {/* Background Effects */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black opacity-50 pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,var(--tw-gradient-stops))] from-indigo-900/20 via-black to-black opacity-50 pointer-events-none" />
             <div className="absolute top-0 left-0 w-full h-full bg-[url('https://images.unsplash.com/photo-1459749411177-260f114c1c95?q=80')] bg-cover bg-center opacity-10 mix-blend-overlay pointer-events-none" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -27,7 +27,7 @@ export function NaadPromo() {
                             <span className="text-xs font-mono uppercase tracking-widest text-yellow-500">Coming Soon • Spring 2026</span>
                         </div>
 
-                        <h2 className="text-6xl md:text-8xl font-black italic tracking-tighter mb-6 bg-gradient-to-r from-white via-indigo-200 to-indigo-500 bg-clip-text text-transparent leading-[0.9]">
+                        <h2 className="text-6xl md:text-8xl font-black italic tracking-tighter mb-6 bg-linear-to-r from-white via-indigo-200 to-indigo-500 bg-clip-text text-transparent leading-[0.9]">
                             NAAD
                             <span className="block text-4xl md:text-6xl text-white/50 not-italic font-bold mt-2">
                             &apos;26
@@ -45,7 +45,7 @@ export function NaadPromo() {
                                 <span className="relative z-10 flex items-center gap-2">
                                     Register Interest <ArrowUpRight className="w-5 h-5 group-hover:rotate-45 transition-transform" />
                                 </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
+                                <div className="absolute inset-0 bg-linear-to-r from-blue-400 to-indigo-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
                             </Link>
                             <Link href="/naad" className="px-8 py-4 border border-white/20 rounded-full font-mono text-sm uppercase tracking-widest hover:bg-white/5 transition-colors">
                                 Explore The Event
@@ -97,7 +97,7 @@ export function NaadPromo() {
                                 whileInView={{ opacity: 1 }}
                                 className="relative rounded-3xl overflow-hidden h-full min-h-[160px]"
                             >
-                                <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 to-purple-700 opacity-80" />
+                                <div className="absolute inset-0 bg-linear-to-br from-indigo-600 to-purple-700 opacity-80" />
                                 <div className="absolute inset-0 flex items-center justify-center">
                                     <span className="text-4xl font-black italic tracking-tighter opacity-50 rotate-[-15deg]">NAAD</span>
                                 </div>

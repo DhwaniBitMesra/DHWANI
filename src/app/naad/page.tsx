@@ -62,7 +62,7 @@ export default function NaadPage() {
                              <span className="text-sm font-mono uppercase tracking-widest text-zinc-300">BIT Mesra, Ranchi</span>
                         </div>
 
-                        <h1 className="text-[12vw] leading-[0.8] font-black italic tracking-tighter mb-8 bg-gradient-to-b from-white via-indigo-100 to-indigo-900 bg-clip-text text-transparent">
+                        <h1 className="text-[12vw] leading-[0.8] font-black italic tracking-tighter mb-8 bg-linear-to-b from-white via-indigo-100 to-indigo-900 bg-clip-text text-transparent">
                             NAAD
                             <span className="text-[4vw] align-top ml-2 not-italic text-indigo-500 block md:inline-block md:mt-0 mt-4">&apos;26</span>
                         </h1>

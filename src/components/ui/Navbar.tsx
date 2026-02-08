@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Menu, X, Music4 } from 'lucide-react';
+import { useUser, UserButton } from "@stackframe/stack";
 
 const navItems = [
     { name: 'Home', path: '/' },
@@ -22,6 +23,7 @@ export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const pathname = usePathname();
+    const user = useUser();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -99,18 +101,24 @@ export default function Navbar() {
                                 </Link>
                             );
                         })}
-                        {/* ENTER Action Button */}
-                        <Link
-                            href="/enter"
-                            className="relative group flex flex-col items-center gap-1 ml-4"
-                        >
-                            <div className={cn(
-                                "w-1 h-1 rounded-full transition-all duration-300 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
-                            )}></div>
-                            <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">
-                                Enter
-                            </span>
-                        </Link>
+                        {/* ENTER Action Button or User Profile */}
+                        {user ? (
+                             <div className="ml-4 flex items-center">
+                                <UserButton />
+                             </div>
+                        ) : (
+                            <Link
+                                href="/enter"
+                                className="relative group flex flex-col items-center gap-1 ml-4"
+                            >
+                                <div className={cn(
+                                    "w-1 h-1 rounded-full transition-all duration-300 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+                                )}></div>
+                                <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">
+                                    Enter
+                                </span>
+                            </Link>
+                        )}
                     </nav>
 
                     {/* Mobile Menu Toggle */}
@@ -180,18 +188,29 @@ export default function Navbar() {
                                     animate={{ x: 0, opacity: 1 }}
                                     transition={{ delay: navItems.length * 0.05 }}
                                 >
-                                    <Link
-                                        href="/enter"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                        className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors"
-                                    >
-                                        <span className="text-4xl font-black uppercase tracking-tighter italic text-red-500 transition-all group-hover:pl-4">
-                                            ENTER
-                                        </span>
-                                        <span className="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors">
-                                            AUTH
-                                        </span>
-                                    </Link>
+                                    {user ? (
+                                        <div className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors">
+                                           <span className="text-4xl font-black uppercase tracking-tighter italic text-blue-500 transition-all group-hover:pl-4">
+                                                ACCOUNT
+                                            </span>
+                                            <div className="pointer-events-auto">
+                                                <UserButton />
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <Link
+                                            href="/enter"
+                                            onClick={() => setMobileMenuOpen(false)}
+                                            className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors"
+                                        >
+                                            <span className="text-4xl font-black uppercase tracking-tighter italic text-red-500 transition-all group-hover:pl-4">
+                                                ENTER
+                                            </span>
+                                            <span className="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors">
+                                                AUTH
+                                            </span>
+                                        </Link>
+                                    )}
                                 </motion.div>
                             </nav>
 
