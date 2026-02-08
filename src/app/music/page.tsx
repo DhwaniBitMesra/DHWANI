@@ -3,6 +3,7 @@ import FooterNewsletter from '@/components/mvpblocks/footer-newsletter';
 import { getMusic } from "@/lib/api";
 import { Metadata } from "next";
 import { LoungeView } from "@/components/views/LoungeView";
+import { HeroSection as HeroOdyssey } from "@/components/ui/hero-odyssey";
 
 export const metadata: Metadata = {
     title: "Music Lounge & Releases - Dhwani | Listen Now",
@@ -17,11 +18,13 @@ export const metadata: Metadata = {
 export default async function MusicPage() {
     const musicTracks = await getMusic();
     return (
-        <main className="min-h-screen bg-black text-white p-6 md:p-12 relative overflow-hidden">
+        <main className="min-h-screen bg-black text-white relative overflow-hidden">
              {/* Background Ambience */}
              <div className="fixed top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,var(--tw-gradient-stops))] from-indigo-900/30 via-black to-black pointer-events-none"></div>
             
-            <div className="max-w-7xl mx-auto mt-20 relative z-10">
+            <HeroOdyssey />
+
+            <div className="max-w-7xl mx-auto mt-20 relative z-10 px-6 md:px-12">
                 <LoungeView />
                 
                 <div className="mt-24">

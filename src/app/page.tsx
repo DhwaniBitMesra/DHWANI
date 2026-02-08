@@ -1,15 +1,12 @@
-import { HeroSection } from "@/components/ui/hero-odyssey";
-import dynamic from 'next/dynamic';
-import Link from "next/link";
+import { SonicHero } from "@/components/sections/SonicHero";
 import { TheStudio } from "@/components/sections/TheStudio";
-import { TheHeadliner } from "@/components/sections/TheHeadliner";
 import { TheVault } from "@/components/sections/TheVault";
 import { FanMail } from "@/components/sections/FanMail";
 import { FanClub } from "@/components/sections/FanClub";
 import { NaadPromo } from "@/components/sections/NaadPromo";
 import { Testimonial } from "@/components/ui/design-testimonial";
 import { Metadata } from "next";
-import { getEvents } from "@/lib/api";
+// import { getEvents } from "@/lib/api";
 
 export const metadata: Metadata = {
 	title: "Dhwani - Music Society of BIT Mesra | Est. 1998",
@@ -22,15 +19,6 @@ export const metadata: Metadata = {
 };
 
 // --- Static Data Moved from Client Components ---
-
-const HEADLINER_DATA = {
-	tagline: "Lead with",
-	subTagline: "Rhythm.",
-	quote: "Music isn't just about what you hear, it's about what you invoke in others. At Dhwani, we aren't just a club; we are an orchestra of innovation.",
-	name: "Ramendra Proytanshu",
-	role: "President • Drummer • Visionary",
-	image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=512&h=512&q=80"
-};
 
 const MILESTONES_DATA = [
 	{
@@ -115,14 +103,13 @@ const STUDIO_MODULES = [
 
 export default async function Home() {
 	// Inline server data fetching
-	const events = await getEvents();
-	const upcomingEvent = events && events.length > 0 ? events[0] : null;
+	// const events = await getEvents();
+	// const upcomingEvent = events && events.length > 0 ? events[0] : null;
 
 	return (
 		<main className="bg-black min-h-screen">
 			<section id="hero">
-				{/* Hero now receives dynamic data, though we still need to update HeroSection to use it if we want */}
-				<HeroSection />
+				<SonicHero />
 			</section>
 
 			<TheStudio modules={STUDIO_MODULES} />
