@@ -49,7 +49,7 @@ export default function EnterPage() {
 
                 {/* Login Card */}
                 <div className="bg-zinc-900/50 border border-white/10 rounded-2xl p-1 backdrop-blur-xl shadow-2xl shadow-black/50">
-                     <div className="bg-black/40 rounded-xl p-8">
+                     <div className="bg-black/40 rounded-xl p-8 flex justify-center w-full">
                         <SignIn 
                             fullPage={false}
                             automaticRedirect={true} 
