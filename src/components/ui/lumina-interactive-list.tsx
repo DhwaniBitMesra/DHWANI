@@ -75,12 +75,12 @@ export function LuminaHero() {
         const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
 
         const slides = [
-            { title: "Ethereal Glow", description: "A soft, radiant light that illuminates the soul.", media: "https://assets.codepen.io/7558/orange-portrait-001.jpg" },
-            { title: "Rose Mirage", description: "Lost in a desert of blooming dreams and endless horizons.", media: "https://assets.codepen.io/7558/orange-portrait-002.jpg" },
-            { title: "Velvet Mystique", description: "Wrapped in the deep, luxurious embrace of the night.", media: "https://assets.codepen.io/7558/orange-portrait-003.jpg" },
-            { title: "Golden Hour", description: "That fleeting moment when the world is dipped in gold.", media: "https://assets.codepen.io/7558/orange-portrait-004.jpg" },
-            { title: "Midnight Dreams", description: "Where reality fades and imagination takes flight.", media: "https://assets.codepen.io/7558/orange-portrait-005.jpg" },
-            { title: "Silver Light", description: "A cool, metallic shimmer reflecting the urban pulse.", media: "https://assets.codepen.io/7558/orange-portrait-006.jpg" }
+            { title: "Dhwani", description: "The Official Music Society of BIT Mesra. Est 1998.", media: "https://assets.codepen.io/7558/orange-portrait-001.jpg" },
+            { title: "Naad", description: "Where frequency meets soul. The annual sonic experience.", media: "https://assets.codepen.io/7558/orange-portrait-002.jpg" },
+            { title: "Bitotsav", description: "Headlining the Eastern India's largest cultural fest.", media: "https://assets.codepen.io/7558/orange-portrait-003.jpg" },
+            { title: "Studio 404", description: "Precision engineering meets raw creativity.", media: "https://assets.codepen.io/7558/orange-portrait-004.jpg" },
+            { title: "Live", description: "Electrifying performances that resonate beyond the stage.", media: "https://assets.codepen.io/7558/orange-portrait-005.jpg" },
+            { title: "Originals", description: "Composing the future of sound in our labs.", media: "https://assets.codepen.io/7558/orange-portrait-006.jpg" }
         ];
 
         // --- SHADERS ---
