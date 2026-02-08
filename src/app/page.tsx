@@ -1,4 +1,4 @@
-import { SonicHero } from "@/components/sections/SonicHero";
+import { LuminaHero } from "@/components/ui/lumina-interactive-list";
 import { TheStudio } from "@/components/sections/TheStudio";
 import { TheVault } from "@/components/sections/TheVault";
 import { FanMail } from "@/components/sections/FanMail";
@@ -109,7 +109,7 @@ export default async function Home() {
 	return (
 		<main className="bg-black min-h-screen">
 			<section id="hero">
-				<SonicHero />
+				<LuminaHero />
 			</section>
 
 			<TheStudio modules={STUDIO_MODULES} />

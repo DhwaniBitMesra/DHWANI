@@ -25,7 +25,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
     }
 
     return (
-        <article className="min-h-screen bg-[#fffcf5] text-neutral-900 selection:bg-blue-200">
+        <article className="min-h-screen bg-[#fffcf5] dark:bg-black text-neutral-900 dark:text-neutral-100 selection:bg-blue-200 dark:selection:bg-blue-900">
 
             {/* Navigation Bar Placeholder (Global Nav is sticky/fixed, so we just pad) */}
             <div className="h-20 bg-black">
@@ -96,19 +96,19 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
 
                 {/* Main Content */}
                 <div className="md:w-3/4">
-                    <p className="text-2xl md:text-3xl font-serif leading-relaxed text-neutral-800 mb-10 drop-cap italic">
+                    <p className="text-2xl md:text-3xl font-serif leading-relaxed text-neutral-800 dark:text-neutral-200 mb-10 drop-cap italic">
                         {article.excerpt}
                     </p>
 
-                    <div className="prose prose-lg md:prose-xl prose-neutral max-w-none font-serif leading-loose">
-                        <p className="first-letter:text-7xl first-letter:font-black first-letter:text-black first-letter:mr-3 first-letter:float-left">
+                    <div className="prose prose-lg md:prose-xl prose-neutral dark:prose-invert max-w-none font-serif leading-loose">
+                        <p className="first-letter:text-7xl first-letter:font-black first-letter:text-black dark:first-letter:text-white first-letter:mr-3 first-letter:float-left">
                             {article.content}
                         </p>
                         <p>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                         </p>
                         <blockquote>
-                            "Music is the silence between the notes."
+                            &quot;Music is the silence between the notes.&quot;
                         </blockquote>
                         <p>
                             Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
@@ -120,7 +120,7 @@ export default function ArticlePage({ params }: { params: Promise<{ slug: string
                         </p>
                     </div>
 
-                    <div className="mt-20 pt-10 border-t border-black/10">
+                    <div className="mt-20 pt-10 border-t border-black/10 dark:border-white/10">
                         <h3 className="text-xl font-bold mb-6">More from the Archive</h3>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
                             {newsItems.filter(i => i.slug !== slug).slice(0, 2).map((item, idx) => (
