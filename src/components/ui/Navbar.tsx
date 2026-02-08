@@ -11,7 +11,7 @@ const navItems = [
     { name: 'Home', path: '/' },
     { name: 'News', path: '/news' },
     { name: 'Events', path: '/events' },
-    { name: 'Charts', path: '/bands' },
+    // { name: 'Charts', path: '/bands' },
     { name: 'Music', path: '/music' },
     { name: 'Team', path: '/team' },
     { name: 'Archive', path: '/archive' },
@@ -99,6 +99,21 @@ export default function Navbar() {
                                 </Link>
                             );
                         })}
+                        {/* ENTER Action Button */}
+                        <button
+                            className="relative group flex flex-col items-center gap-1 ml-4"
+                            onClick={() => {
+                                // Placeholder for Login/Logout logic
+                                console.log("Enter/Login clicked");
+                            }}
+                        >
+                            <div className={cn(
+                                "w-1 h-1 rounded-full transition-all duration-300 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
+                            )}></div>
+                            <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">
+                                Enter
+                            </span>
+                        </button>
                     </nav>
 
                     {/* Mobile Menu Toggle */}
@@ -163,6 +178,26 @@ export default function Navbar() {
                                         </Link>
                                     </motion.div>
                                 ))}
+                                <motion.div
+                                    initial={{ x: -50, opacity: 0 }}
+                                    animate={{ x: 0, opacity: 1 }}
+                                    transition={{ delay: navItems.length * 0.05 }}
+                                >
+                                    <button
+                                        onClick={() => {
+                                            setMobileMenuOpen(false);
+                                            console.log("Enter/Login clicked");
+                                        }}
+                                        className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors"
+                                    >
+                                        <span className="text-4xl font-black uppercase tracking-tighter italic text-red-500 transition-all group-hover:pl-4">
+                                            ENTER
+                                        </span>
+                                        <span className="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors">
+                                            AUTH
+                                        </span>
+                                    </button>
+                                </motion.div>
                             </nav>
 
                             <div className="mt-12 text-center">

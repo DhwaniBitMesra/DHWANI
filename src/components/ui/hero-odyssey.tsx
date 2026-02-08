@@ -81,9 +81,8 @@ export function HeroSection() {
             </div>
           </div>
         </div>
-
+{/* 
         <div className="md:px-20 px-6 gap-12 items-end md:flex pt-12 z-20">
-          {/* Interactive Music Artwork (Replaces static image) */}
           <div className="relative w-full md:w-auto mb-8 md:mb-0">
             <div className="relative z-10">
               <MusicArtwork
@@ -93,8 +92,7 @@ export function HeroSection() {
                 isSong={false}
               />
             </div>
-            {/* Decorative 'Lounge' Link styled as a sticker near the vinyl */}
-            <Link href="/lounge" className="absolute -bottom-4 -right-8 z-30 px-6 py-2 bg-white text-black font-black uppercase italic -rotate-3 hover:rotate-0 transition-transform duration-300 shadow-xl [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%)] hover:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]">
+            <Link href="/music" className="absolute -bottom-4 -right-8 z-30 px-6 py-2 bg-white text-black font-black uppercase italic -rotate-3 hover:rotate-0 transition-transform duration-300 shadow-xl [clip-path:polygon(0_0,100%_0,100%_100%,5%_100%)] hover:[clip-path:polygon(0_0,100%_0,100%_100%,0_100%)]">
               Enter Lounge ↗
             </Link>
           </div>
@@ -102,12 +100,12 @@ export function HeroSection() {
           <p className="text-xs text-zinc-500 md:text-sm pt-8 leading-relaxed max-w-md">
             Join the official music society of BIT Mesra. From classical ragas to heavy metal riffs, we find harmony in chaos.
           </p>
-        </div>
+        </div> */}
 
-        <div className="absolute bottom-8 right-8 md:right-12 flex gap-6 z-30">
+        {/* <div className="absolute bottom-8 right-8 md:right-12 flex gap-6 z-30">
           <a href="#" className="hover:text-blue-500 transition-colors"><Instagram className="w-5 h-5" /></a>
           <a href="#" className="hover:text-red-500 transition-colors"><Youtube className="w-5 h-5" /></a>
-        </div>
+        </div> */}
 
         <div className="hidden lg:flex fixed right-0 top-1/2 h-36 items-center transform -translate-y-1/2 z-50">
           <div className="bg-blue-600 text-white py-6 px-3 text-sm font-bold shadow-lg shadow-blue-900/20 rounded-l-lg hover:pr-4 transition-all cursor-pointer">
