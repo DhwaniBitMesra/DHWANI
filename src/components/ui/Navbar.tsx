@@ -103,9 +103,12 @@ export default function Navbar() {
                         })}
                         {/* ENTER Action Button or User Profile */}
                         {user ? (
-                             <div className="ml-4 flex items-center">
+                            <div className="ml-4 flex items-center gap-4">
+                                <Link href="/account" className="hidden lg:block text-xs font-mono uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">
+                                    My ID
+                                </Link>
                                 <UserButton />
-                             </div>
+                            </div>
                         ) : (
                             <Link
                                 href="/enter"
@@ -189,11 +192,23 @@ export default function Navbar() {
                                     transition={{ delay: navItems.length * 0.05 }}
                                 >
                                     {user ? (
-                                        <div className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors">
-                                           <span className="text-4xl font-black uppercase tracking-tighter italic text-blue-500 transition-all group-hover:pl-4">
-                                                ACCOUNT
-                                            </span>
-                                            <div className="pointer-events-auto">
+                                        <div className="flex flex-col gap-2">
+                                            <Link
+                                                href="/account"
+                                                onClick={() => setMobileMenuOpen(false)}
+                                                className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors"
+                                            >
+                                                <span className="text-4xl font-black uppercase tracking-tighter italic text-blue-500 transition-all group-hover:pl-4">
+                                                    MY ID
+                                                </span>
+                                                <span className="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors">
+                                                    ACCOUNT
+                                                </span>
+                                            </Link>
+                                            <div className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors pointer-events-auto">
+                                                 <span className="text-xl font-bold uppercase tracking-tighter italic text-white/50 transition-all group-hover:pl-4">
+                                                    SETTINGS
+                                                </span>
                                                 <UserButton />
                                             </div>
                                         </div>
