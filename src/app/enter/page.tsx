@@ -3,6 +3,7 @@
 import { SignIn } from "@stackframe/stack";
 import { MoveLeft } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function EnterPage() {
@@ -11,6 +12,26 @@ export default function EnterPage() {
             
             {/* Background Ambience */}
             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-indigo-900/40 via-black to-black pointer-events-none"></div>
+            
+            {/* Decorative Music Images */}
+            <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute left-0 top-1/4 w-1/3 h-1/2 opacity-20">
+                    <Image 
+                        src="/music-studio-dark.png" 
+                        alt="" 
+                        fill 
+                        className="object-cover blur-sm"
+                    />
+                </div>
+                <div className="absolute right-0 bottom-1/4 w-1/3 h-1/2 opacity-20">
+                    <Image 
+                        src="/indian-instruments-cyber.png" 
+                        alt="" 
+                        fill 
+                        className="object-cover blur-sm"
+                    />
+                </div>
+            </div>
             
              {/* Back Link */}
              <motion.div 
