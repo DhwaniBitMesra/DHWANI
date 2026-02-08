@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate, Variants } from "framer-motion";
-import { Play, Sparkles, Music, Mic2, Radio, Disc, Zap } from "lucide-react";
+import { motion, useScroll, useTransform, useMotionValue, Variants } from "framer-motion";
+import { Sparkles, Music, Mic2, Radio, Disc, Zap } from "lucide-react";
 import { useState, Suspense, lazy, useEffect, useRef } from "react";
 // import { cn } from "@/lib/utils";
 
@@ -45,11 +45,9 @@ const useScrambleText = (text: string, speed: number = 50) => {
         }
 
         const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?/ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let interval: NodeJS.Timeout;
         let iteration = 0;
-        
-        interval = setInterval(() => {
-            setDisplayedText(prev => 
+        const interval = setInterval(() => {
+            setDisplayedText(() => 
                 text.split("").map((letter, index) => {
                     if (index < iteration) return text[index];
                     return chars[Math.floor(Math.random() * chars.length)];
@@ -129,7 +127,7 @@ export function SonicHero() {
     const opacity = useTransform(scrollY, [0, 400], [1, 0]);
     const scale = useTransform(scrollY, [0, 500], [1, 0.9]);
 
-    const titleLetters = "DHWANI".split("");
+    const titleLetters = ["ध्व", "नि"];
     const [isHovered, setIsHovered] = useState(false);
 
     // Audio bar random heights generator
@@ -196,21 +194,6 @@ export function SonicHero() {
                 style={{ y: y1, opacity, scale }} 
                 className="relative z-20 text-center px-6 perspective-[1200px] flex flex-col items-center"
             >
-                {/* Badge */}
-                <motion.div 
-                    initial={{ opacity: 0, y: -20, rotateX: 90 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{ delay: 1, duration: 0.8 }}
-                    className="inline-flex items-center gap-3 px-5 py-2 rounded-full border border-zinc-800 bg-black/50 backdrop-blur-md mb-12 hover:border-indigo-500/50 transition-colors group/badge cursor-pointer"
-                >
-                    <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500 group-hover/badge:bg-indigo-500 transition-colors"></span>
-                    </span>
-                    <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-zinc-500 group-hover/badge:text-indigo-400 transition-colors">
-                        <ScrambleText text="System Online • v2.0" />
-                    </span>
-                </motion.div>
 
                 {/* Hero Title - Chromatic Aberration */}
                 <div className="relative flex justify-center flex-wrap overflow-visible mb-8 perspective-[1000px] mix-blend-screen">
@@ -222,7 +205,7 @@ export function SonicHero() {
                             initial="initial"
                             animate="animate"
                             whileHover="hover"
-                            className="text-[18vw] md:text-[15vw] leading-[0.75] font-black tracking-tighter text-white cursor-default select-none relative z-10"
+                            className="text-[25vw] md:text-[20vw] leading-[0.8] font-black tracking-normal text-white cursor-default select-none relative z-10 font-(family-name:--font-gotu)"
                             style={{ 
                                 display: "inline-block", 
                                 transformStyle: "preserve-3d",
@@ -236,7 +219,7 @@ export function SonicHero() {
                     {/* Decorative Stroke Copy for Depth */}
                     <div className="absolute top-2 left-2 w-full h-full flex justify-center flex-wrap opacity-20 pointer-events-none -z-10 blur-[2px]">
                          {titleLetters.map((letter, i) => (
-                             <span key={i} className="text-[18vw] md:text-[15vw] leading-[0.75] font-black tracking-tighter text-transparent bg-clip-text bg-linear-to-b from-indigo-500 to-transparent">
+                             <span key={i} className="text-[25vw] md:text-[20vw] leading-[0.8] font-black tracking-normal text-transparent bg-clip-text bg-linear-to-b from-indigo-500 to-transparent font-(family-name:--font-gotu)">
                                  {letter}
                              </span>
                          ))}
@@ -254,7 +237,7 @@ export function SonicHero() {
                         <ScrambleText text="AMPLIFYING CULTURE SINCE 1998." className="text-zinc-300" />
                         <br />
                         <span className="text-xs uppercase tracking-widest opacity-50">
-                            // DISTORTION DETECTED //
+                            {"// DISTORTION DETECTED //"}
                         </span>
                     </p>
 
@@ -309,7 +292,7 @@ export function SonicHero() {
                  style={{ opacity }}
                  className="absolute bottom-8 left-8 flex items-center gap-4 z-20 pointer-events-none mix-blend-difference"
             >
-                <div className="h-[1px] w-12 bg-white/50" />
+                <div className="h-px w-12 bg-white/50" />
                 <span className="text-[10px] font-mono uppercase tracking-widest text-white/50"> SCROLL </span>
             </motion.div>
 
