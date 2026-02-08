@@ -16,7 +16,7 @@ const navItems = [
     { name: 'Music', path: '/music' },
     { name: 'Team', path: '/team' },
     { name: 'Archive', path: '/archive' },
-    { name: 'Contact', path: '/contact' },
+    { name: 'NAAD', path: '/naad' },
 ];
 
 export default function Navbar() {
