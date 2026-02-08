@@ -10,7 +10,7 @@ export default function SplashScreen() {
         // Force splash screen to show for at least 4 seconds, even on fast loads
         const timer = setTimeout(() => {
             setIsVisible(false);
-        }, 10000);
+        }, 4000);
 
         return () => clearTimeout(timer);
     }, []);
