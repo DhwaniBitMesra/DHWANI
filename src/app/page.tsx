@@ -6,6 +6,7 @@ import { TheHeadliner } from "@/components/sections/TheHeadliner";
 import { TheVault } from "@/components/sections/TheVault";
 import { FanMail } from "@/components/sections/FanMail";
 import { FanClub } from "@/components/sections/FanClub";
+import { NaadPromo } from "@/components/sections/NaadPromo";
 import { Testimonial } from "@/components/ui/design-testimonial";
 import { Metadata } from "next";
 import { getEvents } from "@/lib/api";
@@ -127,6 +128,10 @@ export default async function Home() {
 			<TheStudio modules={STUDIO_MODULES} />
 
 			{/* <TheHeadliner data={HEADLINER_DATA} /> */}
+
+			<section id="naad-promo">
+				<NaadPromo />
+			</section>
 
 			<section id="legacy">
 				<TheVault milestones={MILESTONES_DATA} />
