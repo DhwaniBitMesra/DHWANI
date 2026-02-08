@@ -100,12 +100,9 @@ export default function Navbar() {
                             );
                         })}
                         {/* ENTER Action Button */}
-                        <button
+                        <Link
+                            href="/enter"
                             className="relative group flex flex-col items-center gap-1 ml-4"
-                            onClick={() => {
-                                // Placeholder for Login/Logout logic
-                                console.log("Enter/Login clicked");
-                            }}
                         >
                             <div className={cn(
                                 "w-1 h-1 rounded-full transition-all duration-300 bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.8)]"
@@ -113,7 +110,7 @@ export default function Navbar() {
                             <span className="text-xs font-mono uppercase tracking-widest text-neutral-400 group-hover:text-white transition-colors">
                                 Enter
                             </span>
-                        </button>
+                        </Link>
                     </nav>
 
                     {/* Mobile Menu Toggle */}
@@ -183,11 +180,9 @@ export default function Navbar() {
                                     animate={{ x: 0, opacity: 1 }}
                                     transition={{ delay: navItems.length * 0.05 }}
                                 >
-                                    <button
-                                        onClick={() => {
-                                            setMobileMenuOpen(false);
-                                            console.log("Enter/Login clicked");
-                                        }}
+                                    <Link
+                                        href="/enter"
+                                        onClick={() => setMobileMenuOpen(false)}
                                         className="group w-full flex items-center justify-between py-2 border-b border-white/10 hover:border-white/50 transition-colors"
                                     >
                                         <span className="text-4xl font-black uppercase tracking-tighter italic text-red-500 transition-all group-hover:pl-4">
@@ -196,7 +191,7 @@ export default function Navbar() {
                                         <span className="text-xs font-mono text-neutral-600 group-hover:text-white transition-colors">
                                             AUTH
                                         </span>
-                                    </button>
+                                    </Link>
                                 </motion.div>
                             </nav>
 
