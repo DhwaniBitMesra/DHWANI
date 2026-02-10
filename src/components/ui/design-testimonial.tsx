@@ -10,7 +10,7 @@ const testimonials = [
     quote: "The energy Dhwani brings to the stage is unmatched. Pure electric soul.",
     author: "Amit Roy",
     role: "Alumni '18",
-    company: "Sony Music",
+    company: "NAAD",
   },
   {
     quote: "Joining this club was the turning point of my college life. Found my rhythm.",

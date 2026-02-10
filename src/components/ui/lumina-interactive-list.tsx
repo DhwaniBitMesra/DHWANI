@@ -75,12 +75,12 @@ export function LuminaHero() {
         const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
 
         const slides = [
-            { title: "Dhwani", description: "The Official Music Society of BIT Mesra. Est 1998.", media: "/hero-dhwani.png" },
-            { title: "Naad", description: "Where frequency meets soul. The annual sonic experience.", media: "/hero-naad.png" },
-            { title: "Bitotsav", description: "Headlining the Eastern India's largest cultural fest.", media: "/hero-bitotsav.png" },
-            { title: "Studio 404", description: "Precision engineering meets raw creativity.", media: "/hero-studio.png" },
-            { title: "Live", description: "Electrifying performances that resonate beyond the stage.", media: "/hero-live.png" },
-            { title: "Originals", description: "Composing the future of sound in our labs.", media: "/hero-originals.png" }
+            { title: "Dhwani", description: "The Official Music Society of BIT Mesra. Est 1998.", media: "/_MG_0242.jpg" },
+            { title: "Naad", description: "Where frequency meets soul. The annual sonic experience.", media: "/NAAD.jpg" },
+            { title: "Bitotsav", description: "Headlining the Eastern India's largest cultural fest.", media: "/BITOTSAV.jpg" },
+            // { title: "Studio 404", description: "Precision engineering meets raw creativity.", media: "/hero-studio.png" },
+            { title: "Live Jam", description: "Electrifying performances that resonate beyond the stage.", media: "/LiveJam.png" },
+            { title: "Pantheon", description: "Dhwani music club's performance at annual Technical fest.", media: "/pantheon.jpg" }
         ];
 
         // --- SHADERS ---

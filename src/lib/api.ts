@@ -1,6 +1,7 @@
 import { gql } from 'graphql-request';
 import { hygraph } from './hygraph';
 import { teamMembers, events, newsItems, galleryImages, musicItems } from '@/data/fallback';
+import teamMembersJson from '@/data/team-members.json';
 
 // --- Queries ---
 
@@ -84,25 +85,21 @@ const MUSIC_QUERY = gql`
 // --- Fetchers with Fallback ---
 
 export async function getTeam() {
-  try {
-    const { teamMembers: data } = await hygraph.request<any>(TEAM_QUERY);
-    if (!data || data.length === 0) throw new Error("No data");
-
-    // Transform to match local shape if needed (e.g. mapping social links)
-    return data.map((member: any) => ({
-      ...member,
-      image: member.image?.url || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/person-with-winter-hat-scarf-cold-5KFfWSpCqM4Ksf7yXgiVhxSweVw5tH.jpg",
-      socialMedia: {
-        instagram: member.instagramUrl,
-        linkedin: member.linkedinUrl,
-        github: member.githubUrl,
-        email: member.email
-      }
-    }));
-  } catch (error) {
-    console.warn("Using fallback data for Team Members:", error);
-    return teamMembers;
-  }
+  return (teamMembersJson as any[]).map((member, index) => ({
+    id: member.id ?? member.slug ?? index + 1,
+    name: member.name,
+    role: member.role,
+    bio: member.bio,
+    image: member.image || "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/person-with-winter-hat-scarf-cold-5KFfWSpCqM4Ksf7yXgiVhxSweVw5tH.jpg",
+    categories: member.categories || [],
+    skills: member.skills || [],
+    socialMedia: {
+      instagram: member.instagramUrl || undefined,
+      linkedin: member.linkedinUrl || undefined,
+      github: member.githubUrl || undefined,
+      email: member.email || undefined
+    }
+  }));
 }
 
 export async function getEvents() {

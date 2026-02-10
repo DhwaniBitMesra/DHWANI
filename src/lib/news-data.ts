@@ -1,42 +1,42 @@
 export const newsItems = [
     {
-        slug: "dhwani-originals-vol-1",
-        category: "New Release",
-        title: "Dhwani Originals Vol. 1 Drops This Friday",
-        excerpt: "The long-awaited compilation album featuring 12 original tracks from our club members is finally here. Pre-save now.",
-        date: "2 HOURS AGO",
-        image: "https://images.unsplash.com/photo-1493225255756-d9584f8606e9?q=80&w=2670&auto=format&fit=crop",
+        slug: "hritam-goldar-wins-war-of-djs-2026",
+        category: "Achievement",
+        title: "Dhwani’s Hritam Goldar Wins War of DJs at Mood Indigo 2026",
+        excerpt: "Hritam Goldar emerged champion in Hysteria, The War of DJs, one of the festival’s most competitive events.",
+        date: "JUST NOW",
+        image: "https://ap-south-1.graphassets.com/cmjroz363064606pn7w28dn16/cmldvmter1uet07pj3vnkul9l?q=80&w=2670&auto=format&fit=crop",
         size: "large",
-        content: "After months of rigorous recording sessions, sleepless nights in the jam room, and countless coffee runs, Dhwani is proud to announce its first-ever compilation album. 'Dhwani Originals Vol. 1' features 12 tracks spanning genres from progressive metal to indie folk, all written, performed, and produced by students of BIT Mesra. The album will be available on all major streaming platforms starting this Friday."
+        content: "Hritam Goldar, a member of Dhwani, BIT Mesra’s Music Club, delivered a commanding performance at Mood Indigo 2026, securing first place in Hysteria, War of DJs. Competing against talented DJs from institutions across the country, his set stood out for its energy, seamless transitions, and strong crowd engagement. The victory highlights both his technical skill and stage presence, while also marking a proud moment for Dhwani and BIT Mesra on a nationally renowned cultural platform."
     },
     {
-        slug: "riot-wins-battle-of-bands",
-        category: "Spotlight",
-        title: "Interview: How 'The Riot' Won Battle of Bands",
-        excerpt: "We sat down with the lead guitarist of our champion band to discuss their creative process and gear.",
+        slug: "antimony-kashiyatra-2026",
+        category: "Achievement",
+        title: "Antimony Sets Spitfire Ablaze at Kashiyatra 2026",
+        excerpt: "Dhwani’s Antimony left his mark at Kashiyatra 2026, securing the Spitfire silver in the flagship rap battle.",
         date: "1 DAY AGO",
-        image: "https://images.unsplash.com/photo-1598387993441-a364f854c3e1?q=80&w=2676&auto=format&fit=crop",
+        image: "https://ap-south-1.graphassets.com/cmjroz363064606pn7w28dn16/cmldvq0ru1t9q06pgni59mdic?q=80&w=2670&auto=format&fit=crop",
         size: "small",
-        content: "It was a night to remember. The crowd was roaring, the amps were cranked to 11, and 'The Riot' delivered a performance that will be talked about for years. We caught up with the band backstage to ask them about their winning strategy, their influences, and what's next for the group."
+        content: "Antimony delivered a standout performance at Kashiyatra 2026, securing second place in Spitfire, the flagship rap battle of the festival. Representing Dhwani, BIT Mesra’s Music Club, the K25 rapper impressed both the audience and judges with sharp lyricism and a strong stage presence. The achievement marks a notable moment for BIT Mesra on a national cultural platform."
     },
     {
-        slug: "new-studio-monitors",
-        category: "Gear Talk",
-        title: "New Studio Monitor Setup in Jam Room",
-        excerpt: "Thanks to the alumni fund, we've upgraded our listening experience with top-tier monitors.",
-        date: "3 DAYS AGO",
-        image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2670&auto=format&fit=crop",
+        slug: "live-jam-10-years",
+        category: "Milestone",
+        title: "Ten Years. Countless Chords. Dhwani’s Live Jam Marks a Musical Decade",
+        excerpt: "Dhwani’s Live Jam at BIT Mesra completed ten years in September 2025, marking a legacy of campus music.",
+        date: "5 MONTHS AGO",
+        image: "https://images.unsplash.com/photo-1501612780327-45045538702b?q=80&w=2670&auto=format&fit=crop",
         size: "small",
-        content: "The Dhwani jam room just got a major upgrade. With a generous donation from our alumni network, we've installed a pair of industry-standard studio monitors. This will allow our members to mix and master their tracks with precision, ensuring that the sound of Dhwani is clearer and more professional than ever before."
+        content: "Dhwani, the Music Club of BIT Mesra, completed ten years of its iconic one-day event, Live Jam, in September 2025. Held annually, Live Jam brings together campus bands and individual performers for an evening of live performances, transforming the IC area into a vibrant hub of music, collaboration, and student energy."
     },
-    {
-        slug: "mastering-workshop-recap",
-        category: "Workshop",
-        title: "Mastering the Mix: Weekend Workshop Recap",
-        excerpt: "Key takeaways from our session with producer Amit Trivedi (Visiting Faculty).",
-        date: "1 WEEK AGO",
-        image: "https://images.unsplash.com/photo-1598653222000-6b7b7a552625?q=80&w=2670&auto=format&fit=crop",
+    {   
+        slug: "gungun-kumari-srijan-win",
+        category: "Achievement",
+        title: "Gungun Kumari Makes Her Mark at Srijan, Wins Second Prize",
+        excerpt: "Dhwani’s Gungun Kumari bags second runner-up position in Aaroh, organised by IIT (ISM) Dhanbad.",
+        date: "2 WEEKS AGO",
+        image: "https://ap-south-1.graphassets.com/cmjroz363064606pn7w28dn16/cmlf52emn48wi06pgdhdqds7d?q=80&w=2670&auto=format&fit=crop",
         size: "wide",
-        content: "Last weekend, we had the privilege of hosting renowned producer Amit Trivedi for a two-day workshop on music production. From EQ techniques to master bus compression, Amit shared his secrets for getting a pro-sounding mix. Here are the key takeaways for those who missed it."
+        content: "Gungun Kumari, a member of Dhwani, the Music Club of BIT Mesra, won the second prize at Aaroh, a competitive event held as part of Srijan, the annual cultural festival of IIT (ISM) Dhanbad. Her performance stood out among participants from various institutions, earning appreciation from the judges and audience alike. The achievement adds to Dhwani’s growing presence at inter-college cultural platforms."
     }
 ];
