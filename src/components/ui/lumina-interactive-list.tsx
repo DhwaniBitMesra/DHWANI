@@ -1,14 +1,55 @@
 "use client";
 
-import React, { useEffect, useRef } from 'react';
+import Image from "next/image";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 declare const gsap: any;
 declare const THREE: any;
 
+const slides = [
+    { title: "Dhwani", description: "The Official Music Society of BIT Mesra. Est 1998.", media: "/_MG_0242.jpg" },
+    { title: "Naad", description: "Where frequency meets soul. The annual sonic experience.", media: "/NAAD.jpg" },
+    { title: "Bitotsav", description: "Headlining the Eastern India's largest cultural fest.", media: "/Bitotsav.jpg" },
+    // { title: "Studio 404", description: "Precision engineering meets raw creativity.", media: "/hero-studio.png" },
+    { title: "Live Jam", description: "Electrifying performances that resonate beyond the stage.", media: "/LiveJam.jpg" },
+    { title: "Pantheon", description: "Dhwani music club's performance at annual Technical fest.", media: "/pantheon.jpg" }
+];
+
 export function LuminaHero() {
   const containerRef = useRef<HTMLDivElement>(null);
+    const initStartedRef = useRef(false);
+    const preloadReadyRef = useRef(false);
+    const preloadTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const optimizedSrcsRef = useRef<(string | null)[]>([]);
+    const [preloadReady, setPreloadReady] = useState(false);
+
+    const handleImageReady = useCallback((index: number, img: HTMLImageElement) => {
+        optimizedSrcsRef.current[index] = img.currentSrc || img.src;
+        if (!preloadReadyRef.current && index === 0) {
+            preloadReadyRef.current = true;
+            setPreloadReady(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        preloadTimeoutRef.current = setTimeout(() => {
+            if (!preloadReadyRef.current) {
+                preloadReadyRef.current = true;
+                setPreloadReady(true);
+            }
+        }, 2000);
+
+        return () => {
+            if (preloadTimeoutRef.current) {
+                clearTimeout(preloadTimeoutRef.current);
+            }
+        };
+    }, []);
 
   useEffect(() => {
+        if (!preloadReady || initStartedRef.current) return;
+        initStartedRef.current = true;
+
     // --- DYNAMIC SCRIPT LOADING ---
     const loadScripts = async () => {
       const loadScript = (src: string, globalName: string) => new Promise<void>((res, rej) => {
@@ -73,15 +114,6 @@ export function LuminaHero() {
         const SLIDE_DURATION = () => SLIDER_CONFIG.settings.autoSlideSpeed;
         const PROGRESS_UPDATE_INTERVAL = 50;
         const TRANSITION_DURATION = () => SLIDER_CONFIG.settings.transitionDuration;
-
-        const slides = [
-            { title: "Dhwani", description: "The Official Music Society of BIT Mesra. Est 1998.", media: "/_MG_0242.jpg" },
-            { title: "Naad", description: "Where frequency meets soul. The annual sonic experience.", media: "/NAAD.jpg" },
-            { title: "Bitotsav", description: "Headlining the Eastern India's largest cultural fest.", media: "/BITOTSAV.jpg" },
-            // { title: "Studio 404", description: "Precision engineering meets raw creativity.", media: "/hero-studio.png" },
-            { title: "Live Jam", description: "Electrifying performances that resonate beyond the stage.", media: "/LiveJam.png" },
-            { title: "Pantheon", description: "Dhwani music club's performance at annual Technical fest.", media: "/pantheon.jpg" }
-        ];
 
         // --- SHADERS ---
         const vertexShader = `varying vec2 vUv; void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }`;
@@ -343,7 +375,10 @@ export function LuminaHero() {
             });
             scene.add(new THREE.Mesh(new THREE.PlaneGeometry(2, 2), shaderMaterial));
             
-            for (const s of slides) { try { slideTextures.push(await loadImageTexture(s.media)); } catch { console.warn("Failed texture"); } }
+            for (let i = 0; i < slides.length; i += 1) {
+                const src = optimizedSrcsRef.current[i] || slides[i].media;
+                try { slideTextures.push(await loadImageTexture(src)); } catch { console.warn("Failed texture"); }
+            }
             if (slideTextures.length >= 2) {
                 shaderMaterial.uniforms.uTexture1.value = slideTextures[0];
                 shaderMaterial.uniforms.uTexture2.value = slideTextures[1];
@@ -381,7 +416,7 @@ export function LuminaHero() {
 
     loadScripts();
     return () => {};
-  }, []);
+    }, [preloadReady]);
 
   return (
     <>
@@ -391,6 +426,7 @@ export function LuminaHero() {
         .slide-content { position: absolute; bottom: 15%; left: 5%; z-index: 10; pointer-events: none; color: white; }
         .slide-title { font-family: var(--font-gotu), sans-serif; font-size: clamp(3rem, 8vw, 8rem); font-weight: 900; line-height: 0.9; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: -0.05em; mix-blend-mode: overlay; opacity: 0.9; }
         .slide-description { font-family: var(--font-mono); font-size: 0.9rem; max-width: 400px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.5; }
+                .image-preloaders { position: absolute; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none; }
         
         .slides-navigation { position: absolute; bottom: 5%; right: 5%; display: flex; flex-direction: column; gap: 10px; z-index: 20; align-items: flex-end; }
         .slide-nav-item { display: flex; align-items: center; gap: 10px; cursor: pointer; pointer-events: auto; opacity: 0.5; transition: opacity 0.3s; }
@@ -407,6 +443,20 @@ export function LuminaHero() {
       `}</style>
 
       <main className="slider-wrapper" ref={containerRef}>
+                <div className="image-preloaders" aria-hidden="true">
+                    {slides.map((slide, index) => (
+                        <Image
+                            key={slide.media}
+                            src={slide.media}
+                            alt=""
+                            width={1600}
+                            height={900}
+                            sizes="100vw"
+                            priority={index === 0}
+                            onLoadingComplete={(img) => handleImageReady(index, img)}
+                        />
+                    ))}
+                </div>
         <canvas className="webgl-canvas"></canvas>
         <span className="slide-number" id="slideNumber">01</span>
         <span className="slide-total" id="slideTotal">06</span>

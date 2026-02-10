@@ -4,9 +4,9 @@ import { Instagram, Linkedin, Youtube, Music, Disc, Heart } from 'lucide-react';
 import Link from 'next/link';
 
 const socialIcons = [
-    { icon: <Instagram className="h-5 w-5" />, href: 'https://instagram.com/dhwanibitmesra', label: 'Instagram' },
-    { icon: <Linkedin className="h-5 w-5" />, href: '#', label: 'LinkedIn' },
-    { icon: <Youtube className="h-5 w-5" />, href: '#', label: 'YouTube' },
+    { icon: <Instagram className="h-5 w-5" />, href: 'https://www.instagram.com/dhwani.bitmesra?igsh=cngyNTcwazV5cmRp', label: 'Instagram' },
+    { icon: <Linkedin className="h-5 w-5" />, href: 'https://www.linkedin.com/in/dhwani-music-club-bit-mesra-56b63a243?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app', label: 'LinkedIn' },
+    { icon: <Youtube className="h-5 w-5" />, href: 'https://youtube.com/@dhwani-musicclubbitmesra4525?si=mcizwu9f5qDLVB3r', label: 'YouTube' },
 ];
 
 const trackList = [
@@ -108,7 +108,7 @@ export function FanClub() {
                         <Link href="#" className="hover:text-white transition-colors">Privacy Policy</Link>
                         <Link href="#" className="hover:text-white transition-colors">Terms of Service</Link>
                         <div className="flex items-center gap-1.5 text-white/20">
-                            Made with <Heart className="w-3 h-3 fill-current text-red-500/50" /> and Music by <a href='https://linkedin.com/in/sh20raj'>Shaswat</a>
+                            Made with <Heart className="w-3 h-3 fill-current text-red-500/50" /> and Music by <a href='https://www.instagram.com/dhwani.bitmesra?igsh=cngyNTcwazV5cmRp'>Dhwani</a>
                         </div>
                     </div>
                 </div>

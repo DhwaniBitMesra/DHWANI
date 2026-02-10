@@ -30,22 +30,22 @@ export default async function TeamPage() {
                 </p>
                 <div className="flex items-center justify-center gap-8">
                     <a 
-                        href="https://github.com/sh20raj" 
+                        href="https://github.com/dhwanibitmesra" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="group flex items-center gap-2 text-zinc-400 hover:text-white transition-colors"
                     >
                         <Github className="w-5 h-5 group-hover:scale-110 transition-transform" /> 
-                        <span className="font-mono text-sm">@sh20raj</span>
+                        <span className="font-mono text-sm">@dhwanibitmesra</span>
                     </a>
                     <a 
-                        href="https://linkedin.com/in/sh20raj" 
+                        href="https://linkedin.com/in/dhwanibitmesra" 
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="group flex items-center gap-2 text-zinc-400 hover:text-blue-400 transition-colors"
                     >
                         <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" /> 
-                        <span className="font-mono text-sm">@sh20raj</span>
+                        <span className="font-mono text-sm">@dhwanibitmesra</span>
                     </a>
                 </div>
             </section>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Linkedin } from "@aliimam/icons";
 import { motion } from "framer-motion";
 import { Send, MapPin, Mail, Instagram, Youtube, Twitter } from "lucide-react";
 
@@ -63,11 +64,11 @@ export function FanMail() {
                         {/* Social "Pick" Stickers */}
                         <div className="flex gap-4 pt-4 pl-4">
                             {[
-                                { Icon: Instagram, color: "bg-pink-500", rotate: "rotate-6" },
-                                { Icon: Youtube, color: "bg-red-600", rotate: "-rotate-12" },
-                                { Icon: Twitter, color: "bg-blue-400", rotate: "rotate-3" }
+                                { Icon: Instagram, color: "bg-pink-500", rotate: "rotate-6" , url: 'https://www.instagram.com/dhwani.bitmesra?igsh=cngyNTcwazV5cmRp'},
+                                { Icon: Youtube, color: "bg-red-600", rotate: "-rotate-12" , url: 'https://youtube.com/@dhwani-musicclubbitmesra4525?si=mcizwu9f5qDLVB3r' },
+                                { Icon: Linkedin, color: "bg-blue-400", rotate: "rotate-3" , url: 'https://www.linkedin.com/in/dhwani-music-club-bit-mesra-56b63a243?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app' },
                             ].map((item, i) => (
-                                <a key={i} href="#" className={`w-14 h-14 ${item.color} shadow-lg flex items-center justify-center text-white transform ${item.rotate} hover:rotate-0 hover:scale-110 transition-all duration-300 border-2 border-white/20`}>
+                                <a key={i} href={item.url} className={`w-14 h-14 ${item.color} shadow-lg flex items-center justify-center text-white transform ${item.rotate} hover:rotate-0 hover:scale-110 transition-all duration-300 border-2 border-white/20`}>
                                     <item.Icon className="w-6 h-6 fill-current" />
                                 </a>
                             ))}

@@ -45,9 +45,9 @@ export const ContactSection = () => {
                         </div>
 
                         <div className="flex gap-4">
-                            <SocialIcon icon={<Instagram className="w-5 h-5" />} href="https://instagram.com" />
-                            <SocialIcon icon={<Youtube className="w-5 h-5" />} href="https://youtube.com" />
-                            <SocialIcon icon={<Linkedin className="w-5 h-5" />} href="https://linkedin.com" />
+                            <SocialIcon icon={<Instagram className="w-5 h-5" />} href="https://www.instagram.com/dhwani.bitmesra?igsh=cngyNTcwazV5cmRp" />
+                            <SocialIcon icon={<Youtube className="w-5 h-5" />} href="https://youtube.com/@dhwani-musicclubbitmesra4525?si=mcizwu9f5qDLVB3r" />
+                            <SocialIcon icon={<Linkedin className="w-5 h-5" />} href="https://www.linkedin.com/in/dhwani-music-club-bit-mesra-56b63a243?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" />
                         </div>
                     </div>
 

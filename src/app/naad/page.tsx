@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { 
   MapPin, 
@@ -10,142 +11,10 @@ import {
   Mic2, 
   Music, 
   Guitar, 
-  Zap, 
-  Ticket,
+  Zap,
   CalendarDays
 } from 'lucide-react';
-
-// --- DATA: Grouped by Day ---
-const SCHEDULE_DATA = {
-  day1: [
-    {
-      id: 1,
-      title: "Shadaj",
-      subtitle: "The Genesis",
-      type: "Opening Night",
-      time: "5:30 PM — 8:30 PM",
-      location: "CAT Hall",
-      description: "The grand opening ceremony of NAAD'26. Witness the ceremonial lighting of the lamp followed by a classical fusion showcase that sets the spiritual tone for the days to come.",
-      img: "/Shadaj.jpg?q=80&w=1200",
-      sponsor: "Coke Studio",
-      accent: "from-orange-500/20 to-red-500/20"
-    }
-  ],
-  day2: [
-    {
-      id: 2,
-      title: "Dhun",
-      subtitle: "Strings & Keys",
-      type: "Solo Instrumental",
-      time: "9:00 AM — 12:00 PM",
-      location: "CAT Hall",
-      description: "A battle of dexterity and soul. Guitarists, violinists, and percussionists take the stage to weave stories without words.",
-      img: "/dhun.jpg?q=80&w=1200",
-      sponsor: "Yamaha",
-      accent: "from-blue-500/20 to-cyan-500/20"
-    },
-    {
-      id: 3,
-      title: "Alankar",
-      subtitle: "Eastern Vocals",
-      type: "Solo Singing",
-      time: "9:00 AM — 12:00 PM",
-      location: "Lecture Hall 1",
-      description: "The purity of raga meets contemporary style. A competition celebrating the rich heritage of Eastern vocal traditions.",
-      img: "/Alankaar.jpg?q=80&w=1200",
-      sponsor: "T-Series",
-      accent: "from-emerald-500/20 to-teal-500/20"
-    },
-    {
-      id: 5,
-      title: "Mandra Mayhem",
-      subtitle: "Battle of Bands",
-      type: "Flagship Event",
-      time: "12:00 PM — 5:30 PM",
-      location: "CAT Hall",
-      description: "THE MAIN EVENT. High-gain amps, thundering drums, and raw energy. The best bands in the circuit clash for the ultimate title.",
-      img: "/MandraMayhem.jpg?q=80&w=1200",
-      isHighlight: true,
-      sponsor: "Gibson",
-      accent: "from-red-600/20 to-orange-600/20"
-    },
-    {
-      id: 4,
-      title: "Raageshri",
-      subtitle: "Classical Vocals",
-      type: "Solo Classical",
-      time: "12:00 PM — 3:00 PM",
-      location: "Lecture Hall 1",
-      description: "A test of patience, pitch, and perfection. Strictly classical, strictly sublime.",
-      img: "/Rageshree.jpg?q=80&w=1200",
-      sponsor: "Sangeet Natak",
-      accent: "from-yellow-500/20 to-amber-500/20"
-    },
-    {
-      id: 6,
-      title: "Karaoke",
-      subtitle: "Open Mic",
-      type: "Informal",
-      time: "5:30 PM — 7:30 PM",
-      location: "I.C. Arena",
-      description: "No judges, no pressure. Just you, the mic, and a crowd ready to sing along.",
-      img: "/karoke.jpg?q=80&w=1200",
-      sponsor: "Smule",
-      accent: "from-pink-500/20 to-rose-500/20"
-    }
-  ],
-  day3: [
-    {
-      id: 7,
-      title: "Euphony",
-      subtitle: "Western Vocals",
-      type: "Solo Singing",
-      time: "9:00 AM — 1:00 PM",
-      location: "CAT Hall",
-      description: "From Jazz standards to Pop anthems. A showcase of vocal range and stage presence in Western genres.",
-      img: "/euphony.jpg?q=80&w=1200",
-      sponsor: "Spotify",
-      accent: "from-green-500/20 to-emerald-500/20"
-    },
-    {
-      id: 8,
-      title: "Spitfire",
-      subtitle: "Rap Battle",
-      type: "Hip Hop",
-      time: "12:00 PM — 4:00 PM",
-      location: "I.C. Arena",
-      description: "Bars, flow, and delivery. Rappers go head-to-head in a test of lyrical wit and rhythm.",
-      img: "/Spitfire.jpg?q=80&w=1200",
-      sponsor: "RedBull",
-      accent: "from-purple-500/20 to-indigo-500/20"
-    },
-    {
-      id: 9,
-      title: "Antakshari",
-      subtitle: "Musical Game",
-      type: "Informal",
-      time: "1:00 PM — 4:00 PM",
-      location: "Lecture Hall 1",
-      description: "The classic game of songs. Gather your team and test your Bollywood memory.",
-      img: "/Antakshari.jpeg?q=80&w=1200",
-      sponsor: "Saregama",
-      accent: "from-teal-500/20 to-cyan-500/20"
-    },
-    {
-      id: 10,
-      title: "Nishaad",
-      subtitle: "Grand Finale",
-      type: "Closing Ceremony",
-      time: "4:30 PM — 8:30 PM",
-      location: "CAT Hall",
-      description: "The final showdown. Winners of all solo categories compete for the title of 'Voice of NAAD'.",
-      img: "/nishaad.jpg?q=80&w=1200",
-      isHighlight: true,
-      sponsor: "Dhwani",
-      accent: "from-amber-500/20 to-yellow-500/20"
-    }
-  ]
-};
+import { NaadEvent, SCHEDULE_DATA } from './data';
 
 export default function NaadExperience() {
   const [activeDay, setActiveDay] = useState('day1');
@@ -200,7 +69,7 @@ export default function NaadExperience() {
             transition={{ duration: 0.5 }}
             className="grid grid-cols-1 gap-12"
           >
-            {SCHEDULE_DATA[activeDay as keyof typeof SCHEDULE_DATA].map((event: any) => (
+            {SCHEDULE_DATA[activeDay as keyof typeof SCHEDULE_DATA].map((event: NaadEvent) => (
               <EventCard key={event.id} event={event} />
             ))}
           </motion.div>
@@ -279,7 +148,7 @@ function HeroSection() {
     </section>
   );
 }
-function EventCard({ event }: { event: any }) {
+function EventCard({ event }: { event: NaadEvent }) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
@@ -321,7 +190,16 @@ function EventCard({ event }: { event: any }) {
                </div>
             </div>
 
-            <h3 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-2 tracking-tighter text-white">
+            {/* <Link
+              href={`/naad/${event.slug}`}
+              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors"
+            >
+              <span>Slug</span>
+              <span className="text-white/40">/</span>
+              <span>{event.slug}</span>
+            </Link> */}
+
+            <h3 className="text-5xl md:text-6xl lg:text-7xl font-bold mt-4 mb-2 tracking-tighter text-white">
               {event.title}
             </h3>
             <p className="text-lg text-white/50 italic font-serif mb-8">
@@ -338,9 +216,13 @@ function EventCard({ event }: { event: any }) {
                 <span className="text-sm font-bold text-zinc-300">{event.sponsor}</span>
               </div>
               
-              <button className="ml-auto w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform duration-300">
+              <Link
+                href={`/naad/${event.slug}`}
+                className="ml-auto w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform duration-300"
+                aria-label={`Open ${event.title} details`}
+              >
                 <ArrowUpRight size={20} />
-              </button>
+              </Link>
             </div>
           </div>
         </div>
