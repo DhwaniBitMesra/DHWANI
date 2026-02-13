@@ -9,9 +9,18 @@ interface NaadPassProps {
 }
 
 export default function NaadPass({ user }: NaadPassProps) {
-    // Generate deterministic NAAD ID
-    // Format: NAAD-25-[First 6 chars of User ID in CAPS]
-    const naadId = `NAAD-26-${(user.id || "GUEST").slice(0, 6).toUpperCase()}`;
+    // Generate deterministic NAAD ID (1-100)
+    const getDeterministicId = (id: string) => {
+        let hash = 0;
+        for (let i = 0; i < id.length; i++) {
+            hash = (hash << 5) - hash + id.charCodeAt(i);
+            hash |= 0; 
+        }
+        return (Math.abs(hash) % 100) + 1;
+    };
+
+    const naadIdNumber = getDeterministicId(user.id || "GUEST");
+    const naadId = `NAAD-ID-${naadIdNumber.toString().padStart(2, '0')}`;
 
     return (
         <motion.div

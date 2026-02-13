@@ -107,6 +107,7 @@ function HeroSection() {
             className="relative flex-1 h-full overflow-hidden group border-r border-white/5 last:border-r-0"
           >
             {/* Image: Grayscale by default, Color + Scale on Hover */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={src} 
               alt={`Naad Moment ${index + 1}`}
@@ -143,11 +144,19 @@ function HeroSection() {
              </p>
              <div className="h-px w-12 bg-white/50" />
            </div>
+
+            {/* Registration CTA - Injected for flow continuity */}
+           <div className="mt-12 pointer-events-auto">
+             <Link href="/naad/register" className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:scale-105 transition-transform hover:bg-zinc-200 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
+               Register for NAAD
+             </Link>
+           </div>
          </motion.div>
       </div>
     </section>
   );
 }
+
 function EventCard({ event }: { event: NaadEvent }) {
   return (
     <motion.div 
@@ -160,6 +169,7 @@ function EventCard({ event }: { event: NaadEvent }) {
         {/* Image Side */}
         <div className="relative overflow-hidden h-[300px] md:h-full">
           <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img 
             src={event.img + (event.img.includes('?') ? '&' : '?') + 'q=80&w=1200'}
             alt={event.title}
@@ -189,15 +199,6 @@ function EventCard({ event }: { event: NaadEvent }) {
                   <MapPin size={16} /> {event.location}
                </div>
             </div>
-
-            {/* <Link
-              href={`/naad/${event.slug}`}
-              className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-white/60 hover:text-white transition-colors"
-            >
-              <span>Slug</span>
-              <span className="text-white/40">/</span>
-              <span>{event.slug}</span>
-            </Link> */}
 
             <h3 className="text-5xl md:text-6xl lg:text-7xl font-bold mt-4 mb-2 tracking-tighter text-white">
               {event.title}
