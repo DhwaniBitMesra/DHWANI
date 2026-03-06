@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image';
 import { X, Instagram, Linkedin, Github, Mail, Mic2, Guitar, Drum, Music, Volume2 } from 'lucide-react';
@@ -12,9 +12,52 @@ interface TheBandProps {
 }
 
 const instruments = [Mic2, Guitar, Drum, Music, Volume2];
+const memberBatchOrder = ['k22', 'k23', 'k24', 'k25'] as const;
+
+type BandTab = 'executive' | 'members';
+
+function toNumericId(id: TeamMember['id']) {
+    if (typeof id === 'number') return id;
+    const parsedId = Number.parseInt(id, 10);
+    return Number.isFinite(parsedId) ? parsedId : Number.MAX_SAFE_INTEGER;
+}
+
+function isExecutiveMember(member: TeamMember) {
+    const memberId = toNumericId(member.id);
+    return memberId >= 1 && memberId <= 9;
+}
+
+function getMemberBatchPriority(member: TeamMember) {
+    const normalizedCategories = (member.categories || []).map((category) => category.toLowerCase());
+    const batchIndex = memberBatchOrder.findIndex((batch) => normalizedCategories.includes(batch));
+    return batchIndex === -1 ? Number.MAX_SAFE_INTEGER : batchIndex;
+}
 
 export function TheBand({ teamMembers }: TheBandProps) {
     const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+    const [activeTab, setActiveTab] = useState<BandTab>('executive');
+
+    const executiveMembers = useMemo(
+        () =>
+            [...teamMembers]
+                .filter(isExecutiveMember)
+                .sort((a, b) => toNumericId(a.id) - toNumericId(b.id)),
+        [teamMembers]
+    );
+
+    const members = useMemo(
+        () =>
+            [...teamMembers]
+                .filter((member) => !isExecutiveMember(member))
+                .sort((a, b) => {
+                    const priorityDifference = getMemberBatchPriority(a) - getMemberBatchPriority(b);
+                    if (priorityDifference !== 0) return priorityDifference;
+                    return toNumericId(a.id) - toNumericId(b.id);
+                }),
+        [teamMembers]
+    );
+
+    const displayedMembers = activeTab === 'executive' ? executiveMembers : members;
 
     return (
         <section className="min-h-screen bg-neutral-950 py-32 px-4 md:px-8 relative overflow-hidden" id="team">
@@ -39,9 +82,34 @@ export function TheBand({ teamMembers }: TheBandProps) {
                     </h2>
                 </div>
 
+                <div className="flex items-center justify-center gap-4 mb-10">
+                    <button
+                        onClick={() => setActiveTab('executive')}
+                        className={cn(
+                            'px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300',
+                            activeTab === 'executive'
+                                ? 'bg-white text-black'
+                                : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:border-zinc-600 hover:text-white'
+                        )}
+                    >
+                        Executive Body
+                    </button>
+                    <button
+                        onClick={() => setActiveTab('members')}
+                        className={cn(
+                            'px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all duration-300',
+                            activeTab === 'members'
+                                ? 'bg-white text-black'
+                                : 'bg-zinc-900 border border-zinc-800 text-zinc-400 hover:border-zinc-600 hover:text-white'
+                        )}
+                    >
+                        Members
+                    </button>
+                </div>
+
                 {/* The Grid - "Festival Poster" Style */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {teamMembers.map((member, i) => {
+                    {displayedMembers.map((member, i) => {
                         const InstrumentIcon = instruments[i % instruments.length];
 
                         return (

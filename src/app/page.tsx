@@ -100,7 +100,7 @@ const MILESTONES_DATA = [
         title: "Musicpedia",
         description: "A summer series where interesting music-related facts are shared during the vacation. These regular posts aim to inform, educate, and keep curiosity in tune all season long.",
         iconName: "BookOpen",
-        image: "https://images.unsplash.com/photo-1507838596758-2ac6f7527473?q=80&w=2670&auto=format&fit=crop"
+        image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?q=80&w=2670&auto=format&fit=crop"
     },
     {
         year: "June",

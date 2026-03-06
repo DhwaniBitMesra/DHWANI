@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 37,
     "name": "Aritra Kilikdar",
     "role": "Vocalist",
     "post": "Member",
@@ -15,7 +15,7 @@
     "email": null
   },
   {
-    "id": 2,
+    "id": 35,
     "name": "Apporva Agarwal",
     "role": "Drummer",
     "post": "Member",
@@ -30,10 +30,10 @@
     "email": null
   },
   {
-    "id": 3,
+    "id": 6,
     "name": "Anuj Nayak",
     "role": "Pianist/Drummer",
-    "post": "Member",
+    "post": "Treasurer",
     "bio": "I press random black-and-white buttons until it sounds good.",
     "slug": "anuj-nayak",
     "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/IMG_20250510_182319%20-%20Anuj%20Nayak.jpg",
@@ -45,7 +45,7 @@
     "email": null
   },
   {
-    "id": 4,
+    "id": 36,
     "name": "Satub Singh Hanspal",
     "role": "Designer/Instrumentalist (Dilruba)",
     "post": "Member",
@@ -60,7 +60,7 @@
     "email": null
   },
   {
-    "id": 5,
+    "id": 39,
     "name": "Rohan Majhi",
     "role": "Drummer and Rhythmist",
     "post": "Member",
@@ -75,7 +75,7 @@
     "email": null
   },
   {
-    "id": 6,
+    "id": 24,
     "name": "Raman Kumar",
     "role": "Vocalist",
     "post": "Member",
@@ -90,7 +90,7 @@
     "email": null
   },
   {
-    "id": 7,
+    "id": 38,
     "name": "Anusha Choudhary",
     "role": "Rapper",
     "post": "Member",
@@ -105,7 +105,7 @@
     "email": null
   },
   {
-    "id": 8,
+    "id": 31,
     "name": "Rishabh Anand",
     "role": "Guitarist/Bassist",
     "post": "Member",
@@ -120,10 +120,10 @@
     "email": null
   },
   {
-    "id": 9,
+    "id": 7,
     "name": "Toshan Ghanekar",
     "role": "Instrumentalist (Flute)",
-    "post": "Member",
+    "post": "Joint Treasurer",
     "bio": "Flautist creating soulful melodies that connect hearts.",
     "slug": "toshan-ghanekar",
     "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/Copy%20of%20DSC_1821%20-%20Toshan%20Ghanekar.jpg",
@@ -345,10 +345,10 @@
     "email": null
   },
   {
-    "id": 24,
+    "id": 5,
     "name": "Arya Jha",
     "role": "Vocalist",
-    "post": "Member",
+    "post": "Joint Secretary",
     "bio": "I'm Arya Jha, a vocalist at Dhwani, where I bring my music is my escape an emotional language where Dhwani is my family...",
     "slug": "arya-jha",
     "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/Picsart_25-12-04_12-35-16-089%20-%20Arya%20Jha.jpg",
@@ -450,10 +450,10 @@
     "email": null
   },
   {
-    "id": 31,
+    "id": 8,
     "name": "Ragini Dutta",
     "role": "Vocalist",
-    "post": "Member",
+    "post": "Workshop Coordinator",
     "bio": "I was recruited as a vocalist in DHWANI. I have a...",
     "slug": "ragini-dutta",
     "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/DSC_0103%20-%20Ragini%20Dutta.JPG",
@@ -510,10 +510,10 @@
     "email": null
   },
   {
-    "id": 35,
+    "id": 2,
     "name": "Aditya Das",
     "role": "Instrumentalist Bass+Guitar",
-    "post": "Member",
+    "post": "Vice President",
     "bio": "Bassist Backbone of the band. Carrying grooves.",
     "slug": "aditya-das",
     "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/IMG_1380.heic%20%281%29%20-%20Aditya%20Das.png",
@@ -525,16 +525,61 @@
     "email": null
   },
   {
-    "id": 36,
+    "id": 3,
     "name": "Adarsh Karn",
     "role": "Instrumentalist-Guitar",
-    "post": "Member",
+    "post": "Vice President",
     "bio": "Pull \"some Strings and get the job done? Bean at it",
     "slug": "adarsh-karn",
     "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/IMG_20241007_225927_328%20-%20Adarsh%20Karn.webp",
     "skills": ["Guitar"],
     "categories": ["instrumentalist", "guitarist", "k22"],
     "instagramUrl": "https://www.instagram.com",
+    "linkedinUrl": null,
+    "githubUrl": null,
+    "email": null
+  },
+  {
+    "id": 1,
+    "name": "Ramendra Priyanshu",
+    "role": "Vocalist",
+    "post": "President",
+    "bio": "President of Dhwani – Music Club, BIT Mesra, leading creative direction and performances. Organized workshops, competitions, and inter-college collaborations, with multiple podium finishes at IITs and IIMs. Passionate about nurturing talent, fostering collaboration, and creating impactful musical experiences.",
+    "slug": "ramendra-priyanshu",
+    "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/473897740_18355280095132384_4372583266507741081_n%20-%20Ramendra%20Priyanshu.jpg",
+    "skills": ["Vocals", "Leadership"],
+    "categories": ["vocalist", "k22"],
+    "instagramUrl": "@ramendrapriyanshu",
+    "linkedinUrl": null,
+    "githubUrl": null,
+    "email": null
+  },
+  {
+    "id": 9,
+    "name": "Aman Raj",
+    "role": "Vocalist",
+    "post": "Publicity Coordinator",
+    "bio": "I'm Aman, vocalist at Dhwani Music Club, BIT Mesra. Melodies are my love language. When words aren't enough, I sing. Let's create harmony together \ud83d\udc96",
+    "slug": "aman-raj",
+    "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/IMG-20251228-WA0020(1)%20-%20Aman%20Raj.jpg",
+    "skills": ["Vocals"],
+    "categories": ["vocalist", "k23"],
+    "instagramUrl": "amannn_421",
+    "linkedinUrl": null,
+    "githubUrl": null,
+    "email": null
+  },
+  {
+    "id": 4,
+    "name": "Sarthak Shreshtha",
+    "role": "Guitarist",
+    "post": "General Secretary",
+    "bio": "Hey there! I'm Sarthak, a guitarist at Dhwani Music Club, BIT Mesra currently serving as the General Secretary of the club. Music is my escape and my way of expressing emotions. Let's create beautiful music together \ud83c\udfb6\ud83d\udc95",
+    "slug": "sarthak-shreshtha",
+    "image": "https://qntjpsshgqlfihvdtzpj.supabase.co/storage/v1/object/public/Team%20Dhwani/Naadhero4.jpeg",
+    "skills": ["Guitar", "Leadership" , "Vocals"],
+    "categories": ["instrumentalist", "guitarist", "k23"],
+    "instagramUrl": "@its_s.a.r.t.h.a.k",
     "linkedinUrl": null,
     "githubUrl": null,
     "email": null

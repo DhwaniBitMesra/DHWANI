@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import { 
   MapPin, 
@@ -15,13 +16,48 @@ import {
   CalendarDays
 } from 'lucide-react';
 import { NaadEvent, SCHEDULE_DATA } from './data';
+import { createBrowserSupabaseClient } from "@/lib/supabase/client";
+import { mapSupabaseUser } from "@/lib/auth-user";
 
 export default function NaadExperience() {
-  const [activeDay, setActiveDay] = useState('day1');
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [activeDay, setActiveDay] = useState(() => {
+    const dayParam = searchParams.get('day');
+    return (dayParam === 'day1' || dayParam === 'day2' || dayParam === 'day3') ? dayParam : 'day1';
+  });
+  const [isNaadRegistered, setIsNaadRegistered] = useState(false);
+  const [checkingRegistration, setCheckingRegistration] = useState(true);
+
+  useEffect(() => {
+    const checkNaadRegistration = async () => {
+      try {
+        const supabase = createBrowserSupabaseClient();
+        const { data: { user: rawUser } } = await supabase.auth.getUser();
+        
+        if (rawUser) {
+          const response = await fetch("/api/naad/register");
+          const data = await response.json() as { registered: boolean };
+          setIsNaadRegistered(data.registered);
+        }
+      } catch (err) {
+        console.error("Failed to check NAAD registration:", err);
+      } finally {
+        setCheckingRegistration(false);
+      }
+    };
+
+    void checkNaadRegistration();
+  }, []);
+
+  const handleDayChange = (day: string) => {
+    setActiveDay(day);
+    router.push(`/naad?day=${day}`, { scroll: false });
+  };
 
   return (
     <main className="bg-[#0a0a0a] text-[#e5e5e5] min-h-screen font-sans selection:bg-white/20">
-      <HeroSection />
+      <HeroSection isNaadRegistered={isNaadRegistered} checkingRegistration={checkingRegistration} />
       
       <section className="relative z-10 -mt-20 pb-32 px-4 md:px-8 max-w-7xl mx-auto">
         {/* Navigation Tabs */}
@@ -34,7 +70,7 @@ export default function NaadExperience() {
             {['day1', 'day2', 'day3'].map((day, i) => (
               <button
                 key={day}
-                onClick={() => setActiveDay(day)}
+                onClick={() => handleDayChange(day)}
                 className={`relative px-8 py-3 rounded-full text-sm font-medium tracking-widest uppercase transition-all duration-500 ${
                   activeDay === day ? 'text-black' : 'text-white/60 hover:text-white'
                 }`}
@@ -70,7 +106,7 @@ export default function NaadExperience() {
             className="grid grid-cols-1 gap-12"
           >
             {SCHEDULE_DATA[activeDay as keyof typeof SCHEDULE_DATA].map((event: NaadEvent) => (
-              <EventCard key={event.id} event={event} />
+              <EventCard key={event.id} event={event} activeDay={activeDay} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -82,7 +118,7 @@ export default function NaadExperience() {
 }
 
 // --- SUB-COMPONENTS ---
-function HeroSection() {
+function HeroSection({ isNaadRegistered, checkingRegistration }: { isNaadRegistered: boolean; checkingRegistration: boolean }) {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
@@ -142,12 +178,21 @@ function HeroSection() {
            </div>
 
            <div className="mt-10 md:mt-12 pointer-events-auto">
-             <Link 
-                href="/naad/register" 
-                className="inline-block px-8 py-3.5 md:px-10 md:py-4 bg-white text-black text-base md:text-lg font-bold rounded-full active:scale-95 md:hover:scale-105 transition-all md:hover:bg-zinc-200 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]"
-             >
-               Register for NAAD
-             </Link>
+             {checkingRegistration ? (
+               <button 
+                  disabled
+                  className="inline-block px-8 py-3.5 md:px-10 md:py-4 bg-white text-black text-base md:text-lg font-bold rounded-full opacity-50 cursor-wait shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]"
+               >
+                 Loading...
+               </button>
+             ) : (
+               <Link 
+                  href={isNaadRegistered ? "/naad/registrations" : "/naad/register"}
+                  className="inline-block px-8 py-3.5 md:px-10 md:py-4 bg-white text-black text-base md:text-lg font-bold rounded-full active:scale-95 md:hover:scale-105 transition-all md:hover:bg-zinc-200 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]"
+               >
+                 {isNaadRegistered ? "See Registered Events" : "Register for NAAD"}
+               </Link>
+             )}
            </div>
          </motion.div>
       </div>
@@ -155,7 +200,7 @@ function HeroSection() {
   );
 }
 
-function EventCard({ event }: { event: NaadEvent }) {
+function EventCard({ event, activeDay }: { event: NaadEvent; activeDay: string }) {
   return (
     <motion.div 
       initial={{ opacity: 0, y: 50 }}
@@ -216,7 +261,7 @@ function EventCard({ event }: { event: NaadEvent }) {
               </div> */}
               
               <Link
-                href={`/naad/${event.slug}`}
+                href={`/naad/${event.slug}?from=${activeDay}`}
                 className="ml-auto w-12 h-12 rounded-full bg-white text-black flex items-center justify-center hover:scale-110 transition-transform duration-300"
                 aria-label={`Open ${event.title} details`}
               >
@@ -259,10 +304,10 @@ function Footer() {
                  </a>
               ))}
            </div>
-
+{/* 
            <button className="px-8 py-3 rounded-full border border-white/20 hover:bg-white hover:text-black transition-colors uppercase text-xs tracking-widest font-bold">
               Back to Top
-           </button>
+           </button> */}
         </div>
         
         <div className="mt-20 text-center text-zinc-700 text-[10px] uppercase tracking-widest">

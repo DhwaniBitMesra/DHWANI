@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { notFound, useParams } from "next/navigation";
+import { notFound, useParams, useSearchParams } from "next/navigation";
 import { EVENT_DETAILS, EVENTS } from "../data";
 import { 
   Calendar, 
@@ -24,13 +24,20 @@ import EventRegisterForm from "@/components/ui/EventRegisterForm";
 
 export default function NaadEventPage() {
   const params = useParams();
+  const searchParams = useSearchParams();
   const slug = params.slug as string;
+  const fromDay = searchParams.get('from') || 'day1';
   const event = EVENT_DETAILS[slug];
+
+  // Disable registration for Shadaj (Opening Night) and Nishaad (Grand Finale)
+  const isRegistrationDisabled = event?.id === 1 || event?.id === 10;
 
   const [user, setUser] = useState<AuthUser | null>(null);
   const [naadUser, setNaadUser] = useState<NaadUser | null>(null);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [checkingRegistration, setCheckingRegistration] = useState(true);
 
   useEffect(() => {
     const supabase = createBrowserSupabaseClient();
@@ -42,17 +49,30 @@ export default function NaadEventPage() {
       const authUser = rawUser ? mapSupabaseUser(rawUser) : null;
       setUser(authUser);
 
-      if (authUser) {
+      // Skip registration checks for events without registration
+      if (authUser && !isRegistrationDisabled) {
         try {
           const response = await fetch("/api/naad/register");
           const data = await response.json() as { registered: boolean; naad_user: NaadUser };
           if (data.registered) {
             setNaadUser(data.naad_user);
+
+            // Check if user is already registered for this event
+            const regsResponse = await fetch("/api/naad/my-registrations");
+            const regsData = await regsResponse.json() as { 
+              registrations: Array<{ event_id: number; events: { id: number } }> 
+            };
+            
+            const alreadyRegistered = regsData.registrations?.some(
+              (reg) => reg.event_id === event.id
+            );
+            setIsRegistered(alreadyRegistered);
           }
         } catch (err) {
           console.error("Failed to fetch NAAD user:", err);
         }
       }
+      setCheckingRegistration(false);
     };
 
     void loadUser();
@@ -64,7 +84,7 @@ export default function NaadEventPage() {
     });
 
     return () => subscription.unsubscribe();
-  }, []);
+  }, [isRegistrationDisabled]);
 
   if (!event) {
     notFound();
@@ -85,7 +105,14 @@ export default function NaadEventPage() {
   const handleRegistrationSuccess = () => {
     setShowRegisterForm(false);
     setRegistrationSuccess(true);
+    setIsRegistered(true);
   };
+
+  const primaryPrize = event.details.prizes[0] ?? "";
+  const prizePoolValue = primaryPrize.split(":")[1]?.trim() || primaryPrize;
+  const prizeHeading = primaryPrize.toLowerCase().includes("prize pool")
+    ? "Prize Pool"
+    : "Prizes";
 
   return (
     <main className="min-h-screen bg-[#050505] text-[#e5e5e5] selection:bg-indigo-500/30 font-sans">
@@ -106,7 +133,7 @@ export default function NaadEventPage() {
         {/* Content Container */}
         <div className="relative z-10 w-full max-w-7xl mx-auto px-6">
           <Link
-            href="/naad"
+            href={`/naad?day=${fromDay}`}
             className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-white/50 hover:text-white transition-colors mb-8 group"
           >
             <div className="p-2 rounded-full border border-white/10 group-hover:bg-white group-hover:text-black transition-all">
@@ -216,7 +243,7 @@ export default function NaadEventPage() {
             </div>
 
             {/* Rounds */}
-            <div>
+            {/* <div>
                <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-indigo-400 mb-6 flex items-center gap-2">
                   <Mic2 size={16} /> Flow of Events
                </h3>
@@ -230,76 +257,112 @@ export default function NaadEventPage() {
                      </div>
                   ))}
                </div>
-            </div>
+            </div> */}
 
           </div>
 
           {/* RIGHT COLUMN: Sticky Sidebar */}
           <div className="lg:sticky lg:top-8 h-fit space-y-6">
             
-            {/* Registration Card */}
-            <div className="p-8 rounded-3xl bg-gradient-to-b from-zinc-900 to-black border border-white/10 shadow-2xl">
-               <div className="flex justify-between items-start mb-8">
+            {/* Registration Card or Info Card */}
+            {isRegistrationDisabled ? (
+              // Info card for events without registration
+              <div className="p-8 rounded-3xl bg-gradient-to-b from-zinc-900 to-black border border-white/10 shadow-2xl">
+                <div className="flex justify-between items-start mb-6">
                   <div>
-                     <span className="text-[10px] uppercase tracking-widest text-zinc-500">Prize Pool</span>
+                    <span className="text-[10px] uppercase tracking-widest text-zinc-500">Event Type</span>
+                    <div className="text-2xl font-black text-white mt-1">
+                      {event.type}
+                    </div>
+                  </div>
+                  <Trophy className="text-yellow-500" size={32} />
+                </div>
+
+                <div className="space-y-4 mb-6">
+                  {event.details.prizes.map((prize, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm text-zinc-400 pb-3 border-b border-white/5 last:border-0 last:pb-0">
+                      <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-yellow-500' : 'bg-zinc-600'}`} />
+                      {prize}
+                    </div>
+                  ))}
+                </div>
+
+                {/* <div className="w-full py-4 px-6 text-center bg-white/5 text-white/60 font-bold uppercase tracking-[0.2em] text-xs rounded-xl border border-white/10 flex items-center justify-center gap-2">
+                  <Info size={16} />
+                  No Registration Required
+                </div>
+                
+                <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-widest">
+                  *Open to all NAAD attendees
+                </p> */}
+              </div>
+            ) : (
+              // Normal registration card
+              <div className="p-8 rounded-3xl bg-gradient-to-b from-zinc-900 to-black border border-white/10 shadow-2xl">
+                <div className="flex justify-between items-start mb-8">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest text-zinc-500">{prizeHeading}</span>
                      <div className="text-3xl font-black text-white mt-1">
-                        {event.details.prizes[0].split(':')[1]}
+                      {prizePoolValue}
                      </div>
                   </div>
                   <Trophy className="text-yellow-500" size={32} />
-               </div>
+                </div>
 
-               <div className="space-y-4 mb-8">
+                <div className="space-y-4 mb-8">
                   {event.details.prizes.map((prize, i) => (
                      <div key={i} className="flex items-center gap-3 text-sm text-zinc-400 pb-3 border-b border-white/5 last:border-0 last:pb-0">
                         <div className={`w-1.5 h-1.5 rounded-full ${i === 0 ? 'bg-yellow-500' : 'bg-zinc-600'}`} />
                         {prize}
                      </div>
                   ))}
-               </div>
+                </div>
 
-               <Link
-                  href={
-                    !user
-                      ? "/enter?next=/naad/" + slug
-                      : !naadUser
-                      ? "/naad/register"
-                      : "#"
-                  }
-                  onClick={(e) => {
-                    if (user && naadUser) {
-                      e.preventDefault();
-                      handleRegisterClick();
-                    }
-                  }}
-                  className="block w-full py-4 text-center bg-white text-black font-bold uppercase tracking-[0.2em] text-xs rounded-xl hover:bg-indigo-500 hover:text-white transition-all duration-300"
-               >
-                  {!user
-                    ? "Login to Register"
-                    : !naadUser
-                    ? "Get NAAD ID First"
-                    : registrationSuccess
-                    ? "✓ Registered!"
-                    : "Register Now"}
-               </Link>
-               <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-widest">
-                  {registrationSuccess
-                    ? "You're all set!"
-                    : !user || !naadUser
-                    ? "*NAAD ID Required"
-                    : "*Limited Slots Available"}
-      {showRegisterForm && (
-        <EventRegisterForm
-          eventId={event.id}
-          eventName={event.title}
-          isGroupEvent={event.id === 5 || event.id === 9}
-          onSuccess={handleRegistrationSuccess}
-          onCancel={() => setShowRegisterForm(false)}
-        />
-      )}
-
-               </p>
-            </div>
+                {isRegistered || registrationSuccess ? (
+                  <div className="w-full py-4 text-center bg-emerald-500/20 text-emerald-400 font-bold uppercase tracking-[0.2em] text-xs rounded-xl border border-emerald-500/30 flex items-center justify-center gap-2">
+                    <CheckCircle2 size={16} />
+                    Registered
+                  </div>
+                ) : (
+                  <Link
+                     href={
+                       !user
+                         ? "/enter?next=/naad/" + slug
+                         : !naadUser
+                         ? "/naad/register"
+                         : "#"
+                     }
+                     onClick={(e) => {
+                       if (user && naadUser && !isRegistered) {
+                         e.preventDefault();
+                         handleRegisterClick();
+                       }
+                     }}
+                     className={`block w-full py-4 text-center font-bold uppercase tracking-[0.2em] text-xs rounded-xl transition-all duration-300 ${
+                       checkingRegistration
+                         ? "bg-zinc-800 text-zinc-500 cursor-wait"
+                         : "bg-white text-black hover:bg-indigo-500 hover:text-white"
+                     }`}
+                  >
+                     {checkingRegistration
+                       ? "Loading..."
+                       : !user
+                       ? "Login to Register"
+                       : !naadUser
+                       ? "Get NAAD ID First"
+                       : "Register Now"}
+                  </Link>
+                )}
+               
+                <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-widest">
+                   {isRegistered || registrationSuccess
+                     ? "You're all set!"
+                     : !user || !naadUser
+                     ? "*NAAD ID Required"
+                     : "*Limited Slots Available"}
+                </p>
+              </div>
+            )}
 
             {/* Contact Card */}
             <div className="p-6 rounded-3xl bg-zinc-900/50 border border-white/5">
@@ -319,6 +382,16 @@ export default function NaadEventPage() {
 
         </div>
       </section>
+
+      {showRegisterForm && !isRegistrationDisabled && (
+        <EventRegisterForm
+          eventId={event.id}
+          eventName={event.title}
+          isGroupEvent={event.id === 5 || event.id === 9}
+          onSuccess={handleRegistrationSuccess}
+          onCancel={() => setShowRegisterForm(false)}
+        />
+      )}
 
     </main>
   );

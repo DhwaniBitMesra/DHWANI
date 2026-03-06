@@ -1,10 +1,11 @@
 import { redirect } from "next/navigation";
 import NaadPass from "@/components/ui/NaadPass";
 import Link from "next/link";
-import { MoveLeft } from "lucide-react";
+import { MoveLeft, Sparkles, Calendar, Music } from "lucide-react";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { mapSupabaseUser } from "@/lib/auth-user";
 import SignOutButton from "@/components/ui/SignOutButton";
+import type { NaadUser } from "@/lib/naad-types";
 
 export default async function AccountPage() {
 	const supabase = await createServerSupabaseClient();
@@ -17,6 +18,16 @@ export default async function AccountPage() {
 	}
 
 	const accountUser = mapSupabaseUser(user);
+
+	// Check if user is registered for NAAD
+	const { data: naadUserData } = await supabase
+		.from("naad_users")
+		.select("naad_id, full_name, phone, created_at")
+		.eq("auth_user_id", user.id)
+		.single();
+
+	const isNaadRegistered = !!naadUserData;
+	const naadUser = naadUserData as NaadUser | null;
 
 	return (
 		<main className="min-h-screen bg-black text-white pt-24 pb-12 px-6 relative overflow-hidden">
@@ -43,34 +54,127 @@ export default async function AccountPage() {
 							</p>
 						</div>
 
-						<div className="prose prose-invert prose-sm text-zinc-400">
-							<p>
-								You have successfully accessed the Dhwani Artist Lounge. Your NAAD ID is your key to all upcoming events, workshops, and jamming sessions.
-							</p>
-							<p>
-								Keep this pass accessible. It will be required for entry at the Main Gate during Bitotsav and NAAD &apos;25.
-							</p>
-						</div>
+						{isNaadRegistered ? (
+							<>
+								<div className="prose prose-invert prose-sm text-zinc-400">
+									<p>
+										You have successfully registered for NAAD &apos;26. Your NAAD ID is your key to all events, workshops, and jamming sessions.
+									</p>
+									<p>
+										Keep your pass accessible. It will be required for registration and entry to all NAAD events.
+									</p>
+								</div>
 
-						<div className="p-4 rounded-xl bg-blue-900/10 border border-blue-500/20">
-							<h4 className="text-blue-400 font-bold mb-1 text-sm">Upcoming Session</h4>
-							<p className="text-xs text-blue-200/70 mb-2">Jamming Session #42 - &quot;Riffs &amp; Ragas&quot;</p>
-							<div className="w-full bg-blue-900/30 h-1.5 rounded-full overflow-hidden">
-								<div className="bg-blue-500 w-3/4 h-full rounded-full" />
-							</div>
-							<div className="flex justify-between text-[10px] text-blue-400/50 mt-1 font-mono">
-								<span>Sat, 12 Feb</span>
-								<span>5:00 PM</span>
-							</div>
-						</div>
+								<div className="p-4 rounded-xl bg-indigo-900/10 border border-indigo-500/20">
+									<div className="flex items-start gap-3 mb-3">
+										<Calendar className="w-5 h-5 text-indigo-400 mt-0.5" />
+										<div>
+											<h4 className="text-indigo-400 font-bold mb-1 text-sm">NAAD &apos;26 - Musical Extravaganza</h4>
+											<p className="text-xs text-indigo-200/70 mb-2">March 13-15, 2026 • BIT Mesra</p>
+										</div>
+									</div>
+									<div className="space-y-2 text-xs text-zinc-400">
+										<div className="flex items-center gap-2">
+											<Sparkles className="w-3 h-3 text-indigo-400" />
+											<span>8+ Competitive Events</span>
+										</div>
+										<div className="flex items-center gap-2">
+											<Music className="w-3 h-3 text-indigo-400" />
+											<span>Solo & Group Performances</span>
+										</div>
+									</div>
+								</div>
+
+								<Link
+									href="/naad"
+									className="block w-full text-center px-6 py-3 bg-indigo-500 text-white font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-indigo-600 transition-colors"
+								>
+									View All Events
+								</Link>
+							</>
+						) : (
+							<>
+								<div className="prose prose-invert prose-sm text-zinc-400">
+									<p>
+										Welcome to Dhwani, BIT Mesra&apos;s premier music club! We&apos;re excited to announce our flagship event.
+									</p>
+								</div>
+
+								<div className="p-6 rounded-xl bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border border-indigo-500/20 space-y-4">
+									<div className="flex items-start gap-3">
+										<div className="p-2 rounded-lg bg-indigo-500/20">
+											<Calendar className="w-6 h-6 text-indigo-400" />
+										</div>
+										<div>
+											<h4 className="text-indigo-400 font-bold mb-1">NAAD &apos;26</h4>
+											<p className="text-sm text-zinc-300 font-semibold">March 13-15, 2026</p>
+										</div>
+									</div>
+									
+									<p className="text-sm text-zinc-400 leading-relaxed">
+										Join us for three days of musical competitions, workshops, and performances. From solo vocals to band battles, NAAD has something for every music enthusiast.
+									</p>
+
+									<div className="space-y-2 text-xs text-zinc-400">
+										<div className="flex items-center gap-2">
+											<Sparkles className="w-3 h-3 text-indigo-400" />
+											<span>8+ Competitive Events</span>
+										</div>
+										<div className="flex items-center gap-2">
+											<Music className="w-3 h-3 text-indigo-400" />
+											<span>Solo & Group Performances</span>
+										</div>
+										<div className="flex items-center gap-2">
+											<Music className="w-3 h-3 text-indigo-400" />
+											<span>Prizes & Certificates</span>
+										</div>
+									</div>
+								</div>
+
+								<Link
+									href="/naad/register"
+									className="block w-full text-center px-6 py-3 bg-indigo-500 text-white font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-indigo-600 transition-colors shadow-lg shadow-indigo-500/20"
+								>
+									Register for NAAD
+								</Link>
+							</>
+						)}
 					</div>
 
 					<div className="flex flex-col items-center">
-						<NaadPass user={accountUser} />
-
-						<button className="mt-8 text-xs font-mono text-zinc-500 hover:text-white underline underline-offset-4 decoration-zinc-700 hover:decoration-white transition-all">
-							Download Pass as Image
-						</button>
+						{isNaadRegistered && naadUser ? (
+							<>
+								<NaadPass user={accountUser} naadId={naadUser.naad_id} />
+								<div className="mt-6 text-center">
+									<p className="text-xs font-mono text-zinc-600 uppercase tracking-widest mb-2">Your NAAD ID</p>
+									<p className="text-2xl font-black font-mono text-indigo-400">
+										NAAD-26-{naadUser.naad_id.toString().padStart(4, "0")}
+									</p>
+								</div>
+								<Link
+									href="/naad/registrations"
+									className="mt-6 text-xs font-mono text-zinc-500 hover:text-white underline underline-offset-4 decoration-zinc-700 hover:decoration-white transition-all"
+								>
+									View My Registered Events
+								</Link>
+							</>
+						) : (
+							<div className="w-full max-w-sm p-8 rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl text-center">
+								<div className="w-16 h-16 rounded-full bg-indigo-500/10 flex items-center justify-center mx-auto mb-4">
+									<Music className="w-8 h-8 text-indigo-400" />
+								</div>
+								<h3 className="text-xl font-bold mb-2">Get Your NAAD Pass</h3>
+								<p className="text-sm text-zinc-400 mb-6">
+									Register for NAAD to receive your unique digital pass and unlock access to all events.
+								</p>
+								<Link
+									href="/naad/register"
+									className="inline-block px-6 py-3 bg-white text-black font-bold rounded-full hover:bg-zinc-200 transition-colors text-sm"
+								>
+									Get Started
+								</Link>
+							</div>
+						)}
 					</div>
 				</div>
 			</div>

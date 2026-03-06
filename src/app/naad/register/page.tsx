@@ -4,14 +4,29 @@ import { useEffect, useMemo, useState } from "react";
 import NaadPass from "@/components/ui/NaadPass";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowLeft, Sparkles, Loader2 } from "lucide-react";
+import { ArrowLeft, Sparkles, Loader2, Calendar, MapPin, Users, Trophy } from "lucide-react";
 import { createBrowserSupabaseClient } from "@/lib/supabase/client";
 import { mapSupabaseUser, type AuthUser } from "@/lib/auth-user";
 import type { NaadUser } from "@/lib/naad-types";
+import { EVENT_DETAILS } from "../data";
+
+type Registration = {
+  id: string;
+  event_id: number;
+  team_name: string | null;
+  created_at: string;
+  events: {
+    id: number;
+    name: string;
+    slug: string;
+    is_group_event: boolean;
+  };
+};
 
 export default function NaadRegisterPage() {
 	const [user, setUser] = useState<AuthUser | null>(null);
 	const [naadUser, setNaadUser] = useState<NaadUser | null>(null);
+	const [registrations, setRegistrations] = useState<Registration[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [registering, setRegistering] = useState(false);
 	const [fullName, setFullName] = useState("");
@@ -35,6 +50,11 @@ export default function NaadRegisterPage() {
 					if (data.registered) {
 						setNaadUser(data.naad_user);
 						setFullName(data.naad_user.full_name);
+
+						// Get user's registrations
+						const regsResponse = await fetch("/api/naad/my-registrations");
+						const regsData = await regsResponse.json() as { registrations: Registration[] };
+						setRegistrations(regsData.registrations || []);
 						setPhone(data.naad_user.phone || "");
 					}
 				} catch (err) {
@@ -141,7 +161,7 @@ export default function NaadRegisterPage() {
 					<div className="flex flex-col items-center justify-center">
 						{user ? (
 							naadUser ? (
-								<div className="w-full max-w-sm space-y-8">
+								<div className="w-full max-w-4xl space-y-8">
 									<div className="text-center">
 										<h2 className="text-2xl font-bold mb-2">Welcome, {user.displayName.split(" ")[0]}</h2>
 										<p className="text-zinc-500 text-sm mb-4">Your NAAD ID is active and ready.</p>
@@ -150,16 +170,93 @@ export default function NaadRegisterPage() {
 										</div>
 									</div>
 									<NaadPass user={user} naadId={naadUser.naad_id} />
-									<div className="text-center">
-										<p className="text-xs font-mono text-zinc-600 uppercase tracking-widest mb-4">
+									
+									{/* Registered Events Section */}
+									{registrations.length > 0 && (
+										<div className="mt-12">
+											<h3 className="text-2xl font-bold mb-6 text-center">Your Registered Events</h3>
+											<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+												{registrations.map((reg) => {
+													const eventDetails = EVENT_DETAILS[reg.events.slug];
+													return (
+														<Link
+															key={reg.id}
+															href={`/naad/${reg.events.slug}`}
+															className="block group"
+														>
+															<div className="relative overflow-hidden rounded-xl bg-zinc-900/50 border border-white/10 hover:border-white/20 transition-all duration-300 p-4">
+																<div className="flex items-start gap-4">
+																	{eventDetails?.img && (
+																		<div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0">
+																			{/* eslint-disable-next-line @next/next/no-img-element */}
+																			<img
+																				src={eventDetails.img}
+																				alt={reg.events.name}
+																				className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+																			/>
+																		</div>
+																	)}
+																	<div className="flex-1 min-w-0">
+																		<h4 className="text-lg font-bold mb-1 group-hover:text-indigo-400 transition-colors truncate">
+																			{reg.events.name}
+																		</h4>
+																		{reg.team_name && (
+																			<div className="flex items-center gap-2 text-xs text-indigo-400 mb-2">
+																				<Users size={12} />
+																				<span className="font-semibold truncate">{reg.team_name}</span>
+																			</div>
+																		)}
+																		<div className="flex items-center gap-3 text-xs text-zinc-500">
+																			<div className="flex items-center gap-1">
+																				<Calendar size={10} />
+																				{new Date(reg.created_at).toLocaleDateString('en-US', { 
+																					month: 'short', 
+																					day: 'numeric' 
+																				})}
+																			</div>
+																			{eventDetails?.location && (
+																				<div className="flex items-center gap-1 truncate">
+																					<MapPin size={10} />
+																					{eventDetails.location}
+																				</div>
+																			)}
+																		</div>
+																		{eventDetails?.isHighlight && (
+																			<div className="mt-2 flex items-center gap-1 text-yellow-500 text-[10px] font-bold uppercase tracking-widest">
+																				<Trophy size={10} />
+																				Flagship
+																			</div>
+																		)}
+																	</div>
+																</div>
+															</div>
+														</Link>
+													);
+												})}
+											</div>
+										</div>
+									)}
+
+									<div className="text-center space-y-4">
+										<p className="text-xs font-mono text-zinc-600 uppercase tracking-widest">
 											Registration Status: <span className="text-green-500">Active</span>
 										</p>
-										<Link
-											href="/naad"
-											className="inline-block px-6 py-3 bg-indigo-500 text-white font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-indigo-600 transition-colors"
-										>
-											View Events
-										</Link>
+										<div className="flex gap-4 justify-center flex-wrap">
+											<Link
+												href="/naad"
+												className="inline-block px-6 py-3 bg-indigo-500 text-white font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-indigo-600 transition-colors"
+											>
+												{registrations.length > 0 ? "Register for More Events" : "View Events"}
+											</Link>
+											{registrations.length > 0 && (
+												<Link
+													href="/naad/registrations"
+													className="inline-block px-6 py-3 bg-zinc-800 text-white font-bold uppercase tracking-widest text-xs rounded-xl hover:bg-zinc-700 transition-colors"
+												>
+													View All Registrations
+												</Link>
+											)}
+										</div>
 									</div>
 								</div>
 							) : (

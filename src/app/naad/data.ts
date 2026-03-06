@@ -55,10 +55,10 @@ export const EVENTS: NaadEvent[] = [
         "Respect the emcee cues and stage manager instructions."
       ],
       rounds: ["Opening invocation", "Classical fusion showcase"],
-      prizes: ["Best Ensemble Trophy", "Audience Choice Memento"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Group performances only",
       eligibility: "Open to invited ensembles and NAAD core performers.",
-      contact: "naad.production@dhwani.in"
+      contact: "Sarthak: +91 8210744067"
     }
   },
   {
@@ -93,10 +93,10 @@ export const EVENTS: NaadEvent[] = [
         "The decision of the judges and the organizing team shall be final and binding."
       ],
       rounds: ["Prelims", "Finals"],
-      prizes: ["Winner: INR 10,000", "Runner-up: INR 5,000"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo",
       eligibility: "Open to all college students with valid ID.",
-      contact: "dhun@dhwani.in"
+      contact: "Anuj: +91 9024539518 | Toshan: +91 6260641419"
     }
   },
   {
@@ -131,10 +131,10 @@ export const EVENTS: NaadEvent[] = [
         "The organizers' decision regarding the final lineup is absolute."
       ],
       rounds: ["Audition", "Finals"],
-      prizes: ["Winner: INR 8,000", "Runner-up: INR 4,000"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo",
       eligibility: "Open to all college students with valid ID.",
-      contact: "alankar@dhwani.in"
+      contact: "Utkarsh: +91 8544349672 | Aman: +91 8777510412"
     }
   },
   {
@@ -170,10 +170,10 @@ export const EVENTS: NaadEvent[] = [
         "The organizers' decision regarding the final lineup is absolute."
       ],
       rounds: ["Showcase round", "Finals"],
-      prizes: ["Winner: INR 40,000", "Runner-up: INR 20,000"],
+      prizes: ["Prize Pool: INR 15,000"],
       teamSize: "Band (3-8 members)",
       eligibility: "Open to college and independent bands.",
-      contact: "mandra@dhwani.in"
+      contact: "Sarthak: +91 8210744067 | Mrinal: +91 9835933222"
     }
   },
   {
@@ -208,10 +208,10 @@ export const EVENTS: NaadEvent[] = [
         "The judges' and organizers' decisions will be final and binding."
       ],
       rounds: ["Audition", "Finals"],
-      prizes: ["Winner: INR 9,000", "Runner-up: INR 4,500"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo",
       eligibility: "Open to all college students with valid ID.",
-      contact: "raageshri@dhwani.in"
+      contact: "Arya: +91 9771531162 | Ragini: +91 9905284847"
     }
   },
   {
@@ -241,10 +241,10 @@ export const EVENTS: NaadEvent[] = [
         "Microphones must be returned after the set."
       ],
       rounds: ["Single open round"],
-      prizes: ["Most Entertaining Set Memento"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo or duo",
       eligibility: "Open to all festival attendees.",
-      contact: "karaoke@dhwani.in"
+      contact: "Toshan: +91 6260641419 | Aman: +91 8777510412"
     }
   },
   {
@@ -258,7 +258,7 @@ export const EVENTS: NaadEvent[] = [
     location: "CAT Hall",
     description:
       "From Jazz standards to Pop anthems. A showcase of vocal range and stage presence in Western genres.",
-    img: "/euphony.jpg?q=80&w=1200",
+    img: "/euphony.JPG?q=80&w=1200",
     sponsor: "Spotify",
     accent: "from-green-500/20 to-emerald-500/20",
     details: {
@@ -278,10 +278,10 @@ export const EVENTS: NaadEvent[] = [
         "The decision of the judges and the organizing team is final and binding."
       ],
       rounds: ["Prelims", "Finals"],
-      prizes: ["Winner: INR 9,000", "Runner-up: INR 4,000"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo",
       eligibility: "Open to all college students with valid ID.",
-      contact: "euphony@dhwani.in"
+      contact: "Arya: +91 9771531162 | Utkarsh: +91 8544349672"
     }
   },
   {
@@ -313,10 +313,10 @@ export const EVENTS: NaadEvent[] = [
         "Respect your opponent - Any violation leads to immediate disqualification."
       ],
       rounds: ["Bracket battles", "Finals"],
-      prizes: ["Winner: INR 7,000", "Runner-up: INR 3,000"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo",
       eligibility: "Open to all college students with valid ID.",
-      contact: "spitfire@dhwani.in"
+      contact: "Utkarsh: +91 8544349672 | Arya: +91 9771531162"
     }
   },
   {
@@ -345,10 +345,10 @@ export const EVENTS: NaadEvent[] = [
         "Emcee decisions are final."
       ],
       rounds: ["Qualifier", "Rapid-fire round", "Finals"],
-      prizes: ["Winner: INR 5,000", "Runner-up: INR 2,500"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Team (3-5 members)",
       eligibility: "Open to all festival attendees.",
-      contact: "antakshari@dhwani.in"
+      contact: "Anuj: +91 9024539518 | Mrinal: +91 9835933222"
     }
   },
   {
@@ -380,10 +380,10 @@ export const EVENTS: NaadEvent[] = [
         "Judges decisions are final."
       ],
       rounds: ["Showcase", "Awards"],
-      prizes: ["Voice of NAAD Trophy", "Special Jury Prize"],
+      prizes: ["Hampers and bouquets (to be decided)"],
       teamSize: "Solo",
       eligibility: "By invitation only for category winners.",
-      contact: "nishaad@dhwani.in"
+      contact: "Sarthak: +91 8210744067"
     }
   }
 ];
