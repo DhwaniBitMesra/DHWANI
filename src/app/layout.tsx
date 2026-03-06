@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { StackProvider, StackTheme } from "@stackframe/stack";
-import { stackClientApp } from "../stack/client";
 import { Analytics } from "@vercel/analytics/react";
 import { Geist, Geist_Mono, Gotu } from "next/font/google";
 import "./globals.css";
@@ -17,9 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 const gotu = Gotu({
-    weight: "400",
-    subsets: ["devanagari"],
-    variable: "--font-gotu",
+	weight: "400",
+	subsets: ["devanagari"],
+	variable: "--font-gotu",
 });
 
 export const metadata: Metadata = {
@@ -92,8 +90,8 @@ export default function RootLayout({
 				<link rel="icon" href="/favicon.png"></link>
 				<link rel="apple-touch-icon" href="/icon-192.png"></link>
 			</head>
-			<body className={`${geistSans.variable} ${geistMono.variable} ${gotu.variable} antialiased font-sans`}><StackProvider app={stackClientApp}><StackTheme>
-				<SplashScreen />
+			<body className={`${geistSans.variable} ${geistMono.variable} ${gotu.variable} antialiased font-sans`}>
+				{/* <SplashScreen /> */}
 				<NoiseOverlay />
 				<MagneticCursor />
 				<Suspense fallback={<></>}>
@@ -101,7 +99,7 @@ export default function RootLayout({
 				</Suspense>
 				{children}
 				<Analytics />
-			</StackTheme></StackProvider></body>
+			</body>
 		</html>
 	);
 }

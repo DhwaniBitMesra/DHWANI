@@ -82,72 +82,70 @@ export default function NaadExperience() {
 }
 
 // --- SUB-COMPONENTS ---
-
 function HeroSection() {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 500], [1, 0]);
 
-  // Portrait images for the split background
   const images = [
-    "/Naadhero1.jpeg?q=80&w=1200", // Singer
-    "/Naadhero2.jpeg?q=80&w=1200", // Mic/Retro
-    "/Naadhero3.jpeg?q=80&w=1200", // Crowd
-    "/Naadhero4.jpeg?q=80&w=1200"  // Band
+    "/Naadhero1.jpeg?q=80&w=1200",
+    "/Naadhero2.jpeg?q=80&w=1200",
+    "/Naadhero3.jpeg?q=80&w=1200",
+    "/Naadhero4.jpeg?q=80&w=1200" 
   ];
 
   return (
-    <section className="relative h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center text-center bg-black">
+    <section className="relative h-[85vh] md:h-[90vh] w-full overflow-hidden flex flex-col justify-center items-center text-center bg-black">
       
-      {/* Cinematic Background - Split into 4 Interactive Columns */}
+      {/* Cinematic Background - Split into columns */}
       <motion.div style={{ y, opacity }} className="absolute inset-0 z-0 flex flex-row">
         {images.map((src, index) => (
           <div 
             key={index} 
-            className="relative flex-1 h-full overflow-hidden group border-r border-white/5 last:border-r-0"
+            // Hide the last 2 images on mobile so the first 2 get enough width
+            className={`relative flex-1 h-full overflow-hidden group border-r border-white/5 last:border-r-0 ${index > 1 ? 'hidden md:block' : ''}`}
           >
-            {/* Image: Grayscale by default, Color + Scale on Hover */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
               src={src} 
               alt={`Naad Moment ${index + 1}`}
-              className="h-full w-full object-cover grayscale contrast-125 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110 group-hover:grayscale-0"
+              className="h-full w-full object-cover grayscale contrast-125 transition-transform duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] md:group-hover:scale-110 md:group-hover:grayscale-0"
             />
-            
-            {/* Overlay: Dark by default, fades out on Hover */}
-            <div className="absolute inset-0 bg-black/60 transition-colors duration-700 ease-in-out group-hover:bg-black/0" />
+            <div className="absolute inset-0 bg-black/60 transition-colors duration-700 ease-in-out md:group-hover:bg-black/0" />
           </div>
         ))}
 
-        {/* Bottom Fade to blend into the next section */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent z-10 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/20 to-transparent z-10 pointer-events-none" />
       </motion.div>
 
-      {/* Content - pointer-events-none allows hover on images behind text */}
-      <div className="relative z-30 px-6 pointer-events-none">
+      {/* Content */}
+      <div className="relative z-30 px-4 md:px-6 pointer-events-none w-full">
          <motion.div
            initial={{ opacity: 0, scale: 0.9 }}
            animate={{ opacity: 1, scale: 1 }}
            transition={{ duration: 1, delay: 0.2 }}
          >
-           <p className="text-sm md:text-base tracking-[0.4em] text-white/70 uppercase mb-6 drop-shadow-md">
+           <p className="text-xs sm:text-sm md:text-base tracking-[0.3em] sm:tracking-[0.4em] text-white/70 uppercase mb-4 md:mb-6 drop-shadow-md">
              Dhwani Presents
            </p>
-           {/* mix-blend-difference ensures text is visible even when image becomes bright */}
-           <h1 className="text-[15vw] md:text-[10rem] leading-[0.85] font-black tracking-tighter text-white mix-blend-difference">
+           
+           <h1 className="text-[22vw] sm:text-[18vw] md:text-[10rem] leading-[0.85] font-black tracking-tighter text-white mix-blend-difference drop-shadow-2xl">
              NAAD
            </h1>
-           <div className="flex items-center justify-center gap-6 mt-8">
-             <div className="h-px w-12 bg-white/50" />
-             <p className="text-xl md:text-2xl font-light tracking-widest text-white/90 drop-shadow-md">
+           
+           <div className="flex items-center justify-center gap-4 sm:gap-6 mt-6 md:mt-8">
+             <div className="h-px w-8 sm:w-12 bg-white/50" />
+             <p className="text-lg sm:text-xl md:text-2xl font-light tracking-widest text-white/90 drop-shadow-md">
                2026
              </p>
-             <div className="h-px w-12 bg-white/50" />
+             <div className="h-px w-8 sm:w-12 bg-white/50" />
            </div>
 
-            {/* Registration CTA - Injected for flow continuity */}
-           <div className="mt-12 pointer-events-auto">
-             <Link href="/naad/register" className="px-10 py-4 bg-white text-black text-lg font-bold rounded-full hover:scale-105 transition-transform hover:bg-zinc-200 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
+           <div className="mt-10 md:mt-12 pointer-events-auto">
+             <Link 
+                href="/naad/register" 
+                className="inline-block px-8 py-3.5 md:px-10 md:py-4 bg-white text-black text-base md:text-lg font-bold rounded-full active:scale-95 md:hover:scale-105 transition-all md:hover:bg-zinc-200 shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]"
+             >
                Register for NAAD
              </Link>
            </div>
@@ -212,10 +210,10 @@ function EventCard({ event }: { event: NaadEvent }) {
             </p>
 
             <div className="flex items-center gap-8 border-t border-white/5 pt-8">
-              <div>
+              {/* <div>
                 <span className="block text-[10px] uppercase tracking-widest text-zinc-600 mb-1">Presented By</span>
                 <span className="text-sm font-bold text-zinc-300">{event.sponsor}</span>
-              </div>
+              </div> */}
               
               <Link
                 href={`/naad/${event.slug}`}

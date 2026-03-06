@@ -9,9 +9,9 @@ declare const THREE: any;
 const slides = [
     { title: "Dhwani", description: "The Official Music Society of BIT Mesra. Est 1998.", media: "/_MG_0242.jpg" },
     { title: "Naad", description: "Where frequency meets soul. The annual sonic experience.", media: "/NAAD.jpg" },
+    { title: "Live Jam", description: "Electrifying performances that resonate beyond the stage.", media: "/LiveJam.jpg" },
     { title: "Bitotsav", description: "Headlining the Eastern India's largest cultural fest.", media: "/Bitotsav.jpg" },
     // { title: "Studio 404", description: "Precision engineering meets raw creativity.", media: "/hero-studio.png" },
-    { title: "Live Jam", description: "Electrifying performances that resonate beyond the stage.", media: "/LiveJam.jpg" },
     { title: "Pantheon", description: "Dhwani music club's performance at annual Technical fest.", media: "/pantheon.jpg" }
 ];
 

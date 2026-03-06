@@ -144,7 +144,3 @@
   }
 }
 
-/* Hide Stack Account Settings link as requested */
-a[href*="account-settings"] {
-  display: none !important;
-}

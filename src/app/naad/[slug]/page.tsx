@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 import { EVENT_DETAILS, EVENTS } from "../data";
 import { 
   Calendar, 
@@ -14,24 +16,76 @@ import {
   Mic2,
   ArrowLeft
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { createBrowserSupabaseClient } from "@/lib/supabase/client";
+import { mapSupabaseUser, type AuthUser } from "@/lib/auth-user";
+import type { NaadUser } from "@/lib/naad-types";
+import EventRegisterForm from "@/components/ui/EventRegisterForm";
 
-type NaadEventPageProps = {
-  params: { slug: string };
-};
-
-export async function generateStaticParams() {
-  return EVENTS.map((event) => ({
-    slug: event.slug,
-  }));
-}
-
-export default async function NaadEventPage({ params }: NaadEventPageProps) {
-  const { slug } = await params;
+export default function NaadEventPage() {
+  const params = useParams();
+  const slug = params.slug as string;
   const event = EVENT_DETAILS[slug];
+
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [naadUser, setNaadUser] = useState<NaadUser | null>(null);
+  const [showRegisterForm, setShowRegisterForm] = useState(false);
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
+
+  useEffect(() => {
+    const supabase = createBrowserSupabaseClient();
+
+    const loadUser = async () => {
+      const {
+        data: { user: rawUser },
+      } = await supabase.auth.getUser();
+      const authUser = rawUser ? mapSupabaseUser(rawUser) : null;
+      setUser(authUser);
+
+      if (authUser) {
+        try {
+          const response = await fetch("/api/naad/register");
+          const data = await response.json() as { registered: boolean; naad_user: NaadUser };
+          if (data.registered) {
+            setNaadUser(data.naad_user);
+          }
+        } catch (err) {
+          console.error("Failed to fetch NAAD user:", err);
+        }
+      }
+    };
+
+    void loadUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user ? mapSupabaseUser(session.user) : null);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   if (!event) {
     notFound();
   }
+
+  const handleRegisterClick = () => {
+    if (!user) {
+      window.location.href = "/enter?next=/naad/" + slug;
+      return;
+    }
+    if (!naadUser) {
+      window.location.href = "/naad/register";
+      return;
+    }
+    setShowRegisterForm(true);
+  };
+
+  const handleRegistrationSuccess = () => {
+    setShowRegisterForm(false);
+    setRegistrationSuccess(true);
+  };
 
   return (
     <main className="min-h-screen bg-[#050505] text-[#e5e5e5] selection:bg-indigo-500/30 font-sans">
@@ -205,13 +259,45 @@ export default async function NaadEventPage({ params }: NaadEventPageProps) {
                </div>
 
                <Link
-                  href="/naad/coming-soon"
+                  href={
+                    !user
+                      ? "/enter?next=/naad/" + slug
+                      : !naadUser
+                      ? "/naad/register"
+                      : "#"
+                  }
+                  onClick={(e) => {
+                    if (user && naadUser) {
+                      e.preventDefault();
+                      handleRegisterClick();
+                    }
+                  }}
                   className="block w-full py-4 text-center bg-white text-black font-bold uppercase tracking-[0.2em] text-xs rounded-xl hover:bg-indigo-500 hover:text-white transition-all duration-300"
                >
-                  Register Now
+                  {!user
+                    ? "Login to Register"
+                    : !naadUser
+                    ? "Get NAAD ID First"
+                    : registrationSuccess
+                    ? "✓ Registered!"
+                    : "Register Now"}
                </Link>
                <p className="text-center text-[10px] text-zinc-600 mt-4 uppercase tracking-widest">
-                  *Limited Slots Available
+                  {registrationSuccess
+                    ? "You're all set!"
+                    : !user || !naadUser
+                    ? "*NAAD ID Required"
+                    : "*Limited Slots Available"}
+      {showRegisterForm && (
+        <EventRegisterForm
+          eventId={event.id}
+          eventName={event.title}
+          isGroupEvent={event.id === 5 || event.id === 9}
+          onSuccess={handleRegistrationSuccess}
+          onCancel={() => setShowRegisterForm(false)}
+        />
+      )}
+
                </p>
             </div>
 

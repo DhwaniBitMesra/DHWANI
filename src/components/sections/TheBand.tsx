@@ -60,6 +60,7 @@ export function TheBand({ teamMembers }: TheBandProps) {
                                         src={member.image}
                                         alt={member.name}
                                         fill
+                                        unoptimized
                                         className="object-cover"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
@@ -110,7 +111,7 @@ export function TheBand({ teamMembers }: TheBandProps) {
                             <div className="flex flex-col md:flex-row h-full">
                                 {/* Photo Side */}
                                 <div className="md:w-2/5 h-64 md:h-auto relative bg-neutral-900">
-                                    <Image src={selectedMember.image} alt={selectedMember.name} fill className="object-cover grayscale contrast-125" />
+                                    <Image src={selectedMember.image} alt={selectedMember.name} fill className="object-cover grayscale contrast-125" unoptimized />
                                     <div className="absolute bottom-4 left-4 right-4 bg-red-600 text-white text-center text-xs font-bold uppercase py-1 tracking-widest">
                                         All Access
                                     </div>
