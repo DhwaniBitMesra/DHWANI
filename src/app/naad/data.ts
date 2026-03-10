@@ -68,7 +68,7 @@ export const EVENTS: NaadEvent[] = [
     title: "Dhun",
     subtitle: "Strings & Keys",
     type: "Solo Instrumental",
-    time: "9:00 AM — 12:00 PM",
+    time: "5:30 PM — 8:00 PM",
     location: "CAT Hall",
     description:
       "A battle of dexterity and soul. Guitarists, violinists, and percussionists take the stage to weave stories without words.",
@@ -140,11 +140,11 @@ export const EVENTS: NaadEvent[] = [
   {
     id: 5,
     slug: "mandra-mayhem",
-    day: "day2",
+    day: "day3",
     title: "Mandra Mayhem",
     subtitle: "Battle of Bands",
     type: "Flagship Event",
-    time: "12:00 PM — 5:30 PM",
+    time: "10:30 PM — 4:30 PM",
     location: "CAT Hall",
     description:
       "THE MAIN EVENT. High-gain amps, thundering drums, and raw energy. The best bands in the circuit clash for the ultimate title.",
@@ -250,12 +250,12 @@ export const EVENTS: NaadEvent[] = [
   {
     id: 7,
     slug: "euphony",
-    day: "day3",
+    day: "day2",
     title: "Euphony",
     subtitle: "Western Vocals",
     type: "Solo Singing",
-    time: "9:00 AM — 1:00 PM",
-    location: "CAT Hall",
+    time: "12:00 PM — 3:00 PM",
+    location: "Lecture Hall 2",
     description:
       "From Jazz standards to Pop anthems. A showcase of vocal range and stage presence in Western genres.",
     img: "/euphony.JPG?q=80&w=1200",
