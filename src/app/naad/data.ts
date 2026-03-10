@@ -144,7 +144,7 @@ export const EVENTS: NaadEvent[] = [
     title: "Mandra Mayhem",
     subtitle: "Battle of Bands",
     type: "Flagship Event",
-    time: "10:30 PM — 4:30 PM",
+    time: "10:30 AM — 4:30 PM",
     location: "CAT Hall",
     description:
       "THE MAIN EVENT. High-gain amps, thundering drums, and raw energy. The best bands in the circuit clash for the ultimate title.",
