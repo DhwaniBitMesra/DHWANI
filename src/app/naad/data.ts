@@ -170,7 +170,7 @@ export const EVENTS: NaadEvent[] = [
         "The organizers' decision regarding the final lineup is absolute."
       ],
       rounds: ["Showcase round", "Finals"],
-      prizes: ["Prize Pool: INR 15,000"],
+      prizes: ["Hampers ,coupons, and bouquets"],
       teamSize: "Band (3-8 members)",
       eligibility: "Open to college and independent bands.",
       contact: "Sarthak: +91 8210744067 | Mrinal: +91 9835933222"
